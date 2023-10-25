@@ -2,10 +2,23 @@ require('dotenv').config();
 const { Sequelize } = require('sequelize');
 const fs = require('fs');
 const path = require('path');
-const { DB_USER, DB_PASSWORD, DB_HOST } = process.env;
+const User = require('./models/UserModels/User')
+const UserCredential = require('./models/UserModels/UserCredential')
+const PersonalDex = require('./models/UserModels/PersonalDex')
+
+const Pokemon = require('./models/PokemonModels/Pokemon')
+const PokemonBaseStats = require('./models/PokemonModels/PokemonBaseStats')
+const PokemonEffortStats = require('./models/PokemonModels/PokemonEffortStats')
+const PokemonMoves = require('./models/PokemonModels/PokemonMoves')
+const PokemonTypes = require('./models/PokemonModels/PokemonTypes')
+
+const Locations = require('./models/Locations')
+
+const { DB_USER, DB_PASSWORD, DB_PORT, DB_HOST, BDD } = process.env;
 
 const sequelize = new Sequelize(
-   `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/pokemon`,
+   // `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/pokemon`,
+   `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${Number(DB_PORT)}/${BDD}`,
    {
       logging: false, // set to console.log to see the raw SQL queries
       native: false, // lets Sequelize know we can use pg-native for ~30% more speed
@@ -14,6 +27,17 @@ const sequelize = new Sequelize(
 const basename = path.basename(__filename);
 
 const modelDefiners = [];
+
+User(sequelize)
+UserCredential(sequelize)
+PersonalDex(sequelize)
+Locations(sequelize)
+
+Pokemon(sequelize)
+PokemonBaseStats(sequelize)
+PokemonEffortStats(sequelize)
+PokemonMoves(sequelize)
+PokemonTypes(sequelize)
 
 // Leemos todos los archivos de la carpeta Models, los requerimos y agregamos al arreglo modelDefiners
 fs.readdirSync(path.join(__dirname, '/models'))
@@ -39,7 +63,7 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { Pokemon } = sequelize.models;
+const {location, user, user_credentials, personal_dex,  pokemon , pokemon_basestats, pokemon_effortstats, pokemon_moves, pokemon_types  } = sequelize.models;
 
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
