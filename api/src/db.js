@@ -1,74 +1,133 @@
-require('dotenv').config();
-const { Sequelize } = require('sequelize');
-const fs = require('fs');
-const path = require('path');
-const User = require('./models/UserModels/User')
-const UserCredential = require('./models/UserModels/UserCredential')
-const PersonalDex = require('./models/UserModels/PersonalDex')
+require("dotenv").config();
+const { Sequelize } = require("sequelize");
+const fs = require("fs");
+const path = require("path");
+const UserModel = require("./models/UserModels/User");
+const UserCredentialModel = require("./models/UserModels/UserCredential");
+const PersonalDexModel = require("./models/UserModels/PersonalDex");
 
-const Pokemon = require('./models/PokemonModels/Pokemon')
-const PokemonBaseStats = require('./models/PokemonModels/PokemonBaseStats')
-const PokemonEffortStats = require('./models/PokemonModels/PokemonEffortStats')
-const PokemonMoves = require('./models/PokemonModels/PokemonMoves')
-const PokemonTypes = require('./models/PokemonModels/PokemonTypes')
+const PokemonModel = require("./models/PokemonModels/Pokemon");
+const PokemonBaseStatsModel = require("./models/PokemonModels/PokemonBaseStatus");
+const PokemonEffortStatsModel = require("./models/PokemonModels/PokemonEffortStatus");
+const PokemonMovesModel = require("./models/PokemonModels/PokemonMoves");
+const PokemonAbilitiesModel = require("./models/PokemonModels/PokemonAbilities");
+const PokemonTypesModel = require("./models/PokemonModels/PokemonTypes");
 
-const Locations = require('./models/Locations')
+
 
 const { DB_USER, DB_PASSWORD, DB_PORT, DB_HOST, BDD } = process.env;
 
 const sequelize = new Sequelize(
-   // `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/pokemon`,
-   `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${Number(DB_PORT)}/${BDD}`,
-   {
-      logging: false, // set to console.log to see the raw SQL queries
-      native: false, // lets Sequelize know we can use pg-native for ~30% more speed
-   }
+  `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${Number(DB_PORT)}/${BDD}`,
+  {
+    logging: false, // set to console.log to see the raw SQL queries
+    native: false, // lets Sequelize know we can use pg-native for ~30% more speed
+  }
 );
-const basename = path.basename(__filename);
+// const basename = path.basename(__filename);
 
-const modelDefiners = [];
+// const modelDefiners = [];
 
-User(sequelize)
-UserCredential(sequelize)
-PersonalDex(sequelize)
-Locations(sequelize)
+// INICIALISAMOS LOS MODELOS
 
-Pokemon(sequelize)
-PokemonBaseStats(sequelize)
-PokemonEffortStats(sequelize)
-PokemonMoves(sequelize)
-PokemonTypes(sequelize)
+UserModel(sequelize);
+UserCredentialModel(sequelize);
+PersonalDexModel(sequelize);
+
+
+PokemonModel(sequelize);
+PokemonBaseStatsModel(sequelize);
+PokemonEffortStatsModel(sequelize);
+PokemonMovesModel(sequelize);
+PokemonAbilitiesModel(sequelize);
+PokemonTypesModel(sequelize);
 
 // Leemos todos los archivos de la carpeta Models, los requerimos y agregamos al arreglo modelDefiners
-fs.readdirSync(path.join(__dirname, '/models'))
-   .filter(
-      (file) =>
-         file.indexOf('.') !== 0 &&
-         file !== basename &&
-         file.slice(-3) === '.js'
-   )
-   .forEach((file) => {
-      modelDefiners.push(require(path.join(__dirname, '/models', file)));
-   });
+// fs.readdirSync(path.join(__dirname, '/models'))
+//    .filter(
+//       (file) =>
+//          file.indexOf('.') !== 0 &&
+//          file !== basename &&
+//          file.slice(-3) === '.js'
+//    )
+//    .forEach((file) => {
+//       modelDefiners.push(require(path.join(__dirname, '/models', file)));
+//    });
 
 // Injectamos la conexion (sequelize) a todos los modelos
-modelDefiners.forEach((model) => model(sequelize));
+// modelDefiners.forEach((model) => model(sequelize));
 // Capitalizamos los nombres de los modelos ie: product => Product
-let entries = Object.entries(sequelize.models);
-let capsEntries = entries.map((entry) => [
-   entry[0][0].toUpperCase() + entry[0].slice(1),
-   entry[1],
-]);
-sequelize.models = Object.fromEntries(capsEntries);
+// let entries = Object.entries(sequelize.models);
+// let capsEntries = entries.map((entry) => [
+//    entry[0][0].toUpperCase() + entry[0].slice(1),
+//    entry[1],
+// ]);
+// sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const {location, user, user_credentials, personal_dex,  pokemon , pokemon_basestats, pokemon_effortstats, pokemon_moves, pokemon_types  } = sequelize.models;
+const {
+  User,
+  UserCredentials,
+  PersonalDex,
+  Pokemon,
+  PokemonBaseStatus,
+  PokemonEffortStatus,
+  PokemonMoves,
+  PokemonTypes,
+  PokemonAbilities,
+} = sequelize.models;
 
+//
 // Aca vendrian las relaciones
-// Product.hasMany(Reviews);
+
+// UN USUARIO TIENE UNA UN SOLO JUEGO DE CREDENCIALES
+// EL JUEGO DE CREDENCIALES PERTENECE A UN SOLO USUARIO
+
+User.hasOne(UserCredentials, {
+  onDelete: "CASCADE",
+});
+UserCredentials.belongsTo(User);
+
+// UN USUARIO PUEDE TENER MUCHOS POKEDEX
+// EL DECK PERTENECE A UN SOLO USUARIO
+
+User.hasOne(PersonalDex);
+PersonalDex.belongsTo(User);
+
+//LOS DECKS TIENEN MUCHOS POKEMONS
+//UN POKEMOSN PUEDE APARECER EN MUCHOS DECKS
+
+PersonalDex.belongsToMany(Pokemon, { through: "dex_pokemon" });
+Pokemon.belongsToMany(PersonalDex, { through: "dex_pokemon" });
+
+// POKEMONS TIENEN UN SET DE STATS
+// EL SET DE STATS PERTENECE A UN SOLO POKEMON
+
+Pokemon.hasOne(PokemonBaseStatus);
+PokemonBaseStatus.belongsTo(Pokemon);
+
+Pokemon.hasOne(PokemonEffortStatus);
+PokemonEffortStatus.belongsTo(Pokemon);
+
+// POKEMON PUEDE SER DE VARIOS TIPOS
+// EL TIPO REPRESENTA A VARIOS POKEMONS
+Pokemon.belongsToMany(PokemonTypes, { through: "pokemon_types" });
+PokemonTypes.belongsToMany(Pokemon, { through: "pokemon_types" });
+
+//POKEMON PUEDE TENER MUCHOS MOVIMIENTOS
+//EL MOVIMIENTO PUEDE PERTENECER A MUCHOS POKEMNO
+Pokemon.belongsToMany(PokemonMoves, { through: "pokemon_moves" });
+PokemonMoves.belongsToMany(Pokemon, { through: "pokemon_moves" });
+//POKEMON PUEDE TENER HASTA 2 HABILIDADES
+//LA HABILIDAD PUEDE PERTENECER A MUCHOS POKEMNO
+Pokemon.belongsToMany(PokemonAbilities, { through: "pokemon_abilities" });
+PokemonAbilities.belongsToMany(Pokemon, { through: "pokemon_abilities" });
+
+//
+// Fin de las Relaciones
 
 module.exports = {
-   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
-   conn: sequelize, // para importart la conexión { conn } = require('./db.js');
+  ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
+  conn: sequelize, // para importart la conexión { conn } = require('./db.js');
 };

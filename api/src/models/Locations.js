@@ -1,13 +1,13 @@
 const {DataTypes} = require("sequelize")
 
 module.exports = (sequelize) => {
-    sequelize.define('location', {
+    sequelize.define('Location', {
         location_id: {
-            type: DataTypes.INTEGER,
-            autoIncrement: true,
+            type: DataTypes.UUID,
+            defaultValue: DataTypes.UUIDV4,
             primaryKey: true,
           },
-          name: {
+          location_name: {
             type: DataTypes.STRING,
             allowNull: false,
           }

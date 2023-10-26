@@ -1,36 +1,35 @@
-
 const { DataTypes } = require('sequelize');
 // Exportamos una funcion que define el modelo
 // Luego le injectamos la conexion a sequelize.
 module.exports = (sequelize) => {
   // defino el modelo
-  sequelize.define('pokemon_effortstats', {
-    effort_id: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
+  sequelize.define('PokemonBaseStatus', {
+    bstat_id: {
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
       },
-    effort_life: {
+    bstat_life: {
         type: DataTypes.INTEGER,
         allowNull:false
       },
-    effort_attack: {
+    bstat_attack: {
         type: DataTypes.INTEGER,
         allowNull:false
       },
-    effort_defense: {
+    bstat_defense: {
         type: DataTypes.INTEGER,
         allowNull:false
       },
-    effort_speed: {
+    bstat_speed: {
         type: DataTypes.INTEGER,
         allowNull:false
       },
-    effort_height: {
+    bstat_height: {
         type: DataTypes.INTEGER,
         allowNull:false
       },
-    effort_weight: {
+    bstat_weight: {
         type: DataTypes.INTEGER,
         allowNull:false
       },

@@ -1,10 +1,11 @@
 const {DataTypes} = require("sequelize")
 
 module.exports = (sequelize) => {
-    sequelize.define('personal_dex', {
+    sequelize.define('PersonalDex', {
         dex_id: {
-            type: DataTypes.INTEGER,
-            autoIncrement: true,
+            type: DataTypes.UUID,
+            defaultValue: DataTypes.UUIDV4,
+            allowNull: false,
             primaryKey: true,
           }
     }) 
