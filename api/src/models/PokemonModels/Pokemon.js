@@ -27,7 +27,11 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
 
+    },
+    pokemon_isLocal: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true,
+      allowNull: false,
     }
-    
   });
 };
