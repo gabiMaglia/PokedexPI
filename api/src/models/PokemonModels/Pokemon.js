@@ -20,7 +20,7 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     pokemon_basexp: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.DECIMAL(5, 2),
       allowNull: false,
     },
     pokemon_evolitions: {

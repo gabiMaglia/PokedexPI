@@ -1,5 +1,4 @@
 const { PokemonTypes } = require("../../db");
-
 const axios = require("axios");
 
 const apiCall = async () => {

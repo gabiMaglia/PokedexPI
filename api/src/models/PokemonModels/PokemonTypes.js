@@ -9,6 +9,7 @@ module.exports = (sequelize) => {
           },
           nombre_type: {
             type: DataTypes.STRING,
+            unique: true,
             allowNull: false,
           }
     }) 
