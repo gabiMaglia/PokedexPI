@@ -5,7 +5,7 @@ const userRouter = Router()
 
 userRouter.get('/', getUserHandler)
 userRouter.get('/:id', getByIdUserHandler)
-userRouter.post('/postnewuser', postUserHandler)
+userRouter.post('/', postUserHandler)
 userRouter.put('/edituser', editUserHandler)
 
 module.exports = userRouter

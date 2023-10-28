@@ -19,7 +19,7 @@ module.exports = (sequelize) => {
           },
           user_birthdate: {
             type: DataTypes.DATE,
-            allowNull: false,
+            allowNull: true,
           },
           user_email: {
             type: DataTypes.STRING,
