@@ -8,7 +8,6 @@ const PersonalDexModel = require("./models/UserModels/PersonalDex");
 
 const PokemonModel = require("./models/PokemonModels/Pokemon");
 const PokemonBaseStatsModel = require("./models/PokemonModels/PokemonBaseStatus");
-const PokemonEffortStatsModel = require("./models/PokemonModels/PokemonEffortStatus");
 const PokemonMovesModel = require("./models/PokemonModels/PokemonMoves");
 const PokemonAbilitiesModel = require("./models/PokemonModels/PokemonAbilities");
 const PokemonTypesModel = require("./models/PokemonModels/PokemonTypes");
@@ -37,7 +36,6 @@ PersonalDexModel(sequelize);
 
 PokemonModel(sequelize);
 PokemonBaseStatsModel(sequelize);
-PokemonEffortStatsModel(sequelize);
 PokemonMovesModel(sequelize);
 PokemonAbilitiesModel(sequelize);
 PokemonTypesModel(sequelize);
@@ -72,7 +70,6 @@ const {
   PersonalDex,
   Pokemon,
   PokemonBaseStatus,
-  PokemonEffortStatus,
   PokemonMoves,
   PokemonTypes,
   PokemonAbilities,
@@ -106,9 +103,6 @@ Pokemon.belongsToMany(PersonalDex, { through: "dex_pokemon" });
 
 Pokemon.hasOne(PokemonBaseStatus);
 PokemonBaseStatus.belongsTo(Pokemon);
-
-Pokemon.hasOne(PokemonEffortStatus);
-PokemonEffortStatus.belongsTo(Pokemon);
 
 // POKEMON PUEDE SER DE VARIOS TIPOS
 // EL TIPO REPRESENTA A VARIOS POKEMONS

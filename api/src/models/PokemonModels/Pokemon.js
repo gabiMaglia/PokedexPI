@@ -15,6 +15,14 @@ module.exports = (sequelize) => {
       unique: true,
       allowNull: false,
     },
+    pokemon_height: {
+      type: DataTypes.INTEGER,
+      allowNull:false
+    },
+    pokemon_weight: {
+      type: DataTypes.INTEGER,
+      allowNull:false
+    },
     pokemon_image: {
       type: DataTypes.STRING,
       allowNull: false,

@@ -21,18 +21,18 @@ module.exports = (sequelize) => {
         type: DataTypes.INTEGER,
         allowNull:false
       },
+    bstat_special_attack: {
+        type: DataTypes.INTEGER,
+        allowNull:false
+      },
+    bstat_special_defense: {
+        type: DataTypes.INTEGER,
+        allowNull:false
+      },
     bstat_speed: {
         type: DataTypes.INTEGER,
         allowNull:false
-      },
-    bstat_height: {
-        type: DataTypes.INTEGER,
-        allowNull:false
-      },
-    bstat_weight: {
-        type: DataTypes.INTEGER,
-        allowNull:false
-      },
+      }
   },
   {
     timestamps: false,

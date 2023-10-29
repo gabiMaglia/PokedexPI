@@ -4,7 +4,7 @@ const createNewPokemonMoves = async (model, data) => {
         move_type, 
         move_power, 
         move_accuarcy
-    } = data; //BASE STATUS
+    } = data; 
     const newPokemonMoves = await model.create({
         move_name, 
         move_type, 

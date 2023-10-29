@@ -3,6 +3,7 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const routes = require('./routes/mainRoutes.js');
+const {getPokemonTypeHandler} = require('./controllers/pokemonControllers/typeController.js')
 
 require('./db.js');
 
