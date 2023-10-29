@@ -1,7 +1,7 @@
 const { UserCredentials } = require("../db");
 const bcrypt = require("bcrypt");
 
-const userLogin = async (req, res) => {
+const loginAuthHandler = async (req, res) => {
   try {
     const { user_handle, user_password } = req.body;
 
@@ -28,4 +28,4 @@ const userLogin = async (req, res) => {
   }
 };
 
-module.exports = userLogin;
+module.exports = loginAuthHandler;

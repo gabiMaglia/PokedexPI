@@ -1,47 +1,35 @@
 const { PokemonTypes } = require("../../db");
-const axios = require("axios");
+const { getTypesFromApi } = require("../api_controllers/apiCallController");
 
-const apiCall = async () => {
-  try {
-    const typesOfPokemons = await axios
-      .get(`${process.env.API_DIR}/type`)
-      .then((response) => {
-        return response.data;
-      });
-    const arrayOfTypes = typesOfPokemons.results.map((e) => {
-      return e.name;
-    });
-    return arrayOfTypes;
-  } catch (error) {
-    return error.message;
+
+
+
+const populatePokemonTypeListDb = async (data) => {
+  // USE FOR OF YA QUE DE ESTA FORMA PUEDO ESPERAR DE FORMA SECUENCIAL QUE TODOS
+  // LOS TIPOS SE VAYAN AGREGANDO ANTES DE CONTINUAR CON LA EJECUCION
+  // DE ESTA MANERA AL AGREGAR UN NUEVO POKEMON Y ESTAR LA LISTA VACIA
+  // ESTA SE COMPLETARA ANTES DE TENER QUE HACER LA REFERENCIA Y FUNCIONARA
+  for (const type of data) {
+    await PokemonTypes.create({
+      nombre_type: type,
+    })
   }
 };
-const postPokemonTypes = async (data) => {
-    try {
-      data.map((e) =>
-        PokemonTypes.create({
-          nombre_type: e,
-        })
-      );
-    } catch (error) {
-      res.status(500).json(error.message);
-    }
-  };
 
-const getPokemonTypeHandler = async (req, res) => {
-  try {
-    let response = await PokemonTypes.findAll();
-    if (response.length < 1) {
-      response = await apiCall();
-      postPokemonTypes(response);
-    }
+const getPokemonTypeList = async () => {
+  let response = await PokemonTypes.findAll();
 
-    return res.status(200).json(response);
-  } catch (error) {
-    res.status(500).json(error.message);
+  if (response.length < 1) {
+    const completeTypelist = await getTypesFromApi();
+    await populatePokemonTypeListDb(completeTypelist);
+    response = await PokemonTypes.findAll();
   }
+
+  return response;
 };
+
+
 
 module.exports = {
-  getPokemonTypeHandler,
+  getPokemonTypeList,
 };

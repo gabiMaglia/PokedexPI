@@ -6,36 +6,25 @@ const {
   PokemonTypes,
 } = require("../../db");
 
+const {getPokemonTypeList} = require ('./typeController')
 const createNewPokemonBaseStatus = require("./baseStatusController");
 const createNewPokemonMoves = require("./movesController");
 const createNewPokemonAbilities = require("./abilitiesController");
 
-const getPokemonByIdHandler = async (req, res) => {
-  try {
-    const pokemonId = req.params.id;
-    console.log(pokemonId);
-
-    const pokemon = await Pokemon.findByPk(pokemonId, {
-      include: [
-        PokemonBaseStatus,
-        PokemonMoves,
-        PokemonAbilities,
-        PokemonTypes,
-      ],
-    });
-
-    if (!pokemon) {
-      return res.status(404).json({ message: "Pokémon not found" });
-    }
-
-    res.status(200).json(pokemon);
-  } catch (error) {
-    res.status(500).json(error.message);
-  }
+const getPokemonById = async (id) => {
+  const pokemon = await Pokemon.findByPk(id, {
+    include: [PokemonBaseStatus, PokemonMoves, PokemonAbilities, PokemonTypes],
+  });
+  return pokemon;
+};
+const getPokemonByName = async (name) => {
+  const pokemon = await Pokemon.findOne({where: { pokemon_name : name  }}, {
+    include: [PokemonBaseStatus, PokemonMoves, PokemonAbilities, PokemonTypes],
+  });
+  return pokemon;
 };
 
-const postPokemonHandler = async (req, res) => {
-  try {
+const postNewPokemonToDb = async (data) => {
     const {
       pokemon_id,
       pokemon_name,
@@ -46,7 +35,7 @@ const postPokemonHandler = async (req, res) => {
       pokemon_evolitions,
       pokemon_isLocal,
       pokemon_type,
-    } = req.body;
+    } = data;
 
     const newPokemon = await Pokemon.create({
       pokemon_id,
@@ -61,30 +50,33 @@ const postPokemonHandler = async (req, res) => {
 
     const newPokemonBaseStatus = await createNewPokemonBaseStatus(
       newPokemon,
-      req.body
+      data
     );
 
-    const newPokemonMoves = await createNewPokemonMoves(PokemonMoves, req.body);
+    const newPokemonMoves = await createNewPokemonMoves(PokemonMoves, data);
     const newPokemonAbilities = await createNewPokemonAbilities(
       PokemonAbilities,
-      req.body
+      data
     );
 
+    // Pedimos la lista para doble checkear de que exista una lista de tipos 
+    await getPokemonTypeList() 
     const newPokemonTypes = await PokemonTypes.findOne({
       where: { nombre_type: pokemon_type },
     });
-
+   
+  
     newPokemon.addPokemonMoves([newPokemonMoves]);
     newPokemon.addPokemonAbilities([newPokemonAbilities]);
     newPokemon.addPokemonType(newPokemonTypes);
-
+    
     newPokemonBaseStatus.bstat_id = newPokemon.id;
     await newPokemonBaseStatus.save();
 
-    res.status(200).json(newPokemon);
-  } catch (error) {
-    res.status(500).json(error.message);
-  }
-};
 
-module.exports = { postPokemonHandler, getPokemonByIdHandler };
+    return newPokemon;
+  
+}
+
+
+module.exports = { postNewPokemonToDb, getPokemonById, getPokemonByName };

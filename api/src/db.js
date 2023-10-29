@@ -6,6 +6,7 @@ const UserModel = require("./models/UserModels/User");
 const UserCredentialModel = require("./models/UserModels/UserCredential");
 const PersonalDexModel = require("./models/UserModels/PersonalDex");
 
+
 const PokemonModel = require("./models/PokemonModels/Pokemon");
 const PokemonBaseStatsModel = require("./models/PokemonModels/PokemonBaseStatus");
 const PokemonMovesModel = require("./models/PokemonModels/PokemonMoves");
@@ -95,8 +96,8 @@ PersonalDex.belongsTo(User);
 //LOS DECKS TIENEN MUCHOS POKEMONS
 //UN POKEMOSN PUEDE APARECER EN MUCHOS DECKS
 
-PersonalDex.belongsToMany(Pokemon, { through: "dex_pokemon" });
-Pokemon.belongsToMany(PersonalDex, { through: "dex_pokemon" });
+PersonalDex.belongsToMany(Pokemon, { through: "dex_pokemon" , timestamps: false,});
+Pokemon.belongsToMany(PersonalDex, { through: "dex_pokemon" , timestamps: false,});
 
 // POKEMONS TIENEN UN SET DE STATS
 // EL SET DE STATS PERTENECE A UN SOLO POKEMON
@@ -106,17 +107,17 @@ PokemonBaseStatus.belongsTo(Pokemon);
 
 // POKEMON PUEDE SER DE VARIOS TIPOS
 // EL TIPO REPRESENTA A VARIOS POKEMONS
-Pokemon.belongsToMany(PokemonTypes, { through: "pokemon_types" });
-PokemonTypes.belongsToMany(Pokemon, { through: "pokemon_types" });
+Pokemon.belongsToMany(PokemonTypes, { through: "pokemon_types" , timestamps: false,});
+PokemonTypes.belongsToMany(Pokemon, { through: "pokemon_types" , timestamps: false,});
 
 //POKEMON PUEDE TENER MUCHOS MOVIMIENTOS
 //EL MOVIMIENTO PUEDE PERTENECER A MUCHOS POKEMNO
-Pokemon.belongsToMany(PokemonMoves, { through: "pokemon_moves" });
-PokemonMoves.belongsToMany(Pokemon, { through: "pokemon_moves" });
+Pokemon.belongsToMany(PokemonMoves, { through: "pokemon_moves" , timestamps: false,});
+PokemonMoves.belongsToMany(Pokemon, { through: "pokemon_moves" , timestamps: false,});
 //POKEMON PUEDE TENER HASTA 2 HABILIDADES
 //LA HABILIDAD PUEDE PERTENECER A MUCHOS POKEMNO
-Pokemon.belongsToMany(PokemonAbilities, { through: "pokemon_abilities" });
-PokemonAbilities.belongsToMany(Pokemon, { through: "pokemon_abilities" });
+Pokemon.belongsToMany(PokemonAbilities, { through: "pokemon_abilities" , timestamps: false,});
+PokemonAbilities.belongsToMany(Pokemon, { through: "pokemon_abilities" , timestamps: false,});
 
 //
 // Fin de las Relaciones

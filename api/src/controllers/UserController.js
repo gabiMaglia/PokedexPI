@@ -1,66 +1,42 @@
 const { User, PersonalDex } = require("../db");
 const bcrypt = require("bcrypt");
 
-const getUserHandler = async (req, res) => {
-  try {
-    const allUsers = await User.findAll();
-    res.status(200).json(allUsers);
-  } catch (error) {
-    return res.status(500).json(error.message);
-  }
+const postUserToDb = async (data) => {
+  const {
+    first_name,
+    last_name,
+    user_birthdate,
+    user_email,
+    user_handle,
+    user_password,
+  } = data;
+
+  const hashedUser_password = await bcrypt.hash(user_password, 8);
+
+  const newUser = await User.create({
+    first_name,
+    last_name,
+    user_birthdate,
+    user_email,
+  });
+
+  const newUserCredentials = await newUser.createUserCredential({
+    user_handle,
+    user_password: hashedUser_password,
+  });
+
+  newUserCredentials.user_id = newUser.id;
+
+  await newUserCredentials.save();
+
+  return newUser;
 };
 
-const getByIdUserHandler = async (req, res) => {
-  try {
-  } catch (error) {
-    return res.status(500).json(error.message);
-  }
-};
-const postUserHandler = async (req, res) => {
-  try {
-    const {
-      first_name,
-      last_name,
-      user_birthdate,
-      user_email,
-      user_handle,
-      user_password,
-    } = req.body;
-
-    const hashedUser_password = await bcrypt.hash(user_password, 8);
-
-    const newUser = await User.create({
-      first_name,
-      last_name,
-      user_birthdate,
-      user_email,
-    });
-
-    const newUserCredentials = await newUser.createUserCredential({
-      user_handle,
-      user_password: hashedUser_password,
-    });
-
-    newUserCredentials.user_id = newUser.id;
-
-    await newUserCredentials.save();
-    return res.status(200).json(newUser);
-
-  } catch (error) {
-    return res.status(500).json(error.message);
-  }
-};
-
-const editUserHandler = async (req, res) => {
-  try {
-  } catch (error) {
-    return res.status(500).json(error.message);
-  }
+const editUserDb = async (data) => {
+  return data
 };
 
 module.exports = {
-  getUserHandler,
-  getByIdUserHandler,
-  postUserHandler,
-  editUserHandler,
+  postUserToDb,
+  editUserDb,
 };

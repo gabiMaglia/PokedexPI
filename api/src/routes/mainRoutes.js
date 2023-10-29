@@ -1,13 +1,15 @@
 const { Router } = require('express');
 const pokemonRoutes = require('./pokemonRoutes/pokemonRoutes')
 const userRoutes = require('./userRoutes/userRoutes')
-const userLogin = require('../controllers/LoginController')
+
+const loginHandler = require('../handlers/authHandler')
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 
 
 const mainRouter = Router();
-mainRouter.post('/login', userLogin)
+
+mainRouter.post('/login', loginHandler)
 mainRouter.use('/user', userRoutes)
 mainRouter.use('/poke', pokemonRoutes)
 
