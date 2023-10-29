@@ -4,9 +4,9 @@ const {postPokemonHandler, getPokemonHandlerById} = require('../../controllers/p
 const pokemonRouter = Router()
 
 pokemonRouter.get('/')
-pokemonRouter.get('/:id', getPokemonHandlerById )
-pokemonRouter.get('/')
-pokemonRouter.post('/', postPokemonHandler)
 pokemonRouter.get('/types', getPokemonTypeHandler)
+pokemonRouter.get('/:id', getPokemonHandlerById )
+// pokemonRouter.get('/')
+pokemonRouter.post('/', postPokemonHandler)
 
 module.exports = pokemonRouter

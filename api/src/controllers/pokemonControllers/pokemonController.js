@@ -13,22 +13,32 @@ const createNewPokemonMoves = require("./movesController");
 const createNewPokemonAbilities = require("./abilitiesController");
 
 const getPokemonHandlerById = async (req, res) => {
-    try {
-        
-       const pokemonId = req.params.id;
-        console.log(pokemonId)
+  try {
+    const pokemonId = req.params.id;
+    console.log(pokemonId);
 
-      const pokemon = await Pokemon.findOne({where : {pokemon_id: pokemonId}} );
-  
-      if (!pokemon) {
-        return res.status(404).json({ message: 'Pokémon not found' });
+    const pokemon = await Pokemon.findByPk(
+       pokemonId ,
+      {
+        include: [
+          PokemonBaseStatus,
+          PokemonEffortStatus,
+          PokemonMoves,
+          PokemonAbilities,
+          PokemonTypes,
+        ],
       }
-  
-      res.status(200).json(pokemon);
-    } catch (error) {
-      res.status(500).json(error.message);
+    );
+
+    if (!pokemon) {
+      return res.status(404).json({ message: "Pokémon not found" });
     }
-  };
+
+    res.status(200).json(pokemon);
+  } catch (error) {
+    res.status(500).json(error.message);
+  }
+};
 
 const postPokemonHandler = async (req, res) => {
   try {
@@ -39,8 +49,8 @@ const postPokemonHandler = async (req, res) => {
       pokemon_basexp,
       pokemon_evolitions,
       pokemon_isLocal,
-      pokemon_type 
-    } = req.body; 
+      pokemon_type,
+    } = req.body;
 
     const newPokemon = await Pokemon.create({
       pokemon_id,
@@ -50,7 +60,6 @@ const postPokemonHandler = async (req, res) => {
       pokemon_evolitions,
       pokemon_isLocal,
     });
-
 
     const newPokemonBaseStatus = await createNewPokemonBaseStatus(
       newPokemon,
@@ -81,7 +90,6 @@ const postPokemonHandler = async (req, res) => {
     await newPokemonEffortStatus.save();
 
     res.status(200).json(newPokemon);
-
   } catch (error) {
     res.status(500).json(error.message);
   }
