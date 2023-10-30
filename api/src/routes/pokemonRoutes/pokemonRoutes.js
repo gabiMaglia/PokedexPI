@@ -4,10 +4,11 @@ const {postPokemonHandler, getPokemonByIdHandler, getPokemonByNameHandler} = req
 
 const pokemonRouter = Router()
 
-// pokemonRouter.get('/')
-pokemonRouter.get('/', getPokemonByNameHandler)
-// pokemonRouter.get('/types', getPokemonTypesHandler)
-// pokemonRouter.get('/:id', getPokemonByIdHandler )
+pokemonRouter.get('/') 
+pokemonRouter.get('/name', getPokemonByNameHandler) 
+pokemonRouter.get('/get-types', getPokemonTypesHandler)
+// AGREGAMOS LA REGEXP PARA QUE SOLO INGRESE SI LO QUE VIENE COMO ID ES UN NUMERO ENTERO
+pokemonRouter.get('/:id(\\d+)', getPokemonByIdHandler )
 
 pokemonRouter.post('/', postPokemonHandler)
 

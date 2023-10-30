@@ -1,9 +1,6 @@
 const { PokemonTypes } = require("../../db");
 const { getTypesFromApi } = require("../api_controllers/apiCallController");
 
-
-
-
 const populatePokemonTypeListDb = async (data) => {
   // USE FOR OF YA QUE DE ESTA FORMA PUEDO ESPERAR DE FORMA SECUENCIAL QUE TODOS
   // LOS TIPOS SE VAYAN AGREGANDO ANTES DE CONTINUAR CON LA EJECUCION
@@ -12,7 +9,7 @@ const populatePokemonTypeListDb = async (data) => {
   for (const type of data) {
     await PokemonTypes.create({
       nombre_type: type,
-    })
+    });
   }
 };
 
@@ -27,8 +24,6 @@ const getPokemonTypeList = async () => {
 
   return response;
 };
-
-
 
 module.exports = {
   getPokemonTypeList,

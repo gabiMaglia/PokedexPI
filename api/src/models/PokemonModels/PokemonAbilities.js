@@ -13,10 +13,6 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    abilitie_base_level: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
     abilitie_slot: {
       type: DataTypes.INTEGER,
       allowNull: false,

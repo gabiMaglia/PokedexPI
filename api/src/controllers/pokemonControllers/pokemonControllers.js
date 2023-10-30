@@ -53,10 +53,11 @@ const postNewPokemonToDb = async (data) => {
       data
     );
 
-    const newPokemonMoves = await createNewPokemonMoves(PokemonMoves, data);
+    
+    
     const newPokemonAbilities = await createNewPokemonAbilities(
       PokemonAbilities,
-      data
+      data.pokemon_abilities
     );
 
     // Pedimos la lista para doble checkear de que exista una lista de tipos 
@@ -65,9 +66,12 @@ const postNewPokemonToDb = async (data) => {
       where: { nombre_type: pokemon_type },
     });
    
+
   
-    newPokemon.addPokemonMoves([newPokemonMoves]);
-    newPokemon.addPokemonAbilities([newPokemonAbilities]);
+    newPokemonAbilities.forEach((abilitie) => {
+      newPokemon.addPokemonAbilities([abilitie]);
+    })
+    // newPokemon.addPokemonAbilities([newPokemonAbilities]);
     newPokemon.addPokemonType(newPokemonTypes);
     
     newPokemonBaseStatus.bstat_id = newPokemon.id;
