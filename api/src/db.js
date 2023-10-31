@@ -5,11 +5,8 @@ const path = require("path");
 const UserModel = require("./models/UserModels/User");
 const UserCredentialModel = require("./models/UserModels/UserCredential");
 const PersonalDexModel = require("./models/UserModels/PersonalDex");
-
-
 const PokemonModel = require("./models/PokemonModels/Pokemon");
-const PokemonBaseStatsModel = require("./models/PokemonModels/PokemonBaseStatus");
-const PokemonMovesModel = require("./models/PokemonModels/PokemonMoves");
+const PokemonStatsModel = require("./models/PokemonModels/PokemonStatPoints");
 const PokemonAbilitiesModel = require("./models/PokemonModels/PokemonAbilities");
 const PokemonTypesModel = require("./models/PokemonModels/PokemonTypes");
 
@@ -20,7 +17,7 @@ const { DB_USER, DB_PASSWORD, DB_PORT, DB_HOST, BDD } = process.env;
 const sequelize = new Sequelize(
   `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${Number(DB_PORT)}/${BDD}`,
   {
-    logging: false, // set to console.log to see the raw SQL queries
+    logging: true, // set to console.log to see the raw SQL queries
     native: false, // lets Sequelize know we can use pg-native for ~30% more speed
   }
 );
@@ -36,8 +33,7 @@ PersonalDexModel(sequelize);
 
 
 PokemonModel(sequelize);
-PokemonBaseStatsModel(sequelize);
-PokemonMovesModel(sequelize);
+PokemonStatsModel(sequelize);
 PokemonAbilitiesModel(sequelize);
 PokemonTypesModel(sequelize);
 
@@ -70,8 +66,7 @@ const {
   UserCredentials,
   PersonalDex,
   Pokemon,
-  PokemonBaseStatus,
-  PokemonMoves,
+  PokemonStatPoints,
   PokemonTypes,
   PokemonAbilities,
 } = sequelize.models;
@@ -102,18 +97,14 @@ Pokemon.belongsToMany(PersonalDex, { through: "dex_pokemon" , timestamps: false,
 // POKEMONS TIENEN UN SET DE STATS
 // EL SET DE STATS PERTENECE A UN SOLO POKEMON
 
-Pokemon.hasOne(PokemonBaseStatus);
-PokemonBaseStatus.belongsTo(Pokemon);
+Pokemon.hasOne(PokemonStatPoints);
+PokemonStatPoints.belongsTo(Pokemon);
 
 // POKEMON PUEDE SER DE VARIOS TIPOS
 // EL TIPO REPRESENTA A VARIOS POKEMONS
 Pokemon.belongsToMany(PokemonTypes, { through: "pokemon_types" , timestamps: false,});
 PokemonTypes.belongsToMany(Pokemon, { through: "pokemon_types" , timestamps: false,});
 
-//POKEMON PUEDE TENER MUCHOS MOVIMIENTOS
-//EL MOVIMIENTO PUEDE PERTENECER A MUCHOS POKEMNO
-Pokemon.belongsToMany(PokemonMoves, { through: "pokemon_moves" , timestamps: false,});
-PokemonMoves.belongsToMany(Pokemon, { through: "pokemon_moves" , timestamps: false,});
 //POKEMON PUEDE TENER HASTA 2 HABILIDADES
 //LA HABILIDAD PUEDE PERTENECER A MUCHOS POKEMNO
 Pokemon.belongsToMany(PokemonAbilities, { through: "pokemon_abilities" , timestamps: false,});

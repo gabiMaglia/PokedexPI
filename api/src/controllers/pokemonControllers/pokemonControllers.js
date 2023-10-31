@@ -1,86 +1,92 @@
 const {
   Pokemon,
-  PokemonBaseStatus,
-  PokemonMoves,
+  PokemonStatPoints,
   PokemonAbilities,
   PokemonTypes,
 } = require("../../db");
 
-const {getPokemonTypeList} = require ('./typeController')
+const { boundTypeToPokemon } = require("./typeController");
 const createNewPokemonBaseStatus = require("./baseStatusController");
-const createNewPokemonMoves = require("./movesController");
 const createNewPokemonAbilities = require("./abilitiesController");
+const {
+  getPokemonFromApiById,
+  getPokemonFromApiByNamed,
+} = require("../api_controllers/apiCallController");
 
 const getPokemonById = async (id) => {
+  if (!isNaN(id)) {
+    const pokemon = await getPokemonFromApiById(id);
+    return pokemon;
+  }
   const pokemon = await Pokemon.findByPk(id, {
-    include: [PokemonBaseStatus, PokemonMoves, PokemonAbilities, PokemonTypes],
+    include: [PokemonStatPoints, PokemonAbilities, PokemonTypes],
   });
   return pokemon;
 };
+
 const getPokemonByName = async (name) => {
-  const pokemon = await Pokemon.findOne({where: { pokemon_name : name  }}, {
-    include: [PokemonBaseStatus, PokemonMoves, PokemonAbilities, PokemonTypes],
-  });
+  const pokemon = await Pokemon.findOne(
+    { where: { pokemon_name: name } },
+    {
+      include: [PokemonStatPoints, PokemonAbilities, PokemonTypes],
+    }
+  )
+  // console.log(pokemon)
+  if (!pokemon) {
+    const pokemon = await getPokemonFromApiByNamed(name);
+    return pokemon;
+  }
+  // console.log(pokemon);
   return pokemon;
 };
 
 const postNewPokemonToDb = async (data) => {
-    const {
-      pokemon_id,
-      pokemon_name,
-      pokemon_height,
-      pokemon_weight,
-      pokemon_image,
-      pokemon_basexp,
-      pokemon_evolitions,
-      pokemon_isLocal,
-      pokemon_type,
-    } = data;
+  const {
+    pokemon_name,
+    pokemon_height,
+    pokemon_weight,
+    pokemon_image,
+    pokemon_basexp,
+  } = data;
 
-    const newPokemon = await Pokemon.create({
-      pokemon_id,
-      pokemon_name,
-      pokemon_height,
-      pokemon_weight,
-      pokemon_image,
-      pokemon_basexp,
-      pokemon_evolitions,
-      pokemon_isLocal,
-    });
+  const newPokemon = await Pokemon.create({
+    pokemon_name,
+    pokemon_height,
+    pokemon_weight,
+    pokemon_image,
+    pokemon_basexp,
+  });
 
-    const newPokemonBaseStatus = await createNewPokemonBaseStatus(
-      newPokemon,
-      data
-    );
+  const newPokemonStatPoints = await createNewPokemonBaseStatus(
+    newPokemon,
+    data.stats
+  );
 
-    
-    
-    const newPokemonAbilities = await createNewPokemonAbilities(
-      PokemonAbilities,
-      data.pokemon_abilities
-    );
+  const newPokemonAbilities = await createNewPokemonAbilities(
+    PokemonAbilities,
+    data.abilities
+  );
 
-    // Pedimos la lista para doble checkear de que exista una lista de tipos 
-    await getPokemonTypeList() 
-    const newPokemonTypes = await PokemonTypes.findOne({
-      where: { nombre_type: pokemon_type },
-    });
-   
+ 
 
-  
-    newPokemonAbilities.forEach((abilitie) => {
-      newPokemon.addPokemonAbilities([abilitie]);
-    })
-    // newPokemon.addPokemonAbilities([newPokemonAbilities]);
-    newPokemon.addPokemonType(newPokemonTypes);
-    
-    newPokemonBaseStatus.bstat_id = newPokemon.id;
-    await newPokemonBaseStatus.save();
+  const newPokemonTypes = await boundTypeToPokemon(
+    PokemonTypes,
+    data.pokemon_type
+  );
 
+  for (const ability of newPokemonAbilities) {
+    await newPokemon.addPokemonAbilities(ability);
+  }
 
-    return newPokemon;
-  
-}
+  for (const type of newPokemonTypes) {
+    await newPokemon.addPokemonType(type);
+  }
 
+  newPokemonStatPoints.pokemon_stats_id = newPokemon.id;
+  await newPokemonStatPoints.save();
+
+  // console.log(newPokemonTypes);
+  return newPokemon;
+};
 
 module.exports = { postNewPokemonToDb, getPokemonById, getPokemonByName };

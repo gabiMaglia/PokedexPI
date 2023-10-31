@@ -25,6 +25,26 @@ const getPokemonTypeList = async () => {
   return response;
 };
 
+const boundTypeToPokemon = async (model, data) => {
+  await getPokemonTypeList()
+  const newPokemonTypes = [];
+  
+  for (const e of data) {
+
+    const newPokemonBound = await model.create({
+      nombre_type: e.nombre_type,
+    });
+
+    // console.log(newPokemonBound)
+    newPokemonTypes.push(newPokemonBound);
+  }
+  // console.log(newPokemonTypes)
+  return newPokemonTypes;
+  
+};
+
+
 module.exports = {
   getPokemonTypeList,
+  boundTypeToPokemon,
 };

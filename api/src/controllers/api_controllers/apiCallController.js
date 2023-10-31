@@ -1,12 +1,14 @@
 const axios = require("axios");
 
-const pokemonForDatabaseBuilder = async (data) => {
+const pokemonJsonFormatter = async (data) => {
+  const { id, name, base_experience, height, weight, stats } = data;
 
-  const { id, name, base_experience, height, weight } = data;
-  const stats = data.stats;
-  
-  const evolutionChain = await getEvolutionChainFromApi(id);
-  
+  const statList = {}
+  stats.forEach((e) => {
+    e.stat.name = e.stat.name.replace(/-/g, "_") // remplaza los guiones medios por bajos
+    statList[e.stat.name] = e.base_stat
+  })
+
   const abilitiesList = [];
   data.abilities.forEach((e) => {
     abilitiesList.push({
@@ -14,6 +16,7 @@ const pokemonForDatabaseBuilder = async (data) => {
       abilitie_slot: e.slot,
     });
   });
+
   const typeList = [];
   data.abilities.forEach((e) => {
     typeList.push({
@@ -28,64 +31,30 @@ const pokemonForDatabaseBuilder = async (data) => {
     pokemon_weight: weight,
     pokemon_image: data.sprites.back_default,
     pokemon_basexp: base_experience,
-    pokemon_evolitions: evolutionChain,
-    pokemon_isLocal: true,
-    
-    bstat_life: stats[0].base_stat,
-    bstat_attack: stats[1].base_stat,
-    bstat_defense: stats[2].base_stat,
-    bstat_special_attack: stats[3].base_stat,
-    bstat_special_defense: stats[4].base_stat,
-    bstat_speed: stats[5].base_stat,
-    
-    
+    stats: statList,
     abilities: abilitiesList,
-  
     pokemon_type: typeList,
   };
   return newPokemon;
 };
 
-const extractEvolutions = (pokemonEvolutions) => {
-  const evolutions = [];
-  if (pokemonEvolutions.chain.evolves_to.length > 0) {
-    for (const evolution of pokemonEvolutions.chain.evolves_to) {
-      const evolutionObject = {
-        name: evolution.species.name,
-        level: evolution.evolution_details[0].min_level
-      };
-
-      evolutions.push(evolutionObject);
-    }
-  }
-
-  return evolutions;
-};
-
-const getEvolutionChainFromApi = async (pokemonId) => {
-  const evolutionChain = await axios
-  .get(`${process.env.API_DIR}/evolution-chain/${pokemonId}`)
-  .then((response) => {
-    return extractEvolutions(response.data)
-  })
-  return evolutionChain
-}
-
 const getPokemonFromApiById = async (id) => {
   const pokemon = await axios
     .get(`${process.env.API_DIR}/pokemon/${id}`)
     .then((response) => {
-
-      const shapedMon =  pokemonForDatabaseBuilder(response.data)
-      return shapedMon;
+      const shapedData =  pokemonJsonFormatter(response.data)
+      return shapedData;
     });
   return pokemon;
 };
+
 const getPokemonFromApiByNamed = async (name) => {
   const pokemon = await axios
-    .get(`${process.env.API_DIR}/pokemon/${name}`)
-    .then((response) => {
-      return response.data;
+  .get(`${process.env.API_DIR}/pokemon/${name}`)
+  .then((response) => {
+      console.log('pokemon')
+      const shapedData =  pokemonJsonFormatter(response.data)
+      return shapedData;
     });
   return pokemon;
 };

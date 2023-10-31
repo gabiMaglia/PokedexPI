@@ -1,22 +1,16 @@
 const createNewPokemonBaseStatus = async (newPokemon, data) => {
-  const {
-    bstat_life,
-    bstat_attack,
-    bstat_defense,
-    bstat_special_attack,
-    bstat_special_defense,
-    bstat_speed,
-  } = data; //BASE STATUS
-  const newPokemonBaseStatus = await newPokemon.createPokemonBaseStatus({
-    bstat_life,
-    bstat_attack,
-    bstat_defense,
-    bstat_special_attack,
-    bstat_special_defense,
-    bstat_speed,
+  const { hp, attack, defense, special_attack, special_defense, speed } = data;
+
+  const newPokemonStatPoints = await newPokemon.createPokemonStatPoint({
+    pokemon_stats_hp: hp,
+    pokemon_stats_attack: attack,
+    pokemon_stats_defense: defense,
+    pokemon_stats_special_attack: special_attack,
+    pokemon_stats_special_defense: special_defense,
+    pokemon_stats_speed: speed,
   });
 
-  return newPokemonBaseStatus;
+  return newPokemonStatPoints;
 };
 
 module.exports = createNewPokemonBaseStatus;

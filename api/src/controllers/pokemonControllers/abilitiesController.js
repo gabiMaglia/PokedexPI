@@ -1,19 +1,16 @@
 const createNewPokemonAbilities = async (model, data) => {
-  
-    const newPokemonAbilities= []
+  const newPokemonAbilities = [];
 
-    for (abilitie of data) {
-        const newPokemonAbility = await model.create({
-            abilitie_name: abilitie.abilitie_name, 
-            abilitie_slot: abilitie.abilitie_slot
-        });
-        newPokemonAbilities.push(newPokemonAbility)
-    }    
-    
-    return newPokemonAbilities;
-};
+  for (const abilitie of data) {
    
-  
-  
-  module.exports = createNewPokemonAbilities;
-  
+    const newPokemonAbility = await model.create({
+      abilitie_name: abilitie.abilitie_name,
+      abilitie_slot: abilitie.abilitie_slot,
+    });
+    newPokemonAbilities.push(newPokemonAbility);
+  }
+
+  return newPokemonAbilities;
+};
+
+module.exports = createNewPokemonAbilities;

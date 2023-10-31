@@ -5,7 +5,7 @@ module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define('Pokemon', {
     pokemon_id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
       allowNull: false,
       primaryKey: true,
@@ -31,16 +31,6 @@ module.exports = (sequelize) => {
       type: DataTypes.DECIMAL(5, 2),
       allowNull: false,
     },
-    pokemon_evolitions: {
-      type: DataTypes.STRING,
-      allowNull: false,
-
-    },
-    pokemon_isLocal: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: true,
-      allowNull: false,
-    }
   },
   {
     timestamps: false,
