@@ -11,27 +11,27 @@ module.exports = (sequelize) => {
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
       },
-      pokemon_stats_hp: {
+      hp: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      pokemon_stats_attack: {
+      attack: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      pokemon_stats_defense: {
+      defense: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      pokemon_stats_special_attack: {
+      special_attack: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      pokemon_stats_special_defense: {
+      special_defense: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      pokemon_stats_speed: {
+      speed: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },

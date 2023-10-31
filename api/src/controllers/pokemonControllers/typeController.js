@@ -15,34 +15,28 @@ const populatePokemonTypeListDb = async (data) => {
 
 const getPokemonTypeList = async () => {
   let response = await PokemonTypes.findAll();
-
   if (response.length < 1) {
     const completeTypelist = await getTypesFromApi();
     await populatePokemonTypeListDb(completeTypelist);
     response = await PokemonTypes.findAll();
   }
-
   return response;
 };
 
 const boundTypeToPokemon = async (model, data) => {
-  await getPokemonTypeList()
-  const newPokemonTypes = [];
-  
-  for (const e of data) {
+  await getPokemonTypeList();
 
-    const newPokemonBound = await model.create({
-      nombre_type: e.nombre_type,
+  const newPokemonTypes = [];
+
+  for (const e of data) {
+    const newPokemonBound = await model.findOne({
+     where : {nombre_type: e.nombre_type,}
     });
 
-    // console.log(newPokemonBound)
     newPokemonTypes.push(newPokemonBound);
   }
-  // console.log(newPokemonTypes)
   return newPokemonTypes;
-  
 };
-
 
 module.exports = {
   getPokemonTypeList,

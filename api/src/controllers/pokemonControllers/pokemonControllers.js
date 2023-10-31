@@ -8,9 +8,10 @@ const {
 const { boundTypeToPokemon } = require("./typeController");
 const createNewPokemonBaseStatus = require("./baseStatusController");
 const createNewPokemonAbilities = require("./abilitiesController");
+
 const {
   getPokemonFromApiById,
-  getPokemonFromApiByNamed,
+  getPokemonFromApiByName,
 } = require("../api_controllers/apiCallController");
 
 const getPokemonById = async (id) => {
@@ -25,15 +26,12 @@ const getPokemonById = async (id) => {
 };
 
 const getPokemonByName = async (name) => {
-  const pokemon = await Pokemon.findOne(
-    { where: { pokemon_name: name } },
-    {
-      include: [PokemonStatPoints, PokemonAbilities, PokemonTypes],
-    }
-  )
-  // console.log(pokemon)
+  const pokemon = await Pokemon.findOne({
+    where: { pokemon_name: name },
+    include: [PokemonStatPoints, PokemonAbilities, PokemonTypes],
+  });
   if (!pokemon) {
-    const pokemon = await getPokemonFromApiByNamed(name);
+    const pokemon = await getPokemonFromApiByName(name);
     return pokemon;
   }
   // console.log(pokemon);
@@ -41,6 +39,7 @@ const getPokemonByName = async (name) => {
 };
 
 const postNewPokemonToDb = async (data) => {
+  console.log(data.PokemonStatPoint)
   const {
     pokemon_name,
     pokemon_height,
@@ -59,21 +58,19 @@ const postNewPokemonToDb = async (data) => {
 
   const newPokemonStatPoints = await createNewPokemonBaseStatus(
     newPokemon,
-    data.stats
+    data.PokemonStatPoint
   );
 
   const newPokemonAbilities = await createNewPokemonAbilities(
     PokemonAbilities,
-    data.abilities
+    data.PokemonAbilities
   );
-
- 
 
   const newPokemonTypes = await boundTypeToPokemon(
     PokemonTypes,
-    data.pokemon_type
+    data.PokemonTypes
   );
-
+  
   for (const ability of newPokemonAbilities) {
     await newPokemon.addPokemonAbilities(ability);
   }
@@ -83,6 +80,7 @@ const postNewPokemonToDb = async (data) => {
   }
 
   newPokemonStatPoints.pokemon_stats_id = newPokemon.id;
+
   await newPokemonStatPoints.save();
 
   // console.log(newPokemonTypes);
