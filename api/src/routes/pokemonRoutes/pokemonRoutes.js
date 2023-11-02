@@ -1,14 +1,15 @@
 const { Router } = require("express");
 const getPokemonTypesHandler = require("../../handlers/pokemonHandler/typeHandlers");
 const {
-  postPokemonHandler,
+  getAllPokemonsHandler,
   getPokemonByIdHandler,
   getPokemonByNameHandler,
+  postPokemonHandler
 } = require("../../handlers/pokemonHandler/pokemonHandlers");
 
 const pokemonRouter = Router();
 
-pokemonRouter.get("/");
+pokemonRouter.get("/", getAllPokemonsHandler);
 pokemonRouter.get("/name", getPokemonByNameHandler);
 pokemonRouter.get("/get-types", getPokemonTypesHandler);
 // AGREGAMOS LA REGEXP PARA QUE SOLO INGRESE SI LO QUE VIENE COMO ID ES UN NUMERO ENTERO

@@ -1,24 +1,23 @@
 const axios = require("axios");
-const { pokemonJsonFormatter } = require("../../utils/pokemonJsonFormatter");
+
 
 const getAllPokemonsFromApi = async () => {
   const pokemons = await axios
-    .get(`${process.env.API_DIR}/pokemon`)
+    .get(`${process.env.API_DIR}/pokemon/?limit=999999`)
     .then((response) => {
-      const shapedData = pokemonJsonFormatter(response.data);
-
-      return shapedData;
+      return response.data;
     });
   return pokemons;
 
 }
 
+
+
 const getPokemonFromApiById = async (id) => {
   const pokemon = await axios
     .get(`${process.env.API_DIR}/pokemon/${id}`)
     .then((response) => {
-      const shapedData = pokemonJsonFormatter(response.data);
-      return shapedData;
+      return response.data
     });
   return pokemon;
 };
@@ -27,8 +26,7 @@ const getPokemonFromApiByName = async (name) => {
   const pokemon = await axios
     .get(`${process.env.API_DIR}/pokemon/${name}`)
     .then((response) => {
-      const shapedData = pokemonJsonFormatter(response.data);
-      return shapedData;
+      return response.data;
     });
   return pokemon;
 };
