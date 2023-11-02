@@ -1,0 +1,19 @@
+.landingContainer {
+    width: 100%;
+    height: calc(100svh - 10rem) ;
+     display: flex;
+    place-content: center; 
+    text-shadow: var(--mainFontColor) 1px 0 5px; 
+}
+
+.landingContainer:hover {
+    /* filter: grayscale(0); */
+
+}
+
+.pokeballImg{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -25px 0 0 -25px;
+}
