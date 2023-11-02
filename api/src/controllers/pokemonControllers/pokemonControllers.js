@@ -14,6 +14,11 @@ const {
   getPokemonFromApiByName,
 } = require("../api_controllers/apiCallController");
 
+
+const getAllPokemons = () => {
+
+}
+
 const getPokemonById = async (id) => {
   if (!isNaN(id)) {
     const pokemon = await getPokemonFromApiById(id);
