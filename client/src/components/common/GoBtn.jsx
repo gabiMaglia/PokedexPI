@@ -24,13 +24,16 @@ const GoButton = styled.button`
     font-weight: 800;
     border: .1px solid #f4faf3;
     font-size: 40px;
-    background-color: white;
-    color: black;
     border: .1px solid #000000;
+    background-color: black;
+    color: #ffffff;
     
     &:hover {
-      background-color: black;
-      color: #ffffff;
+      box-shadow: rgba(173, 173, 207, 0.1) 0px 8px 24px, rgba(243, 243, 255, 0.1) 0px 16px 56px, rgba(186, 186, 204, 0.1) 0px 24px 80px;
+      /* font-size: 50px; */
+      background-color: white;
+      color: black;
+      transform: scale(1.1);
       
       
       /* transform: scale(1.01); */

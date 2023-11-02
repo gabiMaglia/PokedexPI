@@ -1,4 +1,4 @@
-import GoBtn from '../../assets/common/GoBtn'
+import GoBtn from '../../components/common/GoBtn'
 import styles from './landing.module.css'
 import pokeimg from '../../assets/pokebackico.png'
 import { NavLink } from 'react-router-dom'
