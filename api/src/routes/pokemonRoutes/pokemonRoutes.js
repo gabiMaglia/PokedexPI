@@ -4,7 +4,7 @@ const {
   getAllPokemonsHandler,
   getPokemonByIdHandler,
   getPokemonByNameHandler,
-  postPokemonHandler
+  postPokemonHandler,
 } = require("../../handlers/pokemonHandler/pokemonHandlers");
 
 const pokemonRouter = Router();

@@ -5,16 +5,14 @@ const {
   getAllPokemons,
 } = require("../../controllers/pokemonControllers/pokemonControllers");
 
-
 const getAllPokemonsHandler = async (req, res) => {
   try {
-    const newPokemonList = await getAllPokemons(req.body)
+    const newPokemonList = await getAllPokemons(req.body);
     res.status(200).json(newPokemonList);
   } catch (error) {
     res.status(500).json(error.message);
   }
-    
-}
+};
 
 const postPokemonHandler = async (req, res) => {
   try {
@@ -56,5 +54,5 @@ module.exports = {
   getPokemonByIdHandler,
   getPokemonByNameHandler,
   postPokemonHandler,
-  getAllPokemonsHandler
+  getAllPokemonsHandler,
 };

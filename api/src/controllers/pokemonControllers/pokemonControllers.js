@@ -4,7 +4,7 @@ const {
   PokemonAbilities,
   PokemonTypes,
 } = require("../../db");
-const axios = require("axios");
+
 const { boundTypeToPokemon } = require("./typeController");
 const createNewPokemonBaseStatus = require("./baseStatusController");
 const createNewPokemonAbilities = require("./abilitiesController");
@@ -22,33 +22,32 @@ const {
 //   return arrayOfNames
 // }
 
-const getAllPokemons = async() => {
+const getAllPokemons = async () => {
   const dbPokemons = await Pokemon.findAll({
     include: [PokemonStatPoints, PokemonAbilities, PokemonTypes],
   });
   //  pedimos todos los pokemons a la api y hacemos destructuring para quedarnos con el objeto
   // results donde se encuentra el nombre y la url
-  const {results} = await getAllPokemonsFromApi();
+  const { results } = await getAllPokemonsFromApi();
   // usamos el metodo all del objeto promise para manejar multiples llamados a la api
   // de manera simultanea para obtener en base al id de cada pokemon el detalle de cada uno,
   // use id porque demora la mitad que la busqueda por nombre de la misma manera que use
   // Promise.all en vez de reduce por las mismas razons, demora literal la mitad   // esto se debe a que reduce resuelve cada peticion de forma secuencial mientras que promise.all los hace desde el event loop por lo que tengo entendido
-  const completeData = await Promise.all (
-    results.map(async pokemon => {
-      const response = await getPokemonFromApiById(pokemon.url.split('/')[6])
-      const  parsedPokemon =  pokemonJsonFormatter(response)
-      return parsedPokemon
+  const completeData = await Promise.all(
+    results.map(async (pokemon) => {
+      const response = await getPokemonFromApiById(pokemon.url.split("/")[6]);
+      const parsedPokemon = pokemonJsonFormatter(response);
+      return parsedPokemon;
     })
-  )
+  );
 
-  return {...dbPokemons, ...completeData};
-}
-
+  return { ...dbPokemons, ...completeData };
+};
 
 const getPokemonById = async (id) => {
   if (!isNaN(id)) {
     const pokemon = await getPokemonFromApiById(id);
-    const  parsedPokemon =  pokemonJsonFormatter(pokemon)
+    const parsedPokemon = pokemonJsonFormatter(pokemon);
     return parsedPokemon;
   }
   const pokemon = await Pokemon.findByPk(id, {
@@ -64,7 +63,7 @@ const getPokemonByName = async (name) => {
   });
   if (!pokemon) {
     const pokemon = await getPokemonFromApiByName(name);
-    const  parsedPokemon =  pokemonJsonFormatter(pokemon)
+    const parsedPokemon = pokemonJsonFormatter(pokemon);
     return parsedPokemon;
   }
   // console.log(pokemon);
@@ -72,7 +71,7 @@ const getPokemonByName = async (name) => {
 };
 
 const postNewPokemonToDb = async (data) => {
-  console.log(data.PokemonStatPoint)
+  console.log(data.PokemonStatPoint);
   const {
     pokemon_name,
     pokemon_height,
@@ -103,7 +102,7 @@ const postNewPokemonToDb = async (data) => {
     PokemonTypes,
     data.PokemonTypes
   );
-  
+
   for (const ability of newPokemonAbilities) {
     await newPokemon.addPokemonAbilities(ability);
   }
@@ -120,4 +119,9 @@ const postNewPokemonToDb = async (data) => {
   return newPokemon;
 };
 
-module.exports = { postNewPokemonToDb, getPokemonById, getPokemonByName, getAllPokemons };
+module.exports = {
+  postNewPokemonToDb,
+  getPokemonById,
+  getPokemonByName,
+  getAllPokemons,
+};
