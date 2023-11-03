@@ -1,8 +1,10 @@
-import styles fromn './footer.module.css'
-
+// import styles from './footer.module.css'
+import SearchBar from '../SearchBar/SearchBar.component'
 const Footer = () => {
   return (
-    <div>Footer.component</div>
+    <footer>
+      <SearchBar />
+    </footer>
   )
 }
 

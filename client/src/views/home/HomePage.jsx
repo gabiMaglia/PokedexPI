@@ -1,7 +1,10 @@
+import CardBoard from '../../components/CardBoard/CardBoard.componenet'
 import styles from './home.module.css'
-const HomePage = () => {
+const HomePage = (props) => {
   return (
-    <div>HomePage</div>
+    <section className={styles.homeContainer}>
+      <CardBoard/>
+    </section>
   )
 }
 
