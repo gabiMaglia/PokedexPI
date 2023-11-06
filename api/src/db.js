@@ -10,8 +10,6 @@ const PokemonStatsModel = require("./models/PokemonModels/PokemonStatPoints");
 const PokemonAbilitiesModel = require("./models/PokemonModels/PokemonAbilities");
 const PokemonTypesModel = require("./models/PokemonModels/PokemonTypes");
 
-
-
 const { DB_USER, DB_PASSWORD, DB_PORT, DB_HOST, BDD } = process.env;
 
 const sequelize = new Sequelize(
@@ -30,7 +28,6 @@ const sequelize = new Sequelize(
 UserModel(sequelize);
 UserCredentialModel(sequelize);
 PersonalDexModel(sequelize);
-
 
 PokemonModel(sequelize);
 PokemonStatsModel(sequelize);
@@ -91,8 +88,14 @@ PersonalDex.belongsTo(User);
 //LOS DECKS TIENEN MUCHOS POKEMONS
 //UN POKEMOSN PUEDE APARECER EN MUCHOS DECKS
 
-PersonalDex.belongsToMany(Pokemon, { through: "dex_pokemon" , timestamps: false,});
-Pokemon.belongsToMany(PersonalDex, { through: "dex_pokemon" , timestamps: false,});
+PersonalDex.belongsToMany(Pokemon, {
+  through: "dex_pokemon",
+  timestamps: false,
+});
+Pokemon.belongsToMany(PersonalDex, {
+  through: "dex_pokemon",
+  timestamps: false,
+});
 
 // POKEMONS TIENEN UN SET DE STATS
 // EL SET DE STATS PERTENECE A UN SOLO POKEMON
@@ -102,13 +105,25 @@ PokemonStatPoints.belongsTo(Pokemon);
 
 // POKEMON PUEDE SER DE VARIOS TIPOS
 // EL TIPO REPRESENTA A VARIOS POKEMONS
-Pokemon.belongsToMany(PokemonTypes, { through: "pokemon_types" , timestamps: false,});
-PokemonTypes.belongsToMany(Pokemon, { through: "pokemon_types" , timestamps: false,});
+Pokemon.belongsToMany(PokemonTypes, {
+  through: "pokemon_types",
+  timestamps: false,
+});
+PokemonTypes.belongsToMany(Pokemon, {
+  through: "pokemon_types",
+  timestamps: false,
+});
 
 //POKEMON PUEDE TENER HASTA 2 HABILIDADES
 //LA HABILIDAD PUEDE PERTENECER A MUCHOS POKEMNO
-Pokemon.belongsToMany(PokemonAbilities, { through: "pokemon_abilities" , timestamps: false,});
-PokemonAbilities.belongsToMany(Pokemon, { through: "pokemon_abilities" , timestamps: false,});
+Pokemon.belongsToMany(PokemonAbilities, {
+  through: "pokemon_abilities",
+  timestamps: false,
+});
+PokemonAbilities.belongsToMany(Pokemon, {
+  through: "pokemon_abilities",
+  timestamps: false,
+});
 
 //
 // Fin de las Relaciones
