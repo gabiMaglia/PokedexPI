@@ -3,7 +3,7 @@ import {
     fetchPokemonService,
 } from "../../services/pokemonServices";
 
-export const searchPokemonByName = (name) => {
+export const fetchPokemon = (name) => {
   return (dispatch) => {
     fetchPokemonService(name).then((data) => {
       return dispatch({
@@ -13,4 +13,4 @@ export const searchPokemonByName = (name) => {
     });
   };
 };
-export const searchPokemonById = (id) => {};
+

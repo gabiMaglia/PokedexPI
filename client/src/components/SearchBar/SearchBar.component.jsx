@@ -1,6 +1,6 @@
 import {useState} from 'react'
 import { useDispatch } from 'react-redux'
-import {searchPokemonByName, searchPokemonById} from '../../Redux/Actions/actions'
+import {fetchPokemon} from '../../Redux/Actions/actions'
 
 const SearchBar = () => {
   const dispatch = useDispatch()  
@@ -14,7 +14,7 @@ const SearchBar = () => {
     e.preventDefault()
     console.log(input)
     
-    dispatch(searchPokemonByName(input))
+    dispatch(fetchPokemon(input))
   }
   const handleRandomSearch = (e) => {
     e.preventDefault()
