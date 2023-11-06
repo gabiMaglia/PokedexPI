@@ -19,18 +19,16 @@ export const postPokemonService = async (data) => {
     throw new Error(error);
   }
 };
-export const fetchPokemonByIdService = async (id) => {
+
+export const fetchPokemonService = async (data) => {
   try {
-    const response = await axios.get(`${import.meta.env.VITE_API_URL}/poke${id}`);
-    return response.data;
-  } catch (error) {
-    throw new Error(error);
-  }
-};
-export const fetchPokemonByNameService = async (name) => {
-  try {
-    const response = await axios.get(`${import.meta.env.VITE_API_URL}/poke/${name}`);
-    return response.data;
+    if (isNaN(data)) {
+      const response = await axios.get(`http://localhost:3001/poke/name?name=${data}`);
+      return response.data;
+    }else {
+      const response = await axios.get(`http://localhost:3001/poke/${data}`);
+      return response.data;
+    }
   } catch (error) {
     throw new Error(error);
   }

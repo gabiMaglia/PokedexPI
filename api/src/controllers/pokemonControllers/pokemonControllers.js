@@ -47,8 +47,7 @@ const getAllPokemons = async () => {
 const getPokemonById = async (id) => {
   if (!isNaN(id)) {
     const pokemon = await getPokemonFromApiById(id);
-    const parsedPokemon = pokemonJsonFormatter(pokemon);
-    return parsedPokemon;
+    return pokemon && pokemonJsonFormatter(pokemon);
   }
   const pokemon = await Pokemon.findByPk(id, {
     include: [PokemonStatPoints, PokemonAbilities, PokemonTypes],
@@ -63,15 +62,15 @@ const getPokemonByName = async (name) => {
   });
   if (!pokemon) {
     const pokemon = await getPokemonFromApiByName(name);
-    const parsedPokemon = pokemonJsonFormatter(pokemon);
-    return parsedPokemon;
+    console.log('estoy' )
+    return pokemon &&  pokemonJsonFormatter(pokemon);
+    
   }
-  // console.log(pokemon);
   return pokemon;
 };
 
 const postNewPokemonToDb = async (data) => {
-  console.log(data.PokemonStatPoint);
+  
   const {
     pokemon_name,
     pokemon_height,
@@ -115,7 +114,6 @@ const postNewPokemonToDb = async (data) => {
 
   await newPokemonStatPoints.save();
 
-  // console.log(newPokemonTypes);
   return newPokemon;
 };
 

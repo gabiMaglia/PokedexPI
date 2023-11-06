@@ -7,10 +7,8 @@ const getPokemonTypesHandler = async (req, res) => {
     const response = await getPokemonTypeList();
     return res.status(200).json(response);
   } catch (error) {
-    res.status(500).json(error.message);
+    res.status(500).json({ error: error.message });
   }
 };
-
-
 
 module.exports = getPokemonTypesHandler;

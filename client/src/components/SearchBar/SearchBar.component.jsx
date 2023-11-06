@@ -1,27 +1,31 @@
 import {useState} from 'react'
+import { useDispatch } from 'react-redux'
+import {searchPokemonByName, searchPokemonById} from '../../Redux/Actions/actions'
 
 const SearchBar = () => {
+  const dispatch = useDispatch()  
   
-  const [input, setintput] = useState("")
-  
-  const handleInput = (e) => {
+  const [input, setInput] = useState("")
+  const handleChange = (e) => {
     const inputValue = e.target.value
-    setintput(inputValue)
+    setInput(inputValue)
   }
-  const handleSearch = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault()
     console.log(input)
+    
+    dispatch(searchPokemonByName(input))
   }
   const handleRandomSearch = (e) => {
     e.preventDefault()
     console.log(Math.random())
   }
   return (
-    <form action="">
+    <form onSubmit={handleSubmit}>
         <button onClick={handleRandomSearch}>addRandom</button>
         <label htmlFor="searchinput"></label>
-        <input name='searchinput' type="text" onChange={handleInput} />
-        <button onClick={handleSearch}> Buscar </button>
+        <input onChange={handleChange} id='searchinput' type="text" />
+        <button type='submit'> Buscar </button>
     </form>
   )
 }
