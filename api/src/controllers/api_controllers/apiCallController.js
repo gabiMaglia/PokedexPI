@@ -41,6 +41,7 @@ const getTypesFromApi = async () => {
     .get(`${process.env.API_DIR}/type`)
     .then((response) => {
       return response.data;
+      
     })
     .catch(function (error) {
       console.log(error.toJSON());
