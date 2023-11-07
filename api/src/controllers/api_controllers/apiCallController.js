@@ -2,7 +2,7 @@ const axios = require("axios");
 
 const getAllPokemonsFromApi = async () => {
   const pokemons = await axios
-    .get(`${process.env.API_DIR}/pokemon/?limit=999999`)
+    .get(`${process.env.API_DIR}/pokemon/?limit=9`)
     .then((response) => {
       return response.data;
     })
@@ -41,7 +41,6 @@ const getTypesFromApi = async () => {
     .get(`${process.env.API_DIR}/type`)
     .then((response) => {
       return response.data;
-      
     })
     .catch(function (error) {
       console.log(error.toJSON());

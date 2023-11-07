@@ -40,8 +40,9 @@ const getAllPokemons = async () => {
       return parsedPokemon;
     })
   );
+  const allPokemons = dbPokemons.concat(completeData) 
 
-  return { ...dbPokemons, ...completeData };
+  return { allPokemons };
 };
 
 const getPokemonById = async (id) => {
