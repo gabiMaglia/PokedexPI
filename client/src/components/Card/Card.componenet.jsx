@@ -5,7 +5,7 @@ const Card = ({ pokemon, detailHandler }) => {
     <div
       className={styles.pokemonCardContainer}
       onClick={() => {
-        detailHandler(pokemon.pokemon_name);
+        detailHandler(pokemon.pokemon_id);
       }}
     >
       <h1>{pokemon.pokemon_name}</h1>
