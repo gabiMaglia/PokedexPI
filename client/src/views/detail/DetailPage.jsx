@@ -2,32 +2,31 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
 import styles from "./detail.module.css";
-import { fetchPokemonService } from "../../services/pokemonServices";
 import { useSelector } from "react-redux";
 
 const DetailPage = ({ limit, offset }) => {
   const { id } = useParams();
+  
   const pokemonToShow = useSelector((state) =>
-    state.allPokemons.find((pokemon) => pokemon.pokemon_id === Number(id))
+    state.allPokemonsBackup.find((pokemon) =>
+      !isNaN(id)
+        ? pokemon.pokemon_id === Number(id)
+        : pokemon.pokemon_name === id
+    )
   );
-
   const [pokemon, setPokemon] = useState();
   const navigate = useNavigate();
-
   const handleNextPrevDetail = (action) => {
     switch (action) {
       case "prev":
         if (Number(id) - 1 > 0) navigate(`/detail/${Number(id) - 1}`);
         else navigate(`/detail/${limit}`);
-
         break;
-
       case "next":
         if (Number(id) + 1 < `${limit + 1}`)
           navigate(`/detail/${Number(id) + 1}`);
         else navigate(`/detail/${offset + 1}`);
         break;
-
       default:
         break;
     }

@@ -1,4 +1,4 @@
-import { FETCH_POKEMON, FETCH_ALL_POKEMON, FETCH_ALL_POKEMON_TYPE } from "./action-types";
+import { FETCH_POKEMON, FETCH_ALL_POKEMON, FETCH_ALL_POKEMON_TYPE, PREV_PAGE, NEXT_PAGE } from "./action-types";
 import {
     fetchPokemonService,
     fetchAllPokemonService,
@@ -46,4 +46,15 @@ export const fetchAllPokemonTypes = () => {
     });
   };
 };
+export const prevPage = () => {
+      return dispatch({
+        type: PREV_PAGE,    
+      });
+};
+export const nextPage = () => {
+      return dispatch({
+        type: NEXT_PAGE,
+      });
+};
+
 

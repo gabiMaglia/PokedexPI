@@ -2,19 +2,29 @@ import {
   FETCH_POKEMON,
   FETCH_ALL_POKEMON,
   FETCH_ALL_POKEMON_TYPE,
+  NEXT_PAGE,
+  PREV_PAGE
+
 } from "../Actions/action-types";
 
 const initialState = {
   myFavorites: [],
   allPokemons: [],
+  allPokemonsBackup: [],
   allTypes: [],
+  detailPokemon: [],
   currentPage: 0,
 };
 
 const rootReducer = (state = initialState, { type, payload }) => {
+  const ITEMS_PER_PAGE = 12
+  let firstIndex = 0
+  let lasttIndex = state.allPokemons.length
+
+
   switch (type) {
     case FETCH_ALL_POKEMON:
-      return { ...state, allPokemons: payload.allPokemons };
+      return { ...state, allPokemonsBackup: payload.allPokemons , allPokemons: payload.allPokemons.slice(0, ITEMS_PER_PAGE) };
     case FETCH_ALL_POKEMON_TYPE:
       return { ...state, allTypes: payload };
     case FETCH_POKEMON:
@@ -25,10 +35,12 @@ const rootReducer = (state = initialState, { type, payload }) => {
         return { ...state, allPokemons: [...state.allPokemons, payload] };
       }
       return { ...state };
-    case "ADD_FAVORITE":
-      return { ...state, myFavorites: payload, allPokemons: payload };
-    case "REMOVE_FAVORITE":
-      return { ...state, myFavorites: payload, allPokemons: payload };
+    case NEXT_PAGE:
+      firstIndex =+ ITEMS_PER_PAGE
+      return { ...state,  currentPage : state.currentPage + 1,  allPokemons: payload.allPokemons.splice(firstIndex, ITEMS_PER_PAGE) };
+      case PREV_PAGE:
+        firstIndex =- ITEMS_PER_PAGE
+        return { ...state,  currentPage : state.currentPage - 1,  allPokemons: payload.allPokemons.splice(firstIndex, ITEMS_PER_PAGE) };
     case "CLEAR_FAVORITE":
       return { ...state, myFavorites: payload, allPokemons: payload };
     case "FILTER":
@@ -48,7 +60,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
       };
     case "PAGINATE":
       //Definir el first index
-
+      
       //Casos de corte
 
       //Guardar el estado
