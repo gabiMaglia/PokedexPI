@@ -26,9 +26,9 @@ export const fetchAllPokemon = () => {
     });
   };
 };
-export const fetchAllPokemonbySeason = (season) => {
+export const fetchAllPokemonbySeason = (limit, offset) => {
   return (dispatch) => {
-    fetchAllPokemonbySeasonService(season).then(({data}) => {
+    fetchAllPokemonbySeasonService(limit, offset).then(({data}) => {
       return dispatch({
         type: FETCH_ALL_POKEMON,
         payload: data,

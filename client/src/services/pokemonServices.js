@@ -42,9 +42,10 @@ export const fetchAllPokemonService = async () => {
     throw new Error(response.data.error);
   }
 };
-export const fetchAllPokemonbySeasonService = async (season) => {
+export const fetchAllPokemonbySeasonService = async (limit, offset ) => {
   try {
-    const response = await axios.get(`http://localhost:3001/poke/season/?season=${season}`);
+
+    const response = await axios.get(`http://localhost:3001/poke/season/?limit=${limit}&offset=${offset}`);
     return response;
   } catch ({ response }) {
     throw new Error(response.data.error);

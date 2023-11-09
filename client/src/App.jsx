@@ -15,6 +15,8 @@ import { season1 } from "./utils/Seasons";
 import "./App.css";
 
 function App() {
+  const {limit, offset} = season1
+  
   const dispatch = useDispatch();
   const alltypes = useSelector((state) => state.alltypes);
   let location = useLocation();
@@ -27,7 +29,8 @@ function App() {
 
   useEffect(() => {
     try {
-      if (allPokemons.length < 1) dispatch(fetchAllPokemonbySeason(251));
+      dispatch(fetchAllPokemonTypes())
+      if (allPokemons.length < 1) dispatch(fetchAllPokemonbySeason(limit, offset));
     } catch (error) {
       throw new Error(error);
     }
@@ -48,7 +51,7 @@ function App() {
               />
             }
           />
-          <Route path="/detail/:id" element={<DetailPage />} />
+          <Route path="/detail/:id" element={<DetailPage limit = { limit }  offset = {offset} />}  />
           <Route path="/createnewpokemon" element={<CreatePage />} />
           {/* <Route path="" element='' />*/}
         </Routes>

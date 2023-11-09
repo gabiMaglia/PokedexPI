@@ -14,12 +14,13 @@ const getAllPokemonsHandler = async (req, res) => {
   }
 };
 const getAllPokemonsBySeasonHandler = async (req, res) => {
-  console.log("llego")
+  console.log("llego");
   try {
-    const sesion = req.query.season
-    
-    console.log(sesion)
-    const newPokemonList = await getAllPokemons(sesion);
+    const limit = req.query.limit;
+    const offset = req.query.offset;
+    console.log(limit,offset)
+   
+    const newPokemonList = await getAllPokemons(limit,offset);
     return res.status(200).json(newPokemonList);
   } catch (error) {
     return res.status(500).json({ error: error.message });
