@@ -1,8 +1,9 @@
 const axios = require("axios");
 
-const getAllPokemonsFromApi = async () => {
+const getAllPokemonsFromApi = async (limit) => {
+ console.log(limit)
   const pokemons = await axios
-    .get(`${process.env.API_DIR}/pokemon/?limit=9`)
+    .get(`${process.env.API_DIR}/pokemon/?limit=${limit}`)
     .then((response) => {
       return response.data;
     })

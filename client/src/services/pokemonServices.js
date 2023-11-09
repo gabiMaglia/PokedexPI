@@ -42,6 +42,14 @@ export const fetchAllPokemonService = async () => {
     throw new Error(response.data.error);
   }
 };
+export const fetchAllPokemonbySeasonService = async (season) => {
+  try {
+    const response = await axios.get(`http://localhost:3001/poke/season/?season=${season}`);
+    return response;
+  } catch ({ response }) {
+    throw new Error(response.data.error);
+  }
+};
 export const fetchAllPokemonTypeService = async () => {
   try {
     const response = await axios.get(

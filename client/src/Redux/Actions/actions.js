@@ -2,7 +2,8 @@ import { FETCH_POKEMON, FETCH_ALL_POKEMON, FETCH_ALL_POKEMON_TYPE } from "./acti
 import {
     fetchPokemonService,
     fetchAllPokemonService,
-    fetchAllPokemonTypeService
+    fetchAllPokemonTypeService,
+    fetchAllPokemonbySeasonService
 } from "../../services/pokemonServices";
 
 export const fetchPokemon = (name) => {
@@ -18,6 +19,16 @@ export const fetchPokemon = (name) => {
 export const fetchAllPokemon = () => {
   return (dispatch) => {
     fetchAllPokemonService().then(({data}) => {
+      return dispatch({
+        type: FETCH_ALL_POKEMON,
+        payload: data,
+      });
+    });
+  };
+};
+export const fetchAllPokemonbySeason = (season) => {
+  return (dispatch) => {
+    fetchAllPokemonbySeasonService(season).then(({data}) => {
       return dispatch({
         type: FETCH_ALL_POKEMON,
         payload: data,

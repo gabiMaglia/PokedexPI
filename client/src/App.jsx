@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
-import { fetchAllPokemonTypes } from "./Redux/Actions/actions";
+import { fetchAllPokemonTypes, fetchAllPokemon, fetchAllPokemonbySeason } from "./Redux/Actions/actions";
 
 import { useDispatch, useSelector } from "react-redux";
 
@@ -10,6 +10,8 @@ import HomePage from "./views/home/HomePage";
 import CreatePage from "./views/create/CreatePage";
 import DetailPage from "./views/detail/DetailPage";
 import LandingPage from "./views/landingPage/LandingPage";
+
+import { season1 } from "./utils/Seasons";
 import "./App.css";
 
 function App() {
@@ -17,17 +19,19 @@ function App() {
   const alltypes = useSelector((state) => state.alltypes);
   let location = useLocation();
   const navigate = useNavigate();
-
   const detailHandler = (id) => {
     navigate(`/detail/${id}`);
   };
 
+  const allPokemons = useSelector((state) => state.allPokemons);
+
   useEffect(() => {
     try {
+      if (allPokemons.length < 1) dispatch(fetchAllPokemonbySeason(251));
     } catch (error) {
       throw new Error(error);
     }
-  }, [dispatch]);
+  }, [dispatch, allPokemons]);
 
   return (
     <div className="App">
@@ -37,7 +41,12 @@ function App() {
           <Route path="/" element={<LandingPage />} />
           <Route
             path="/home"
-            element={<HomePage detailHandler={detailHandler} />}
+            element={
+              <HomePage
+                detailHandler={detailHandler}
+                allPokemons={allPokemons}
+              />
+            }
           />
           <Route path="/detail/:id" element={<DetailPage />} />
           <Route path="/createnewpokemon" element={<CreatePage />} />

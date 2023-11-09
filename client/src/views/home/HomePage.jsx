@@ -1,30 +1,10 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
 import CardBoard from "../../components/CardBoard/CardBoard.componenet";
-import {
-  fetchAllPokemonTypes,
-  fetchAllPokemon,
-} from "../../Redux/Actions/actions";
+
 
 import styles from "./home.module.css";
-const HomePage = ({ detailHandler }) => {
-  const [loading, setLoading] = useState(true);
-
-  const dispatch = useDispatch();
-
-  const allPokemons = useSelector((state) => state.allPokemons);
-
-  useEffect(() => {
-    try {
-      setLoading(true);
-      if (allPokemons.length < 1) dispatch(fetchAllPokemon());
-      if (allPokemons.length > 1) {
-        setLoading(false);
-      }
-    } catch (error) {
-      throw new Error(error);
-    }
-  }, [dispatch, allPokemons]);
+const HomePage = ({ detailHandler, allPokemons }) => {
+  const [loading, setLoading] = useState(false);
 
   return (
     <section className={styles.homeContainer}>

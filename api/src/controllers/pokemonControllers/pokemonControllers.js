@@ -22,13 +22,13 @@ const {
 //   return arrayOfNames
 // }
 
-const getAllPokemons = async () => {
+const getAllPokemons = async (limit = 150) => {
   const dbPokemons = await Pokemon.findAll({
     include: [PokemonStatPoints, PokemonAbilities, PokemonTypes],
   });
   //  pedimos todos los pokemons a la api y hacemos destructuring para quedarnos con el objeto
   // results donde se encuentra el nombre y la url
-  const { results } = await getAllPokemonsFromApi();
+  const { results } = await getAllPokemonsFromApi(limit);
   // usamos el metodo all del objeto promise para manejar multiples llamados a la api
   // de manera simultanea para obtener en base al id de cada pokemon el detalle de cada uno,
   // use id porque demora la mitad que la busqueda por nombre de la misma manera que use
