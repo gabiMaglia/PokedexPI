@@ -37,11 +37,11 @@ const rootReducer = (state = initialState, { type, payload }) => {
       return { ...state };
     case NEXT_PAGE:
       firstIndex =+ ITEMS_PER_PAGE
-      return { ...state,  currentPage : state.currentPage + 1,  allPokemons: payload.allPokemons.splice(firstIndex, ITEMS_PER_PAGE) };
+      return { ...state,  currentPage : state.currentPage + 1,  allPokemons: payload.allPokemonsBackup.splice(firstIndex, ITEMS_PER_PAGE) };
       case PREV_PAGE:
         firstIndex =- ITEMS_PER_PAGE
-        return { ...state,  currentPage : state.currentPage - 1,  allPokemons: payload.allPokemons.splice(firstIndex, ITEMS_PER_PAGE) };
-    case "CLEAR_FAVORITE":
+        return { ...state,  currentPage : state.currentPage - 1,  allPokemons: payload.allPokemonsBackup.splice(firstIndex, ITEMS_PER_PAGE) };
+    case "POST_NEW_POKEMON":
       return { ...state, myFavorites: payload, allPokemons: payload };
     case "FILTER":
       return {
