@@ -1,9 +1,15 @@
-import { FETCH_POKEMON, FETCH_ALL_POKEMON, FETCH_ALL_POKEMON_TYPE, PREV_PAGE, NEXT_PAGE } from "./action-types";
 import {
-    fetchPokemonService,
-    fetchAllPokemonService,
-    fetchAllPokemonTypeService,
-    fetchAllPokemonbySeasonService
+  FETCH_POKEMON,
+  FETCH_ALL_POKEMON,
+  FETCH_ALL_POKEMON_TYPE,
+  PREV_PAGE,
+  NEXT_PAGE,
+} from "./action-types";
+import {
+  fetchPokemonService,
+  fetchAllPokemonService,
+  fetchAllPokemonTypeService,
+  fetchAllPokemonbySeasonService,
 } from "../../services/pokemonServices";
 
 export const fetchPokemon = (name) => {
@@ -18,7 +24,7 @@ export const fetchPokemon = (name) => {
 };
 export const fetchAllPokemon = () => {
   return (dispatch) => {
-    fetchAllPokemonService().then(({data}) => {
+    fetchAllPokemonService().then(({ data }) => {
       return dispatch({
         type: FETCH_ALL_POKEMON,
         payload: data,
@@ -28,7 +34,7 @@ export const fetchAllPokemon = () => {
 };
 export const fetchAllPokemonbySeason = (limit, offset) => {
   return (dispatch) => {
-    fetchAllPokemonbySeasonService(limit, offset).then(({data}) => {
+    fetchAllPokemonbySeasonService(limit, offset).then(({ data }) => {
       return dispatch({
         type: FETCH_ALL_POKEMON,
         payload: data,
@@ -47,14 +53,16 @@ export const fetchAllPokemonTypes = () => {
   };
 };
 export const prevPage = () => {
-      return dispatch({
-        type: PREV_PAGE,    
-      });
+  return (dispatch) => {
+    return dispatch({
+      type: PREV_PAGE,
+    });
+  };
 };
 export const nextPage = () => {
-      return dispatch({
-        type: NEXT_PAGE,
-      });
+  return (dispatch) => {
+    return dispatch({
+      type: NEXT_PAGE,
+    });
+  };
 };
-
-

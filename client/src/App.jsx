@@ -47,11 +47,10 @@ function App() {
             element={
               <HomePage
                 detailHandler={detailHandler}
-                allPokemons={allPokemons}
               />
             }
           />
-          <Route path="/detail/:id" element={<DetailPage limit = { limit }  offset = {offset} />}  />
+          <Route path="/detail/:id" element={<DetailPage/>}  />
           <Route path="/createnewpokemon" element={<CreatePage />} />
           {/* <Route path="" element='' />*/}
         </Routes>

@@ -1,22 +1,31 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Card from "../Card/Card.componenet";
 import styles from "./cardBoard.module.css";
+import { nextPage, prevPage } from "../../Redux/Actions/actions";
 
 
-const CardBoard = ({ allPokemons, detailHandler }) => {
-
+const CardBoard = ({  detailHandler }) => {
+  const dispatch = useDispatch()
   const currentPage = useSelector(state => state.currentPage)
- 
+  const allPokemons = useSelector(state => state.allPokemons)
+
+  const handleNextPage = () => {
+    dispatch(nextPage())
+  }
+  
+  const handlePrevPage = () => {
+    dispatch(prevPage())
+  }
+
   return (
     <div className={styles.cardList}>
       <div className="pageSelector">
-        <button>PREV</button>
-        <span className="currentPage">{currentPage}</span>
-        <button>NEXT</button>
+        <button onClick={handlePrevPage}>PREV</button>
+        <span className="currentPage">{currentPage + 1}</span>
+        <button onClick={(handleNextPage)}>NEXT</button>
       </div>
 
       {allPokemons?.map((pokemon, key) => {
-        //  console.log(pokemon)
         return (
           <Card key={key} pokemon={pokemon} detailHandler={detailHandler} />
         );

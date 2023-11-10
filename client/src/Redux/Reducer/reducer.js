@@ -3,8 +3,7 @@ import {
   FETCH_ALL_POKEMON,
   FETCH_ALL_POKEMON_TYPE,
   NEXT_PAGE,
-  PREV_PAGE
-
+  PREV_PAGE,
 } from "../Actions/action-types";
 
 const initialState = {
@@ -17,14 +16,20 @@ const initialState = {
 };
 
 const rootReducer = (state = initialState, { type, payload }) => {
-  const ITEMS_PER_PAGE = 12
-  let firstIndex = 0
-  let lasttIndex = state.allPokemons.length
+  const ITEMS_PER_PAGE = 12;
 
+  let lasttIndex = state.allPokemonsBackup.length;
+  const totalPages = Math.ceil(lasttIndex / ITEMS_PER_PAGE) ;
+  console.log(lasttIndex);
+  console.log(totalPages);
 
   switch (type) {
     case FETCH_ALL_POKEMON:
-      return { ...state, allPokemonsBackup: payload.allPokemons , allPokemons: payload.allPokemons.slice(0, ITEMS_PER_PAGE) };
+      return {
+        ...state,
+        allPokemonsBackup: payload.allPokemons,
+        allPokemons: payload.allPokemons.slice(0, ITEMS_PER_PAGE),
+      };
     case FETCH_ALL_POKEMON_TYPE:
       return { ...state, allTypes: payload };
     case FETCH_POKEMON:
@@ -36,11 +41,47 @@ const rootReducer = (state = initialState, { type, payload }) => {
       }
       return { ...state };
     case NEXT_PAGE:
-      firstIndex =+ ITEMS_PER_PAGE
-      return { ...state,  currentPage : state.currentPage + 1,  allPokemons: payload.allPokemonsBackup.splice(firstIndex, ITEMS_PER_PAGE) };
-      case PREV_PAGE:
-        firstIndex =- ITEMS_PER_PAGE
-        return { ...state,  currentPage : state.currentPage - 1,  allPokemons: payload.allPokemonsBackup.splice(firstIndex, ITEMS_PER_PAGE) };
+      const nextPage = state.currentPage + 1;
+      if (nextPage >= 13) {
+        const startIndex = 0;
+        const endIndex = ITEMS_PER_PAGE;
+        return {
+          ...state,
+          currentPage: 0,
+          allPokemons: state.allPokemonsBackup.slice(startIndex, endIndex),
+        };
+      } else {
+        const startIndex = nextPage * ITEMS_PER_PAGE;
+        const endIndex = startIndex + ITEMS_PER_PAGE;
+
+        return {
+          ...state,
+          currentPage: nextPage,
+          allPokemons: state.allPokemonsBackup.slice(startIndex, endIndex),
+        };
+      }
+
+    case PREV_PAGE:
+      const prevPage = state.currentPage - 1;
+      if (prevPage >= 0) {
+        const startIndex = prevPage * ITEMS_PER_PAGE;
+        const endIndex = startIndex + ITEMS_PER_PAGE;
+        return {
+          ...state,
+          currentPage: state.currentPage - 1,
+          allPokemons: state.allPokemonsBackup.slice(startIndex, endIndex),
+        };
+      } else {
+        const lastPage = totalPages - 1;
+        const startIndex = lastPage * ITEMS_PER_PAGE;
+        const endIndex = startIndex + ITEMS_PER_PAGE;
+        return {
+          ...state,
+          currentPage: lastPage,
+          allPokemons: state.allPokemonsBackup.slice(startIndex, endIndex),
+        };
+      }
+
     case "POST_NEW_POKEMON":
       return { ...state, myFavorites: payload, allPokemons: payload };
     case "FILTER":
@@ -60,7 +101,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
       };
     case "PAGINATE":
       //Definir el first index
-      
+
       //Casos de corte
 
       //Guardar el estado

@@ -4,61 +4,52 @@ import { useParams, useNavigate } from "react-router-dom";
 import styles from "./detail.module.css";
 import { useSelector } from "react-redux";
 
-const DetailPage = ({ limit, offset }) => {
+const DetailPage = () => {
   const { id } = useParams();
   const [pokemon, setPokemon] = useState();
   const navigate = useNavigate();
-  
+
   useEffect(() => {
     setPokemon(pokemonToShow);
     return () => {
       setPokemon("");
     };
   }, [id]);
-  
-  const pokemonsToslide = useSelector (state => state.allPokemonsBackup)
-  
+
+  const pokemonsToslide = useSelector((state) => state.allPokemonsBackup);
+
   const pokemonToShow = useSelector((state) =>
-  state.allPokemonsBackup.find((pokemon) =>
-  !isNaN(id)
-  ? pokemon.pokemon_id === Number(id)
-  : pokemon.pokemon_name === id
-  )
+    state.allPokemonsBackup.find((pokemon) =>
+      !isNaN(id)
+        ? pokemon.pokemon_id === Number(id)
+        : pokemon.pokemon_name === id
+    )
   );
-  
-  const currentIndex = pokemonsToslide.indexOf(pokemon)
-  console.log(currentIndex)
-  const pokemonToSlideLength = pokemonsToslide.length
-  // console.log(Number(pokemonsToslide[pokemonToSlideLength - 1].pokemon_id))
 
-  
-  const handleNextPrevDetail = (action) => {
-    switch (action) {
-      case "prev":
-        if (currentIndex === 0) navigate(`/detail/${Number(pokemonsToslide[pokemonToSlideLength - 1].pokemon_id)}`);
-        // if ((pokemonsToslide[currentIndex -1]) &&  isNaN(Number(pokemonsToslide[currentIndex -1].pokemon_id)))  navigate(`/detail/${pokemonsToslide[currentIndex - 1].pokemon_name}`);
-        else  navigate(`/detail/${pokemonsToslide[currentIndex - 1].pokemon_id}`)
-        
+  const currentIndex = pokemonsToslide.indexOf(pokemon);
+  const pokemonToSlideLength = pokemonsToslide.length;
 
-      // if (Number(id) - 1 > 0) navigate(`/detail/${Number(id) - 1}`);
-      //   else navigate(`/detail/${limit}`);
-        break;
-      case "next":
-        // if (pokemonsToslide[currentIndex + 1].pokemon_id !== limit && !isNaN(pokemonsToslide[currentIndex + 1].pokemon_id)) navigate(`/detail/${pokemonsToslide[0].name}`);
-        if (pokemonsToslide[currentIndex].pokemon_id == limit && !isNaN(pokemonsToslide[0].pokemon_id)) navigate(`/detail/${pokemonsToslide[0].pokemon_id}`);
-        // if (pokemonsToslide[currentIndex].pokemon_id == limit && !isNaN(pokemonsToslide[currentIndex + 1].pokemon_id)) navigate(`/detail/${pokemonsToslide[0].pokemon_name}`);
-        else navigate(`/detail/${pokemonsToslide[currentIndex + 1].pokemon_id}`)
-        
-        // if (Number(id) + 1 < `${limit + 1}`)
-        //   navigate(`/detail/${Number(id) + 1}`);
-        // else navigate(`/detail/${offset + 1}`);
-        break;
-      default:
-        break;
-    }
+  const handlePrevDetail = () => {
+    if (currentIndex === 0)
+      navigate(
+        `/detail/${Number(
+          pokemonsToslide[pokemonToSlideLength - 1].pokemon_id
+        )}`
+      );
+    // if ((pokemonsToslide[currentIndex -1]) &&  isNaN(Number(pokemonsToslide[currentIndex -1].pokemon_id)))  navigate(`/detail/${pokemonsToslide[currentIndex - 1].pokemon_name}`);
+    else navigate(`/detail/${pokemonsToslide[currentIndex - 1].pokemon_id}`);
   };
 
-
+  const handleNextDetail = () => {
+    if (
+      pokemonsToslide[currentIndex] ==
+        pokemonsToslide[pokemonToSlideLength - 1] &&
+      !isNaN(pokemonsToslide[0].pokemon_id)
+    )
+      navigate(`/detail/${pokemonsToslide[0].pokemon_id}`);
+    // if (pokemonsToslide[currentIndex] == pokemonsToslide[pokemonToSlideLength - 1] && isNaN(pokemonsToslide[0].pokemon_id)) navigate(`/detail/${pokemonsToslide[0].pokemon_name}`);
+    else navigate(`/detail/${pokemonsToslide[currentIndex + 1].pokemon_id}`);
+  };
 
   return (
     <div>
@@ -70,14 +61,14 @@ const DetailPage = ({ limit, offset }) => {
         <>
           <button
             onClick={() => {
-              handleNextPrevDetail("prev");
+              handlePrevDetail();
             }}
           >
             Prev
           </button>
           <button
             onClick={() => {
-              handleNextPrevDetail("next");
+              handleNextDetail();
             }}
           >
             Next
