@@ -16,21 +16,23 @@ import "./App.css";
 
 function App() {
   const {limit, offset} = season1
-  
   const dispatch = useDispatch();
-  const alltypes = useSelector((state) => state.alltypes);
+  
+  const allPokemons = useSelector((state) => state.allPokemonsToShow);
+  const entireListBackup = useSelector((state) => state.AllPokemonBackupList);
+  const allTypes = useSelector((state) => state.allTypes);
+
   let location = useLocation();
   const navigate = useNavigate();
+
   const detailHandler = (id) => {
     navigate(`/detail/${id}`);
   };
 
-  const allPokemons = useSelector((state) => state.allPokemons);
-
   useEffect(() => {
     try {
-      dispatch(fetchAllPokemonTypes())
-      if (allPokemons.length < 1) dispatch(fetchAllPokemonbySeason(limit, offset));
+      if (allTypes.length < 1) dispatch(fetchAllPokemonTypes())
+      if (allPokemons.length < 1 && entireListBackup.length < 1) dispatch(fetchAllPokemonbySeason(limit, offset));
     } catch (error) {
       throw new Error(error);
     }

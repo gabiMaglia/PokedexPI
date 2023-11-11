@@ -4,6 +4,9 @@ import {
   FETCH_ALL_POKEMON_TYPE,
   PREV_PAGE,
   NEXT_PAGE,
+  TYPE_FILTER,
+  ORIGIN_FILTER,
+  SORT_ORDER_FILTER
 } from "./action-types";
 import {
   fetchPokemonService,
@@ -52,6 +55,8 @@ export const fetchAllPokemonTypes = () => {
     });
   };
 };
+
+// PAGINADO
 export const prevPage = () => {
   return (dispatch) => {
     return dispatch({
@@ -63,6 +68,35 @@ export const nextPage = () => {
   return (dispatch) => {
     return dispatch({
       type: NEXT_PAGE,
+    });
+  };
+};
+
+
+// FILTRADO
+
+export const typeFilter = (data) => {
+  return (dispatch) => {
+    return dispatch({
+      type: TYPE_FILTER,
+      payload: data,
+    });
+  };
+};
+export const originFilter = (data) => {
+  return (dispatch) => {
+    return dispatch({
+      type: ORIGIN_FILTER,
+      payload: data,
+    });
+  };
+};
+
+export const sortAndOrderFilter = (data) => {
+  return (dispatch) => {
+    return dispatch({
+      type: SORT_ORDER_FILTER,
+      payload: data,
     });
   };
 };

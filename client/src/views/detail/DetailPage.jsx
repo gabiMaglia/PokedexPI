@@ -16,10 +16,10 @@ const DetailPage = () => {
     };
   }, [id]);
 
-  const pokemonsToslide = useSelector((state) => state.allPokemonsBackup);
+  const pokemonsToslide = useSelector((state) => state.allPokemonList);
 
   const pokemonToShow = useSelector((state) =>
-    state.allPokemonsBackup.find((pokemon) =>
+    state.AllPokemonBackupList.find((pokemon) =>
       !isNaN(id)
         ? pokemon.pokemon_id === Number(id)
         : pokemon.pokemon_name === id

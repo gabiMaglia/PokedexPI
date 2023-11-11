@@ -4,40 +4,54 @@ import {
   FETCH_ALL_POKEMON_TYPE,
   NEXT_PAGE,
   PREV_PAGE,
+  TYPE_FILTER,
+  ORIGIN_FILTER,
+  SORT_ORDER_FILTER,
 } from "../Actions/action-types";
 
 const initialState = {
-  myFavorites: [],
-  allPokemons: [],
-  allPokemonsBackup: [],
+  allPokemonsToShow: [],
+  allPokemonList: [],
+  AllPokemonBackupList: [],
   allTypes: [],
   detailPokemon: [],
   currentPage: 0,
+  totalPages: 0,
+  filterSetUp: {
+    origin: "both",
+    type: "all",
+    order: "A-Z",
+    sortBy: "pokemon_id",
+  },
 };
 
 const rootReducer = (state = initialState, { type, payload }) => {
   const ITEMS_PER_PAGE = 12;
-
-  let lasttIndex = state.allPokemonsBackup.length;
-  const totalPages = Math.ceil(lasttIndex / ITEMS_PER_PAGE) ;
-  console.log(lasttIndex);
-  console.log(totalPages);
-
   switch (type) {
     case FETCH_ALL_POKEMON:
       return {
         ...state,
-        allPokemonsBackup: payload.allPokemons,
-        allPokemons: payload.allPokemons.slice(0, ITEMS_PER_PAGE),
+        allPokemonList: payload.allPokemons,
+        AllPokemonBackupList: payload.allPokemons,
+        totalPages: Math.ceil(payload.allPokemons.length / 12),
+        allPokemonsToShow: payload.allPokemons.slice(0, ITEMS_PER_PAGE),
       };
     case FETCH_ALL_POKEMON_TYPE:
       return { ...state, allTypes: payload };
     case FETCH_POKEMON:
-      const isDuplicated = state.allPokemons.some((e) => {
+      const isDuplicated = state.allPokemonList.some((e) => {
         return Number(e.pokemon_id) === Number(payload.pokemon_id);
       });
       if (!isDuplicated) {
-        return { ...state, allPokemons: [...state.allPokemons, payload] };
+        return {
+          ...state,
+          allPokemonList: [payload, ...state.allPokemonList],
+          AllPokemonBackupList: [payload, ...state.allPokemonList],
+          allPokemonsToShow: [
+            payload,
+            ...state.allPokemonList.slice(0, ITEMS_PER_PAGE),
+          ],
+        };
       }
       return { ...state };
     case NEXT_PAGE:
@@ -48,7 +62,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
         return {
           ...state,
           currentPage: 0,
-          allPokemons: state.allPokemonsBackup.slice(startIndex, endIndex),
+          allPokemonsToShow: state.allPokemonList.slice(startIndex, endIndex),
         };
       } else {
         const startIndex = nextPage * ITEMS_PER_PAGE;
@@ -57,10 +71,9 @@ const rootReducer = (state = initialState, { type, payload }) => {
         return {
           ...state,
           currentPage: nextPage,
-          allPokemons: state.allPokemonsBackup.slice(startIndex, endIndex),
+          allPokemonsToShow: state.allPokemonList.slice(startIndex, endIndex),
         };
       }
-
     case PREV_PAGE:
       const prevPage = state.currentPage - 1;
       if (prevPage >= 0) {
@@ -69,43 +82,100 @@ const rootReducer = (state = initialState, { type, payload }) => {
         return {
           ...state,
           currentPage: state.currentPage - 1,
-          allPokemons: state.allPokemonsBackup.slice(startIndex, endIndex),
+          allPokemonsToShow: state.allPokemonList.slice(startIndex, endIndex),
         };
       } else {
-        const lastPage = totalPages - 1;
+        const lastPage = state.totalPages - 1;
         const startIndex = lastPage * ITEMS_PER_PAGE;
         const endIndex = startIndex + ITEMS_PER_PAGE;
         return {
           ...state,
           currentPage: lastPage,
-          allPokemons: state.allPokemonsBackup.slice(startIndex, endIndex),
+          allPokemonsToShow: state.allPokemonList.slice(startIndex, endIndex),
         };
       }
-
-    case "POST_NEW_POKEMON":
-      return { ...state, myFavorites: payload, allPokemons: payload };
-    case "FILTER":
+    case ORIGIN_FILTER:
+      let originFilteredArr = [];
+      if (payload === "both") originFilteredArr = state.AllPokemonBackupList;
+      if (payload === "local")
+        originFilteredArr = state.AllPokemonBackupList.filter(
+          (e) => e.pokemon_isLocal === true
+        );
+      if (payload === "api")
+        originFilteredArr = state.AllPokemonBackupList.filter(
+          (e) => !isNaN(Number(e.pokemon_id))
+        );
       return {
         ...state,
-        myFavorites:
-          payload === "All"
-            ? state.allPokemons
-            : state.allPokemons.filter((e) => e.gender === payload),
+        currentPage: 0,
+        allPokemonList: originFilteredArr,
+        filterSetUp: { ...state.filterSetUp, origin: payload },
+        allPokemonsToShow: originFilteredArr.slice(0, ITEMS_PER_PAGE),
       };
-    case "ORDER":
+    case TYPE_FILTER:
+      let typeFilteredArr = [];
+      let typeFilteredArrBackup = state.AllPokemonBackupList;
+      if (payload === "all") typeFilteredArr = typeFilteredArrBackup;
+      else
+        typeFilteredArr = state.AllPokemonBackupList.filter((e) => {
+          return e.PokemonTypes.some((e) => e.nombre_type === payload);
+        });
+
       return {
         ...state,
-        myFavorites: state.allPokemons.sort((a, b) => {
-          return payload === "A" ? a.id - b.id : b.id - a.id;
-        }),
+        currentPage: 0,
+        allPokemonList: typeFilteredArr,
+        filterSetUp: { ...state.filterSetUp, type: payload },
+        allPokemonsToShow: typeFilteredArr.slice(0, ITEMS_PER_PAGE),
       };
-    case "PAGINATE":
-      //Definir el first index
+    case SORT_ORDER_FILTER:
+      let orderState = [];
+      if (payload.atribute === "pokemon_id") {
+        if (payload.order === "A-Z")
+          orderState = state.allPokemonList.sort((a, b) => {
+            const aValue = a[payload.atribute];
+            const bValue = b[payload.atribute];
+            
+            return aValue - bValue;
+          });
+        if (payload.order === "Z-A") {
+          orderState = state.allPokemonList.sort((a, b) => {
+            const aValue = a[payload.atribute];
+            const bValue = b[payload.atribute];
 
-      //Casos de corte
+            return bValue - aValue;
+          });
+        }
+      } else {
+        if (payload.order === "A-Z")
+          orderState = state.allPokemonList.sort((a, b) => {
+            const aValue = a.PokemonStatPoint[payload.atribute];
+            const bValue = b.PokemonStatPoint[payload.atribute];
 
-      //Guardar el estado
-      return;
+            return aValue - bValue;
+          });
+
+        if (payload.order === "Z-A") {
+          orderState = state.allPokemonList.sort((a, b) => {
+            const aValue = a.PokemonStatPoint[payload.atribute];
+            const bValue = b.PokemonStatPoint[payload.atribute];
+
+            return bValue - aValue;
+          });
+        }
+      }
+      return {
+        ...state,
+        currentPage: 0,
+        allPokemonList: orderState,
+        filterSetUp: {
+          ...state.filterSetUp,
+          order: payload.order,
+          atribute: payload.atribute,
+        },
+        allPokemonsToShow: orderState.slice(0, ITEMS_PER_PAGE),
+      };
+
     default:
       return { ...state };
   }
