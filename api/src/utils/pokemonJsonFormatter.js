@@ -22,12 +22,13 @@ const pokemonJsonFormatter = async (data) => {
     });
   });
 
+  console.log(data.sprites.other)
   const newPokemon = {
     pokemon_id: id,
     pokemon_name: name,
     pokemon_height: height,
     pokemon_weight: weight,
-    pokemon_image: data.sprites.back_default,
+    pokemon_image: data.sprites.other['dream_world'].front_default,
     pokemon_basexp: base_experience,
     PokemonStatPoint: statList,
     PokemonAbilities: abilitiesList,

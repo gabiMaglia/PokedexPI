@@ -6,7 +6,7 @@ import {
   NEXT_PAGE,
   TYPE_FILTER,
   ORIGIN_FILTER,
-  SORT_ORDER_FILTER
+  SORT_ORDER_FILTER,
 } from "./action-types";
 import {
   fetchPokemonService,
@@ -71,7 +71,6 @@ export const nextPage = () => {
     });
   };
 };
-
 
 // FILTRADO
 
