@@ -56,7 +56,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
       return { ...state };
     case NEXT_PAGE:
       const nextPage = state.currentPage + 1;
-      if (nextPage >= 13) {
+      if (nextPage >= state.totalPages) {
         const startIndex = 0;
         const endIndex = ITEMS_PER_PAGE;
         return {
@@ -110,6 +110,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
         currentPage: 0,
         allPokemonList: originFilteredArr,
         filterSetUp: { ...state.filterSetUp, origin: payload },
+        totalPages: Math.ceil(originFilteredArr.length / 12),
         allPokemonsToShow: originFilteredArr.slice(0, ITEMS_PER_PAGE),
       };
     case TYPE_FILTER:
@@ -126,6 +127,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
         currentPage: 0,
         allPokemonList: typeFilteredArr,
         filterSetUp: { ...state.filterSetUp, type: payload },
+        totalPages: Math.ceil(typeFilteredArr.length / 12),
         allPokemonsToShow: typeFilteredArr.slice(0, ITEMS_PER_PAGE),
       };
     case SORT_ORDER_FILTER:
@@ -135,7 +137,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
           orderState = state.allPokemonList.sort((a, b) => {
             const aValue = a[payload.atribute];
             const bValue = b[payload.atribute];
-            
+
             return aValue - bValue;
           });
         if (payload.order === "Z-A") {
@@ -168,6 +170,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
         ...state,
         currentPage: 0,
         allPokemonList: orderState,
+        totalPages: Math.ceil(orderState.length / 12),
         filterSetUp: {
           ...state.filterSetUp,
           order: payload.order,

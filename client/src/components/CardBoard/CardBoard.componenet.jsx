@@ -102,7 +102,7 @@ const CardBoard = ({ detailHandler }) => {
         </select>
         <label htmlFor="byWhatFilter">SortedBy</label>
         <select
-          name="sortedBy"
+          name="sortBy"
           value={filters.sortBy}
           id="byWhatFilter"
           onChange={handleSortFilterChange}
