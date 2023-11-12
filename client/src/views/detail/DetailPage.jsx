@@ -20,35 +20,26 @@ const DetailPage = () => {
 
   const pokemonToShow = useSelector((state) =>
     state.AllPokemonBackupList.find((pokemon) =>
-      !isNaN(id)
+      !isNaN(Number(id))
         ? pokemon.pokemon_id === Number(id)
-        : pokemon.pokemon_name === id
+        : pokemon.pokemon_id === id
     )
   );
-
   const currentIndex = pokemonsToslide.indexOf(pokemon);
   const pokemonToSlideLength = pokemonsToslide.length;
 
   const handlePrevDetail = () => {
     if (currentIndex === 0)
       navigate(
-        `/detail/${Number(
-          pokemonsToslide[pokemonToSlideLength - 1].pokemon_id
-        )}`
+        `/detail/${pokemonsToslide[pokemonToSlideLength - 1].pokemon_id}`
       );
-    // if ((pokemonsToslide[currentIndex -1]) &&  isNaN(Number(pokemonsToslide[currentIndex -1].pokemon_id)))  navigate(`/detail/${pokemonsToslide[currentIndex - 1].pokemon_name}`);
     else navigate(`/detail/${pokemonsToslide[currentIndex - 1].pokemon_id}`);
   };
 
   const handleNextDetail = () => {
-    if (
-      pokemonsToslide[currentIndex] ==
-        pokemonsToslide[pokemonToSlideLength - 1] &&
-      !isNaN(pokemonsToslide[0].pokemon_id)
-    )
+    if (currentIndex === pokemonToSlideLength - 1)
       navigate(`/detail/${pokemonsToslide[0].pokemon_id}`);
-    // if (pokemonsToslide[currentIndex] == pokemonsToslide[pokemonToSlideLength - 1] && isNaN(pokemonsToslide[0].pokemon_id)) navigate(`/detail/${pokemonsToslide[0].pokemon_name}`);
-    else navigate(`/detail/${pokemonsToslide[currentIndex + 1].pokemon_id}`);
+    navigate(`/detail/${pokemonsToslide[currentIndex + 1].pokemon_id}`);
   };
 
   return (
@@ -85,7 +76,7 @@ const DetailPage = () => {
               <label htmlFor="ataque">Ataque:</label>
               <p>{pokemon?.PokemonStatPoint.attack}</p>
               <label htmlFor="defensa">Defensa:</label>
-              <p>{pokemon?.PokemonStatPoint.defence}</p>
+              <p>{pokemon?.PokemonStatPoint.defense}</p>
               <label htmlFor="vida">Ataque Especial:</label>
               <p>{pokemon?.PokemonStatPoint.special_attack}</p>
               <label htmlFor="vida">Defensa Especial:</label>
