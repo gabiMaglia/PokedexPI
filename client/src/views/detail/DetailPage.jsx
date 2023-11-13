@@ -10,7 +10,8 @@ const DetailPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    setPokemon(pokemonToShow);
+    setPokemon(pokemonToShow );
+    
     return () => {
       setPokemon("");
     };
@@ -97,6 +98,7 @@ const DetailPage = () => {
             </div>
             <div className={styles.abilities}>
               {pokemon?.PokemonAbilities.map((e, key) => {
+            
                 return <p key={key}> {e.abilitie_name} </p>;
               })}
             </div>
