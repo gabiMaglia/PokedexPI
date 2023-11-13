@@ -11,7 +11,6 @@ const DetailPage = () => {
 
   useEffect(() => {
     setPokemon(pokemonToShow );
-    
     return () => {
       setPokemon("");
     };
