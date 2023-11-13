@@ -41,7 +41,7 @@ const getAllPokemons = async (offset, limit) => {
     })
   );
 
-  const allPokemons = dbPokemons.concat(completeData) 
+  const allPokemons = dbPokemons.concat(completeData);
 
   return { allPokemons };
 };
@@ -64,21 +64,19 @@ const getPokemonByName = async (name) => {
   });
   if (!pokemon) {
     const pokemon = await getPokemonFromApiByName(name);
-    console.log('estoy' )
-    return pokemon &&  pokemonJsonFormatter(pokemon);
-    
+    console.log("estoy");
+    return pokemon && pokemonJsonFormatter(pokemon);
   }
   return pokemon;
 };
 
-const postNewPokemonToDb = async (data) => {
-  
+const postNewPokemonToDb = async ({data}) => {
+ console.log(data)
   const {
     pokemon_name,
     pokemon_height,
     pokemon_weight,
     pokemon_image,
-    pokemon_basexp,
   } = data;
 
   const newPokemon = await Pokemon.create({
@@ -86,7 +84,6 @@ const postNewPokemonToDb = async (data) => {
     pokemon_height,
     pokemon_weight,
     pokemon_image,
-    pokemon_basexp,
   });
 
   const newPokemonStatPoints = await createNewPokemonBaseStatus(
@@ -96,7 +93,7 @@ const postNewPokemonToDb = async (data) => {
 
   const newPokemonAbilities = await createNewPokemonAbilities(
     PokemonAbilities,
-    data.PokemonAbilities
+    Object.values(data.PokemonAbilities)
   );
 
   const newPokemonTypes = await boundTypeToPokemon(

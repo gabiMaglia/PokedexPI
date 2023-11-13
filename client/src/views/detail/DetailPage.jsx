@@ -39,7 +39,7 @@ const DetailPage = () => {
   const handleNextDetail = () => {
     if (currentIndex === pokemonToSlideLength - 1)
       navigate(`/detail/${pokemonsToslide[0].pokemon_id}`);
-    navigate(`/detail/${pokemonsToslide[currentIndex + 1].pokemon_id}`);
+    else navigate(`/detail/${pokemonsToslide[currentIndex + 1].pokemon_id}`);
   };
 
   return (

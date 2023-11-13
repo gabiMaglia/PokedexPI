@@ -7,12 +7,14 @@ import {
   TYPE_FILTER,
   ORIGIN_FILTER,
   SORT_ORDER_FILTER,
+  POST_POKEMON,
 } from "./action-types";
 import {
   fetchPokemonService,
   fetchAllPokemonService,
   fetchAllPokemonTypeService,
   fetchAllPokemonbySeasonService,
+  postPokemonService
 } from "../../services/pokemonServices";
 
 export const fetchPokemon = (name) => {
@@ -20,6 +22,16 @@ export const fetchPokemon = (name) => {
     fetchPokemonService(name).then((data) => {
       return dispatch({
         type: FETCH_POKEMON,
+        payload: data,
+      });
+    });
+  };
+};
+export const postNewPokemon = (pokemonData) => {
+  return (dispatch) => {
+    postPokemonService(pokemonData).then((data) => {
+      return dispatch({
+        type: POST_POKEMON,
         payload: data,
       });
     });

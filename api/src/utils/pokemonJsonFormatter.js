@@ -1,5 +1,5 @@
 const pokemonJsonFormatter = async (data) => {
-  const { id, name, base_experience, height, weight, stats } = data;
+  const { id, name, height, weight, stats } = data;
 
   const statList = {};
   stats.forEach((e) => {
@@ -29,7 +29,6 @@ const pokemonJsonFormatter = async (data) => {
     pokemon_height: height,
     pokemon_weight: weight,
     pokemon_image: data.sprites.other['dream_world'].front_default,
-    pokemon_basexp: base_experience,
     PokemonStatPoint: statList,
     PokemonAbilities: abilitiesList,
     PokemonTypes: typeList,

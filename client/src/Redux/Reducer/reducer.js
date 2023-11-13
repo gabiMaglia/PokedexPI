@@ -2,6 +2,7 @@ import {
   FETCH_POKEMON,
   FETCH_ALL_POKEMON,
   FETCH_ALL_POKEMON_TYPE,
+  POST_POKEMON,
   NEXT_PAGE,
   PREV_PAGE,
   TYPE_FILTER,
@@ -45,6 +46,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
       if (!isDuplicated) {
         return {
           ...state,
+          currentPage : 0,
           allPokemonList: [payload, ...state.allPokemonList],
           AllPokemonBackupList: [payload, ...state.allPokemonList],
           allPokemonsToShow: [
@@ -179,6 +181,20 @@ const rootReducer = (state = initialState, { type, payload }) => {
         allPokemonsToShow: orderState.slice(0, ITEMS_PER_PAGE),
       };
 
+    case POST_POKEMON:
+      
+      console.log(payload)
+      return {
+        ...state,
+        currentPage : 0,
+        allPokemonList: [payload, ...state.allPokemonList],
+        AllPokemonBackupList: [payload, ...state.allPokemonList],
+        allPokemonsToShow: [
+          payload,
+          ...state.allPokemonList.slice(0, ITEMS_PER_PAGE),
+        ],
+      };
+      
     default:
       return { ...state };
   }

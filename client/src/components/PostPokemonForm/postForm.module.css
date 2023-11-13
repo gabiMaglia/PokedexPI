@@ -1,0 +1,8 @@
+.createPokemonForm{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+.createPokemonForm input{
+   width: 100%;
+}

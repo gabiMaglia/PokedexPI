@@ -10,7 +10,7 @@ export const editPokemonService = async (id, data) => {
 };
 export const postPokemonService = async (data) => {
   try {
-    const response = await axios.post(`${import.meta.env.VITE_API_URL}/poke`, {
+    const response = await axios.post(`http://localhost:3001/poke`, {
       data,
     });
     return response.data;
