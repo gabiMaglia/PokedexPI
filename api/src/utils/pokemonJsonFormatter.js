@@ -22,7 +22,6 @@ const pokemonJsonFormatter = async (data) => {
     });
   });
 
-  console.log(data.sprites.other)
   const newPokemon = {
     pokemon_id: id,
     pokemon_name: name,

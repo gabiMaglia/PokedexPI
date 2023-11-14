@@ -42,10 +42,11 @@ export const fetchAllPokemonService = async () => {
     throw new Error(response.data.error);
   }
 };
-export const fetchAllPokemonbySeasonService = async (limit, offset ) => {
+export const fetchAllPokemonbySeasonService = async (limit, offset) => {
   try {
-
-    const response = await axios.get(`http://localhost:3001/poke/season/?limit=${limit}&offset=${offset}`);
+    const response = await axios.get(
+      `http://localhost:3001/poke/season/?limit=${limit}&offset=${offset}`
+    );
     return response;
   } catch ({ response }) {
     throw new Error(response.data.error);
@@ -53,9 +54,7 @@ export const fetchAllPokemonbySeasonService = async (limit, offset ) => {
 };
 export const fetchAllPokemonTypeService = async () => {
   try {
-    const response = await axios.get(
-      `http://localhost:3001/poke/get-types`
-    );
+    const response = await axios.get(`http://localhost:3001/poke/get-types`);
     return response.data;
   } catch ({ response }) {
     throw new Error(response.data.error);

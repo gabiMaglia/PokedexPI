@@ -12,14 +12,12 @@ const getAllPokemonsHandler = async (req, res) => {
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
+  
 };
 const getAllPokemonsBySeasonHandler = async (req, res) => {
-  console.log("llego");
   try {
     const limit = req.query.limit;
     const offset = req.query.offset;
-    console.log(limit,offset)
-   
     const newPokemonList = await getAllPokemons(limit,offset);
     return res.status(200).json(newPokemonList);
   } catch (error) {
@@ -71,3 +69,11 @@ module.exports = {
   getAllPokemonsBySeasonHandler,
   getAllPokemonsHandler,
 };
+
+
+
+
+
+
+
+

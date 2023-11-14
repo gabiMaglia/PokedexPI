@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {postNewPokemon} from '../../Redux/Actions/actions'
+import { postNewPokemon } from "../../Redux/Actions/actions";
 import styles from "./postForm.module.css";
 
 const PostForm = () => {
   const pokemonTypes = useSelector((store) => store.allTypes);
- const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [pokemonData, setPokemonData] = useState({
-    pokemon_name: "fdsa",
+    pokemon_name: "gabisor",
     pokemon_image: "http://www.dsadad.com",
     pokemon_height: "4",
     pokemon_weight: "4",
@@ -19,8 +19,8 @@ const PostForm = () => {
       special_defense: "3",
       speed: "3",
     },
-    PokemonTypes: [],
     PokemonAbilities: [],
+    PokemonTypes: [],
   });
 
   const [cantidadHabilidades, setCantidadHabilidades] = useState(1);
@@ -30,7 +30,7 @@ const PostForm = () => {
     setCantidadHabilidades(nuevaCantidad);
 
     setPokemonData((prevData) => {
-      const nuevasHabilidades = [ ...prevData.PokemonAbilities ];
+      const nuevasHabilidades = [prevData.PokemonAbilities];
 
       for (
         let i = nuevaCantidad + 1;
@@ -47,29 +47,40 @@ const PostForm = () => {
   };
 
   const handleAbilitiesInputChange = (index, tipo, valor) => {
+
     setPokemonData((prevData) => {
       const nuevasHabilidades = {
         ...prevData.PokemonAbilities,
         [index]: { ...prevData.PokemonAbilities[index], [tipo]: valor },
       };
+      // parseo aca abajo porque no tengo ni idea de como funciona la funcion de arriba jajaja
+      const nuevoArrDeHabilidades = []
+      for (const nuevasHabilidad in nuevasHabilidades ){
+       nuevoArrDeHabilidades.push( nuevasHabilidades[nuevasHabilidad])
+      }
+
 
       return {
         ...prevData,
-        PokemonAbilities: nuevasHabilidades,
+        PokemonAbilities: nuevoArrDeHabilidades,
       };
     });
   };
 
-  const handleTiposChange = (e) => {
-    const selectedOptions = Array.from(e.target.selectedOptions).map(
-      (option) => {
-        return { nombre_type: option.value };
-      }
-    );
-    setPokemonData((prevData) => ({
-      ...prevData,
-      PokemonTypes: selectedOptions,
-    }));
+  const handleTypeChecks = (e) => {
+    const { value, checked } = e.target;
+    checked
+      ? setPokemonData((prevData) => ({
+          ...prevData,
+          PokemonTypes: [...prevData.PokemonTypes, { nombre_type: value }],
+        }))
+      : 
+        setPokemonData({
+          ...pokemonData,
+          PokemonTypes: [
+            pokemonData.PokemonTypes.filter((e) => e.nombre_type != value),
+          ],
+        });
   };
 
   const handleStatPointChange = (e) => {
@@ -79,6 +90,7 @@ const PostForm = () => {
       PokemonStatPoint: { ...prevData.PokemonStatPoint, [name]: value },
     }));
   };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setPokemonData((prevData) => ({
@@ -90,15 +102,7 @@ const PostForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const arrayOfAbilities = Object.values(pokemonData.PokemonAbilities)
-    console.log(arrayOfAbilities)
-    setPokemonData( {
-      ...pokemonData,
-      PokemonAbilities : arrayOfAbilities
-    })
-
-    dispatch(postNewPokemon(pokemonData))
-    console.log("Datos del formulario:", pokemonData);
+    dispatch(postNewPokemon(pokemonData));
   };
 
   return (
@@ -211,7 +215,6 @@ const PostForm = () => {
             onChange={handleChange}
           />
         </label>
-
         <label htmlFor="abilities">Habilidades:</label>
         <label>
           Cantidad de habilidades:
@@ -225,7 +228,8 @@ const PostForm = () => {
           </select>
         </label>
 
-        {Array.from({ length: cantidadHabilidades }, (_, index) => (
+        {
+        Array.from({ length: cantidadHabilidades }, (_, index) => (
           <div key={index}>
             <label>
               Nombre de la habilidad:
@@ -237,7 +241,11 @@ const PostForm = () => {
                   ""
                 }
                 onChange={(e) =>
-                  handleAbilitiesInputChange(index, "abilitie_name", e.target.value)
+                  handleAbilitiesInputChange(
+                    index,
+                    "abilitie_name",
+                    e.target.value
+                  )
                 }
               />
             </label>
@@ -261,31 +269,29 @@ const PostForm = () => {
               />
             </label>
           </div>
-        ))}
-
+        ))       
+        }
         <label htmlFor="tipos">
-          Tipos (selecciona varios manteniendo presionada la tecla Ctrl):
+          Tipos:
+          {pokemonTypes.map((e, key) => (
+            <label key={key} className={styles.typeLabel}>
+              <input
+                type="checkbox"
+                name="tipos"
+                value={e.nombre_type}
+                onChange={handleTypeChecks}
+                checked={e.checked}
+                className={styles.typeInput}
+              />
+              {e.nombre_type}
+            </label>
+          ))}
         </label>
-        <select
-          multiple
-          id="tipos"
-          name="tipos"
-          value={pokemonData.tipos}
-          onChange={handleTiposChange}
-        >
-          {pokemonTypes.map((e, key) => {
-            return (
-              <option key={key} value={e.nombre_type}>
-                {e.nombre_type}
-              </option>
-            );
-          })}
-        </select>
-
         <button type="submit">Crear Pokemon</button>
       </form>
     </section>
   );
 };
+
 
 export default PostForm;

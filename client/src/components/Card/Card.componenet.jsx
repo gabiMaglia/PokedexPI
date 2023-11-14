@@ -11,7 +11,7 @@ const Card = ({ pokemon, detailHandler }) => {
       <h1>{pokemon.pokemon_name}</h1>
       <img src={pokemon.pokemon_image} alt={pokemon.pokemon_name} />
       <div className={styles.pokemonType}>
-        {pokemon.PokemonTypes.map((type, key) => (
+        {pokemon.PokemonTypes?.map((type, key) => (
           <p key={key}>{type.nombre_type}</p>
         ))}
       </div>

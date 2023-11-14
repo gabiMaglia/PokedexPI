@@ -4,5 +4,32 @@
     flex: 1;
 }
 .createPokemonForm input{
-   width: 100%;
+   width: 20%;
 }
+
+
+.typeLabel {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    background-color: #ddd;
+    color: black;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.typeInput {
+    /* display: none; */
+  }
+  
+  .typeInput, .typeLabel  {
+    cursor: pointer;
+  }
+  
+  .typeInput:checked ~ .typeLabel {
+    background-color: #000000 !important;
+    color: rgb(255, 253, 253);
+  }

@@ -183,7 +183,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
 
     case POST_POKEMON:
       
-      console.log(payload)
+      
       return {
         ...state,
         currentPage : 0,

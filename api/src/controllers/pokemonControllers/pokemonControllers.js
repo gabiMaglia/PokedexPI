@@ -64,47 +64,35 @@ const getPokemonByName = async (name) => {
   });
   if (!pokemon) {
     const pokemon = await getPokemonFromApiByName(name);
-    console.log("estoy");
     return pokemon && pokemonJsonFormatter(pokemon);
   }
   return pokemon;
 };
 
-const postNewPokemonToDb = async ({data}) => {
- console.log(data)
-  const {
-    pokemon_name,
-    pokemon_height,
-    pokemon_weight,
-    pokemon_image,
-  } = data;
-
+const postNewPokemonToDb = async ({ data }) => {
+  const { pokemon_name, pokemon_height, pokemon_weight, pokemon_image } = data;
+  console.log(data)
   const newPokemon = await Pokemon.create({
     pokemon_name,
     pokemon_height,
     pokemon_weight,
     pokemon_image,
   });
-
   const newPokemonStatPoints = await createNewPokemonBaseStatus(
     newPokemon,
     data.PokemonStatPoint
   );
-
   const newPokemonAbilities = await createNewPokemonAbilities(
     PokemonAbilities,
     Object.values(data.PokemonAbilities)
   );
-
   const newPokemonTypes = await boundTypeToPokemon(
     PokemonTypes,
     data.PokemonTypes
   );
-
   for (const ability of newPokemonAbilities) {
     await newPokemon.addPokemonAbilities(ability);
   }
-
   for (const type of newPokemonTypes) {
     await newPokemon.addPokemonType(type);
   }
