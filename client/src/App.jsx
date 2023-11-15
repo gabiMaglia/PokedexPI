@@ -12,6 +12,7 @@ import DetailPage from "./views/detail/DetailPage";
 import LandingPage from "./views/landingPage/LandingPage";
 
 import { season1 } from "./utils/Seasons";
+
 import "./App.css";
 
 function App() {
@@ -49,6 +50,7 @@ function App() {
             element={
               <HomePage
                 detailHandler={detailHandler}
+                allPokemons={allPokemons}
               />
             }
           />
@@ -56,7 +58,7 @@ function App() {
           <Route path="/createnewpokemon" element={<CreatePage />} />
           {/* <Route path="" element='' />*/}
         </Routes>
-        {location.pathname === "/home" ? <Footer /> : <></>}
+        {location.pathname !== "/" ? <Footer /> : <></>}
       </main>
 
       {/*

@@ -1,0 +1,51 @@
+.pageSelectorContainer{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 10% 1fr;
+    grid-template-rows: 1fr;
+    background-color: grey;
+    grid-row-gap: 0px;
+}
+.pageSelectorContainer button{
+    /* width: 100%; */
+    position: relative;
+    width: 50px;
+    line-height: 26px;
+    border-radius: 10px;
+    text-align: center;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: 0.2s ease-in; 
+    border: .1px solid #f4faf3;
+    font-size: 30px;
+    border: .1px solid #000000;
+    background-color: black;
+    color: #ffffff;
+    border: none;
+    background-color: red;
+    color: white;
+    font-weight: 600;
+}
+.pageSelectorContainer button:first-child::after{
+    content: 'PREV';
+    text-shadow: 0 0 4px rgba(0, 0, 0, 0.8);
+}
+.pageSelectorContainer button:last-child{
+    text-align: right;
+    margin-left: auto;  
+}
+
+.pageSelectorContainer button:last-child::after{
+    content: 'NEXT';
+    text-shadow: 0 0 4px rgba(0, 0, 0, 0.8);
+   position: relative;
+   right: 85px;
+}
+.pageSelectorContainer span{
+    display: grid;
+    font-weight: 900;
+    place-content: center;
+    background-color: white;
+    color: red;
+    
+}

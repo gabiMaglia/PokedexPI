@@ -10,13 +10,14 @@ const DetailPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    setPokemon(pokemonToShow );
+    setPokemon(pokemonToShow);
+    console.log(pokemonToShow);
     return () => {
       setPokemon("");
     };
   }, [id]);
 
-  const pokemonsToslide = useSelector((state) => state.allPokemonList);
+  const pokemonsToSlide = useSelector((state) => state.allPokemonList);
 
   const pokemonToShow = useSelector((state) =>
     state.AllPokemonBackupList.find((pokemon) =>
@@ -25,51 +26,41 @@ const DetailPage = () => {
         : pokemon.pokemon_id === id
     )
   );
-  const currentIndex = pokemonsToslide.indexOf(pokemon);
-  const pokemonToSlideLength = pokemonsToslide.length;
+  const currentIndex = pokemonsToSlide.indexOf(pokemon);
+  const pokemonToSlideLength = pokemonsToSlide.length;
 
   const handlePrevDetail = () => {
     if (currentIndex === 0)
       navigate(
-        `/detail/${pokemonsToslide[pokemonToSlideLength - 1].pokemon_id}`
+        `/detail/${pokemonsToSlide[pokemonToSlideLength - 1].pokemon_id}`
       );
-    else navigate(`/detail/${pokemonsToslide[currentIndex - 1].pokemon_id}`);
+    else navigate(`/detail/${pokemonsToSlide[currentIndex - 1].pokemon_id}`);
   };
 
   const handleNextDetail = () => {
     if (currentIndex === pokemonToSlideLength - 1)
-      navigate(`/detail/${pokemonsToslide[0].pokemon_id}`);
-    else navigate(`/detail/${pokemonsToslide[currentIndex + 1].pokemon_id}`);
+      navigate(`/detail/${pokemonsToSlide[0].pokemon_id}`);
+    else navigate(`/detail/${pokemonsToSlide[currentIndex + 1].pokemon_id}`);
   };
 
   return (
     <div>
+      <button onClick={handlePrevDetail}>Prev</button>
+      <button onClick={handleNextDetail}>Next</button>
       {!pokemon ? (
         <>
           <h1>Loading</h1>
         </>
       ) : (
         <>
-          <button
-            onClick={() => {
-              handlePrevDetail();
-            }}
-          >
-            Prev
-          </button>
-          <button
-            onClick={() => {
-              handleNextDetail();
-            }}
-          >
-            Next
-          </button>
-
           <section className={styles.detailCard}>
             <label htmlFor="id">Id:</label>
             <p id="id">{pokemon?.pokemon_id}</p>
             <h1>{pokemon?.pokemon_name}</h1>
-            <img src={pokemon?.pokemon_image} alt={pokemon?.pokemon_name} />
+            <img
+              src={pokemon?.pokemon_image.mainPic? pokemon?.pokemon_image.mainPic : pokemon?.pokemon_image }
+              alt={pokemon?.pokemon_name}
+            />
             <div className={styles.statBox}>
               <label htmlFor="vida">Vida:</label>
               <p>{pokemon?.PokemonStatPoint.hp}</p>
@@ -97,7 +88,6 @@ const DetailPage = () => {
             </div>
             <div className={styles.abilities}>
               {pokemon?.PokemonAbilities.map((e, key) => {
-            
                 return <p key={key}> {e.abilitie_name} </p>;
               })}
             </div>

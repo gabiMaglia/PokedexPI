@@ -1,14 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { postNewPokemon } from "../../Redux/Actions/actions";
+
 import styles from "./postForm.module.css";
+import { useNavigate } from "react-router-dom";
 
 const PostForm = () => {
+
   const pokemonTypes = useSelector((store) => store.allTypes);
   const dispatch = useDispatch();
+  const navigate = useNavigate ()
   const [pokemonData, setPokemonData] = useState({
     pokemon_name: "gabisor",
-    pokemon_image: "http://www.dsadad.com",
+    pokemon_image: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/132.png',
     pokemon_height: "4",
     pokemon_weight: "4",
     PokemonStatPoint: {
@@ -23,7 +27,9 @@ const PostForm = () => {
     PokemonTypes: [],
   });
 
+ 
   const [cantidadHabilidades, setCantidadHabilidades] = useState(1);
+
 
   const handleCantidadHabilidadesChange = (event) => {
     const nuevaCantidad = parseInt(event.target.value, 10);
@@ -100,10 +106,12 @@ const PostForm = () => {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-
-    dispatch(postNewPokemon(pokemonData));
+     e.preventDefault();
+     console.log('postform' , pokemonData)
+     dispatch(postNewPokemon(pokemonData));
+     navigate('/home'); 
   };
+
 
   return (
     <section>
@@ -119,8 +127,8 @@ const PostForm = () => {
             required
           />
         </label>
-        <label htmlFor="imagen">
-          Imagen (URL):
+        <label htmlFor="imagenMain">
+         Imagen (url) :
           <input
             type="url"
             id="imagen"

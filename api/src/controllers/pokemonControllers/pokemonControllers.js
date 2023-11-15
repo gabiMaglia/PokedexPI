@@ -16,18 +16,12 @@ const {
   getPokemonFromApiByName,
 } = require("../api_controllers/apiCallController");
 
-// const getAllPokemonNames = async () => {
-//   const {results} = await getAllPokemonsFromApi();
-//   const arrayOfNames = results.map(e => e.name )
-//   return arrayOfNames
-// }
-
 const getAllPokemons = async (offset, limit) => {
   const dbPokemons = await Pokemon.findAll({
     include: [PokemonStatPoints, PokemonAbilities, PokemonTypes],
   });
   //  pedimos todos los pokemons a la api y hacemos destructuring para quedarnos con el objeto
-  // results donde se encuentra el nombre y la url
+  //  results donde se encuentra el nombre y la url
   const { results } = await getAllPokemonsFromApi(offset, limit);
   // usamos el metodo all del objeto promise para manejar multiples llamados a la api
   // de manera simultanea para obtener en base al id de cada pokemon el detalle de cada uno,
@@ -54,6 +48,7 @@ const getPokemonById = async (id) => {
   const pokemon = await Pokemon.findByPk(id, {
     include: [PokemonStatPoints, PokemonAbilities, PokemonTypes],
   });
+  
   return pokemon;
 };
 
@@ -62,6 +57,11 @@ const getPokemonByName = async (name) => {
     where: { pokemon_name: name },
     include: [PokemonStatPoints, PokemonAbilities, PokemonTypes],
   });
+  
+  typeof pokemon.pokemon_image === "string"
+  ? pokemon.pokemon_image =  JSON.parse( pokemon.pokemon_image)
+  : pokemon.pokemon_image =  pokemon.pokemon_image
+
   if (!pokemon) {
     const pokemon = await getPokemonFromApiByName(name);
     return pokemon && pokemonJsonFormatter(pokemon);
@@ -71,7 +71,6 @@ const getPokemonByName = async (name) => {
 
 const postNewPokemonToDb = async ({ data }) => {
   const { pokemon_name, pokemon_height, pokemon_weight, pokemon_image } = data;
-  console.log(data)
   const newPokemon = await Pokemon.create({
     pokemon_name,
     pokemon_height,
@@ -82,6 +81,9 @@ const postNewPokemonToDb = async ({ data }) => {
     newPokemon,
     data.PokemonStatPoint
   );
+  newPokemonStatPoints.pokemon_stats_id = newPokemon.id;
+  await newPokemonStatPoints.save();
+
   const newPokemonAbilities = await createNewPokemonAbilities(
     PokemonAbilities,
     Object.values(data.PokemonAbilities)
@@ -97,11 +99,12 @@ const postNewPokemonToDb = async ({ data }) => {
     await newPokemon.addPokemonType(type);
   }
 
-  newPokemonStatPoints.pokemon_stats_id = newPokemon.id;
+  const completeNew = await Pokemon.findByPk(newPokemon.pokemon_id, {
+    include: [PokemonStatPoints, PokemonAbilities, PokemonTypes],
+  });
 
-  await newPokemonStatPoints.save();
 
-  return newPokemon;
+  return completeNew;
 };
 
 module.exports = {

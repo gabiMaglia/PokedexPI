@@ -5,6 +5,9 @@ import {
   sortAndOrderFilter,
   typeFilter,
 } from "../../Redux/Actions/actions";
+import { capitalize } from "../../utils/capitalize";
+
+import styles from './pokefilter.module.css'
 
 const PokeFilter = () => {
   const dispatch = useDispatch()
@@ -41,8 +44,10 @@ const PokeFilter = () => {
     }
   };
 
-  return    <div className="filterContainer">
-  <label htmlFor="originFilter">Origin</label>
+  return   (
+  
+  <div className={styles.filterContainer}>
+  <label htmlFor="originFilter">Origin
   <select
     value={filters.origin}
     name="origin"
@@ -53,7 +58,8 @@ const PokeFilter = () => {
     <option value="api">From Api</option>
     <option value="both">Both</option>
   </select>
-  <label htmlFor="typeFilter">Type</label>
+  </label>
+  <label htmlFor="typeFilter">Type
   <select
     value={filters.type}
     name="type"
@@ -64,12 +70,13 @@ const PokeFilter = () => {
     {alltypes.map((e, key) => {
       return (
         <option key={key} value={e.nombre_type}>
-          {e.nombre_type}
+          {capitalize(e.nombre_type)}
         </option>
       );
     })}
   </select>
-  <label htmlFor="orderFilter">Order</label>
+  </label>
+  <label htmlFor="orderFilter">Order
   <select
     value={filters.order}
     name="order"
@@ -79,7 +86,8 @@ const PokeFilter = () => {
     <option value="A-Z">Ascending</option>
     <option value="Z-A">Descending</option>
   </select>
-  <label htmlFor="sortBy">SortedBy</label>
+  </label>
+  <label htmlFor="sortBy">SortedBy
   <select
     name="sortBy"
     value={atributeToSort}
@@ -92,7 +100,10 @@ const PokeFilter = () => {
     <option value="defense">Defense</option>
     <option value="speed">Speed</option>
   </select>
-</div>;
+  </label>
+</div>
+)
+
 };
 
 export default PokeFilter;

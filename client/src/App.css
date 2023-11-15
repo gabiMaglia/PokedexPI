@@ -15,3 +15,5 @@
   display: grid;
   grid-template-rows: auto 1fr auto;
  }
+
+ body{ font-family: Arial, Helvetica, sans-serif;}

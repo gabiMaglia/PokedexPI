@@ -1,3 +1,5 @@
+const {capitalize}  = require('./capitalize')
+
 const pokemonJsonFormatter = async (data) => {
   const { id, name, height, weight, stats } = data;
 
@@ -10,7 +12,7 @@ const pokemonJsonFormatter = async (data) => {
   const abilitiesList = [];
   data.abilities.forEach((e) => {
     abilitiesList.push({
-      abilitie_name: e.ability.name,
+      abilitie_name: capitalize(e.ability.name),
       abilitie_slot: e.slot,
     });
   });
@@ -24,10 +26,13 @@ const pokemonJsonFormatter = async (data) => {
 
   const newPokemon = {
     pokemon_id: id,
-    pokemon_name: name,
+    pokemon_name: capitalize(name),
     pokemon_height: height,
     pokemon_weight: weight,
-    pokemon_image: data.sprites.other['dream_world'].front_default,
+    pokemon_image: {
+                    mainPic : data.sprites.other['dream_world'].front_default,
+                    thumbnail: data.sprites.front_default
+                   },
     PokemonStatPoint: statList,
     PokemonAbilities: abilitiesList,
     PokemonTypes: typeList,

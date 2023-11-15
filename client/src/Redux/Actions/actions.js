@@ -28,7 +28,9 @@ export const fetchPokemon = (name) => {
   };
 };
 export const postNewPokemon = (pokemonData) => {
+
   return (dispatch) => {
+
     postPokemonService(pokemonData).then((data) => {
       return dispatch({
         type: POST_POKEMON,

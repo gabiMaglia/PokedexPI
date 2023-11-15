@@ -1,0 +1,51 @@
+.filterContainer{
+    transition: 0.2s ease-in;
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+}
+.filterContainer label{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    gap: 12px;
+    border:  1px solid white;
+    line-height: 26px;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    border-radius: 10px;
+    text-align: center;
+    /* margin-top: 25px; */
+    background: none;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: 800;
+    border: .1px solid #f4faf3;
+    font-size: 12px;
+    border: .1px solid #000000;
+    background-color: black;
+    color: #ffffff;
+}
+.filterContainer select{
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    background-color: white;
+    color: black;
+    height: 65px;
+    text-decoration: none;
+    font-weight: 600;
+    border: .1px solid #f4faf3;
+    font-size: 12px;
+    border: .1px solid #000000;
+}
+select option:last-child {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+select option:first-child {
+    /* border-top-left-radius: 10px;
+    border-top-right-radius: 10px; */
+}
