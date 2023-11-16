@@ -4,6 +4,15 @@
   padding: 2rem;
   overflow-y: hidden;
   overflow-x: hidden;
+
+  --navbarColor: #F87C88;
+  --lightGray: #F8F9FA;
+  --pinkyRed: #F14B3D;
+  --Orange: #FF844F;
+  --brightYellow: #FDD85D;
+  --Green: #60D394;
+  --reallyGray: #595F65;
+
 }
 .App {
   box-sizing: border-box;

@@ -35,17 +35,17 @@ const PostForm = () => {
   const handleCantidadHabilidadesChange = (event) => {
     const nuevaCantidad = parseInt(event.target.value, 10);
     setCantidadHabilidades(nuevaCantidad);
-
+  
     setPokemonData((prevData) => {
-      const nuevasHabilidades = [prevData.PokemonAbilities];
-
-      for (
-        let i = nuevaCantidad + 1;
-        i <= Object.keys(nuevasHabilidades).length;
-        i++
-      ) {
-        delete nuevasHabilidades[i];
+      const nuevasHabilidades = [];
+  
+      for (let i = 0; i < nuevaCantidad; i++) {
+        nuevasHabilidades.push({
+          abilitie_name: "",
+          abilitie_slot: 0,
+        });
       }
+  
       return {
         ...prevData,
         PokemonAbilities: nuevasHabilidades,
@@ -55,25 +55,22 @@ const PostForm = () => {
 
   const handleAbilitiesInputChange = (index, tipo, valor) => {
     setPokemonData((prevData) => {
-      const nuevasHabilidades = {
-        ...prevData.PokemonAbilities,
-        [index]: { ...prevData.PokemonAbilities[index], [tipo]: valor },
+      const nuevasHabilidades = [...prevData.PokemonAbilities];
+      nuevasHabilidades[index] = {
+        ...nuevasHabilidades[index],
+        [tipo]: valor,
       };
-      // parseo aca abajo porque no tengo ni idea de como funciona la funcion de arriba jajaja
-      const nuevoArrDeHabilidades = [];
-      for (const nuevasHabilidad in nuevasHabilidades) {
-        nuevoArrDeHabilidades.push(nuevasHabilidades[nuevasHabilidad]);
-      }
-
+      console.log(nuevasHabilidades)
       return {
         ...prevData,
-        PokemonAbilities: nuevoArrDeHabilidades,
+        PokemonAbilities: nuevasHabilidades,
       };
     });
   };
 
   const handleTypeChecks = (e) => {
     const { value, checked } = e.target;
+    console.log( value, checked )
     checked
       ? setPokemonData((prevData) => ({
           ...prevData,
