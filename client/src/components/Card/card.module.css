@@ -1,0 +1,35 @@
+.pokemonCard {
+    border-radius: 18px;
+    max-height: 7.3rem;
+    max-width: 240px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    padding: .7rem 1rem;
+}
+.pokemonCard div:first-child {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 93%;
+    height: 32px;
+    
+}
+.pokemonCard div:last-child {
+    display: flex;
+    flex-direction: row;
+    text-align: left;
+    justify-content: space-between;
+    align-items: center;
+    /* width: 100%; */
+
+}
+.pokemonCard div img {
+   position: relative;
+   right: -12px;
+
+}
+.pokemonCard div .id {
+
+}

@@ -42,7 +42,7 @@ function App() {
   return (
     <div className="App">
       <main className="mainLayout">
-        <NavBar />
+        {location.pathname !== "/" ?  <NavBar />: <></>}
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route

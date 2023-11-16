@@ -8,17 +8,7 @@ const DetailPage = () => {
   const { id } = useParams();
   const [pokemon, setPokemon] = useState();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    setPokemon(pokemonToShow);
-    console.log(pokemonToShow);
-    return () => {
-      setPokemon("");
-    };
-  }, [id]);
-
   const pokemonsToSlide = useSelector((state) => state.allPokemonList);
-
   const pokemonToShow = useSelector((state) =>
     state.AllPokemonBackupList.find((pokemon) =>
       !isNaN(Number(id))
@@ -26,6 +16,16 @@ const DetailPage = () => {
         : pokemon.pokemon_id === id
     )
   );
+
+  useEffect(() => {
+    setPokemon(pokemonToShow);
+
+    return () => {
+      setPokemon("");
+    };
+  }, [id, pokemonToShow]);
+
+
   const currentIndex = pokemonsToSlide.indexOf(pokemon);
   const pokemonToSlideLength = pokemonsToSlide.length;
 

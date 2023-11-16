@@ -3,10 +3,9 @@ import styles from './create.module.css'
 const CreatePage = () => {
   
   return (
-    <h2>
-      <div>Create New Pokemon</div>
+    <section>
       <PostForm />
-    </h2>
+    </section>
   )
 }
 
