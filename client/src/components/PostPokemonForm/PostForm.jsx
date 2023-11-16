@@ -12,6 +12,7 @@ const PostForm = () => {
   const pokemonTypes = useSelector((store) => store.allTypes);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  
   const [pokemonData, setPokemonData] = useState({
     pokemon_name: "gabisor",
     pokemon_image:
@@ -60,7 +61,7 @@ const PostForm = () => {
         ...nuevasHabilidades[index],
         [tipo]: valor,
       };
-      console.log(nuevasHabilidades)
+     
       return {
         ...prevData,
         PokemonAbilities: nuevasHabilidades,
@@ -298,7 +299,7 @@ const PostForm = () => {
                   checked={e.checked}
                   className={styles.typeInput}
                 />
-                <TypeIcons type={e.nombre_type}></TypeIcons>
+                <TypeIcons  type={e.nombre_type}></TypeIcons>
                 <span>{capitalize(e.nombre_type)}</span>
               </label>
             ))}

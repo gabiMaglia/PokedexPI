@@ -23,7 +23,7 @@ export const fetchPokemonService = async (data) => {
   try {
     if (isNaN(data)) {
       const response = await axios.get(
-        `http://localhost:3001/poke/name?name=${data}`
+        `http://localhost:3001/poke/name?name=${data.toLowerCase()}`
       );
       return response.data;
     } else {

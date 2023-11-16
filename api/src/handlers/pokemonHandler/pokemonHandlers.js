@@ -38,7 +38,7 @@ const getPokemonByIdHandler = async (req, res) => {
     const id = req.params.id;
     const pokemon = await getPokemonById(id);
 
-    if (!pokemon) {
+    if (pokemon === null) {
       return res.status(404).json({ error: "Pokémon not found" });
     }
     return res.status(200).json(pokemon);
@@ -51,13 +51,13 @@ const getPokemonByNameHandler = async (req, res) => {
     const name = req.query.name;
     const pokemon = await getPokemonByName(name);
 
-    if (!pokemon) {
+    if (pokemon === null) {
       return res.status(404).json({ error: "Pokémon not found" });
     } else {
       return res.status(200).json(pokemon);
     }
   } catch (error) {
-    return res.status(500).json(error.message);
+    return res.status(500).json({ error: error.message });
   }
 };
 

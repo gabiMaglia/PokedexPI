@@ -1,33 +1,3 @@
-/* .createPokemonForm {
-
-}
-.createPokemonForm input {
-  width: 100%;
-}
-
-.typeLabel {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-right: 10px;
-  margin-bottom: 10px;
-  background-color: #ddd;
-  color: black;
-  padding: 5px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.typeInput,
-.typeLabel {
-  cursor: pointer;
-}
-
-.typeInput:checked ~ .typeLabel {
-  background-color: #000000 !important;
-  color: rgb(255, 253, 253);
-} */
-
 .formulario {
   display: flex;
   flex-direction: column;
@@ -120,14 +90,14 @@
 .typeIcon input {
   display: none;
 }
-.typeIcon img {
-  width: 100px; /* Ajusta el tamaño de la imagen según sea necesario */
-  height: 100px; /* Ajusta el tamaño de la imagen según sea necesario */
-  filter: grayscale(100%); /* Aplica el filtro blanco y negro por defecto */
+.typeIcon div {
+  width: 100px; 
+  height: 100px; 
+  filter: grayscale(100%); 
 }
 
-.typeIcon input:checked + img {
+.typeIcon input:checked + div {
   filter: grayscale(
     0%
-  ); /* Elimina el filtro blanco y negro cuando el checkbox está marcado */
+  ); 
 }

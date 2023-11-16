@@ -40,8 +40,8 @@ function App() {
   }, [dispatch, allPokemons]);
 
   return (
-    <div className="App">
-      <main className="mainLayout">
+    <main className="mainLayout">
+     
         {location.pathname !== "/" ?  <NavBar />: <></>}
         <Routes>
           <Route path="/" element={<LandingPage />} />
@@ -56,14 +56,11 @@ function App() {
           />
           <Route path="/detail/:id" element={<DetailPage/>}  />
           <Route path="/createnewpokemon" element={<CreatePage />} />
-          {/* <Route path="" element='' />*/}
         </Routes>
         {location.pathname !== "/" ? <Footer /> : <></>}
-      </main>
+     
 
-      {/*
-       */}
-    </div>
+    </main>
   );
 }
 

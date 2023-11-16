@@ -1,50 +1,59 @@
-.pageSelectorContainer{
-    width: 100%;
-    display: grid;
-    grid-template-columns: 1fr 10% 1fr;
-    grid-template-rows: 1fr;
-    background-color: grey;
-    grid-row-gap: 0px;
-}
-.pageSelectorContainer button{
-    position: relative;
-    width: 50px;
-    line-height: 26px;
-    border-radius: 10px;
-    text-align: center;
-    text-transform: uppercase;
-    text-decoration: none;
-    transition: 0.2s ease-in; 
-    border: .1px solid #f4faf3;
-    font-size: 30px;
-    border: .1px solid #000000;
-    background-color: black;
-    color: #ffffff;
-    border: none;
-    background-color: red;
-    color: white;
-    font-weight: 600;
-}
-.pageSelectorContainer button:first-child::after{
-    content: 'PREV';
-    text-shadow: 0 0 4px rgba(0, 0, 0, 0.8);
-}
-.pageSelectorContainer button:last-child{
-    text-align: right;
-    margin-left: auto;  
+.pageSelectorContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  grid-row-gap: 12px;
+  max-width: 120px;
+  margin-inline: auto;
 }
 
-.pageSelectorContainer button:last-child::after{
-    content: 'NEXT';
-    text-shadow: 0 0 4px rgba(0, 0, 0, 0.8);
-   position: relative;
-   right: 85px;
+
+.pageSelectorContainer button {
+  position: relative;
+  width: 50px;
+  height: 70px;
+  border-radius: 10px;
+  text-align: center;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: 0.2s ease-in;
+  border: 0.1px solid #f4faf3;
+  font-size: 30px;
+  border: 0.1px solid #000000;
+  background-color: black;
+  border: none;
+  background-color: red;
+  color: white;
+  font-weight: 600;
 }
-.pageSelectorContainer span{
-    display: grid;
-    font-weight: 900;
-    place-content: center;
-    background-color: white;
-    color: red;
-    
+
+.pagination {
+ transform: scale(0.9);
+  padding: 0 30px;
+  display: flex;
+  
 }
+
+.pagination li {
+  display: inline;
+  margin: 5px;
+  color: #fff;
+}
+
+.pagination li p {
+  padding: 10px;
+  background:var(--paletteRed);
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 15px;
+  min-width: 7px;
+}
+
+.pagination p.currentPage {
+  box-shadow: 10px 0 8px rgba(0, 0, 0, 0.3);
+  color: var(--lightMain);
+}
+.pageSelectorContainer button svg {
+    fill: var(--lightGray);
+  }

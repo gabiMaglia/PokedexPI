@@ -1,3 +1,6 @@
-.homeContainer {
-    height: 100%;
+.homeContainer{
+   width: 100%;
+   max-width: 1482px;
+   margin-inline: auto;
+   height: calc(100dvh - 12rem);
 }

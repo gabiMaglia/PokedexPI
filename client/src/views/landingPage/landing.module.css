@@ -1,19 +1,38 @@
 .landingContainer {
-    width: 100%;
-    height: calc(100svh - 10rem) ;
-     display: flex;
-    place-content: center; 
-    text-shadow: var(--mainFontColor) 1px 0 5px; 
+  background-image: url("../../assets/pokeback-assets//homeBg.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100%;
+  height: 100svh;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  place-content: center;
+  justify-content: space-between;
+  text-shadow: var(--mainFontColor) 1px 0 5px;
+  overflow: hidden;
+  position: relative;
+}
+.logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1rem;
+    /* box-shadow: rgba(0, 0, 0, .2) 15px 28px 25px -18px; */
 }
 
-.landingContainer:hover {
-    /* filter: grayscale(0); */
-
+.pokeballImg {
+  filter: opacity(0.5);
+  width: 320px;
+  top: -70px;
+  position: relative;
+}
+.pokeLogo {
+  width: 320px;
 }
 
-.pokeballImg{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin: -25px 0 0 -25px;
+.getInto {
+  filter: opacity(0.98);
+  margin-inline: auto;
+  margin-bottom: 5rem;
 }

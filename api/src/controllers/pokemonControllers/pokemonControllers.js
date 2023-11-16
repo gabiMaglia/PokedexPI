@@ -57,10 +57,6 @@ const getPokemonByName = async (name) => {
     where: { pokemon_name: name },
     include: [PokemonStatPoints, PokemonAbilities, PokemonTypes],
   });
-  
-  typeof pokemon.pokemon_image === "string"
-  ? pokemon.pokemon_image =  JSON.parse( pokemon.pokemon_image)
-  : pokemon.pokemon_image =  pokemon.pokemon_image
 
   if (!pokemon) {
     const pokemon = await getPokemonFromApiByName(name);

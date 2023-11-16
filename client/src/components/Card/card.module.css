@@ -1,7 +1,8 @@
 .pokemonCard {
     border-radius: 18px;
-    max-height: 7.3rem;
-    max-width: 240px;
+    height: 7.2rem;
+    width: 160px;
+    
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
@@ -31,5 +32,6 @@
 
 }
 .pokemonCard div .id {
-
+ font-weight: 800 ;
+ font-size: 22px;
 }

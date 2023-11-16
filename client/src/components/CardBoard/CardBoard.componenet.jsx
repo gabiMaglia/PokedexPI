@@ -1,23 +1,20 @@
 import { useDispatch, useSelector } from "react-redux";
 import Card from "../Card/Card.componenet";
 import styles from "./cardBoard.module.css";
-import {
-  nextPage,
-  prevPage,
-} from "../../Redux/Actions/actions";
+import { nextPage, prevPage } from "../../Redux/Actions/actions";
 
 import PokeFilter from "../PokeFilter/PokeFilter";
 import NavButtons from "../NavButtons/NavButtons";
 import { useEffect, useState } from "react";
 
-
 const CardBoard = ({ detailHandler, allPokemons }) => {
   const dispatch = useDispatch();
   const currentPage = useSelector((state) => state.currentPage);
-  const [page, setPage] = useState()
+
+  const [page, setPage] = useState();
   useEffect(() => {
-  setPage(currentPage)
-  }, [currentPage])
+    setPage(currentPage);
+  }, [currentPage]);
 
   const handleNextPage = () => {
     dispatch(nextPage());
@@ -27,18 +24,23 @@ const CardBoard = ({ detailHandler, allPokemons }) => {
   };
   return (
     <section className={`${styles.cardBoard}`}>
-
-      <PokeFilter  />
-      <NavButtons handlePrevPage={handlePrevPage} handleNextPage={handleNextPage} currentPage={page} />
-   
-    <div className={styles.cardList}>
-
-      {allPokemons.map((pokemon, key) => {
-        return (
-          <Card key={key} pokemon={pokemon} detailHandler={detailHandler}/>
-        );
-      })}
-    </div>
+      <label ><p className={styles.boardLabel}>Choose your pokemon:</p>
+      <div className={styles.cardList}>
+        {allPokemons.map((pokemon, key) => {
+          return (
+            <Card key={key} pokemon={pokemon} detailHandler={detailHandler} />
+          );
+        })}
+      </div>
+      </label>
+      <div className={styles.controls}>
+        <NavButtons
+          handlePrevPage={handlePrevPage}
+          handleNextPage={handleNextPage}
+        />
+        <PokeFilter />
+      </div>
+      
     </section>
   );
 };

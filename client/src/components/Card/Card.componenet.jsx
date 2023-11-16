@@ -24,6 +24,7 @@ const Card = ({ pokemon, detailHandler }) => {
       }}
       style={{ backgroundColor: cardColor }}
     >
+      
       <div>
         <h3>{pokemon.pokemon_name.length > 11? pokemon.pokemon_name.slice(0, 11) + '...' :pokemon.pokemon_name}</h3>
           <p className={styles.id}>{ pokemon.pokemon_id.length > 5? pokemon.pokemon_id.slice(0, 5) + '...' :'#'+addZero(pokemon.pokemon_id)}</p>
