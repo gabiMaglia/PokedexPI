@@ -109,32 +109,35 @@ const PostForm = () => {
   };
 
   return (
-    <>
+   
       <form onSubmit={handleSubmit} className={styles.form}>
         <h2>Create New Pokemon</h2>
         <article className={styles.formulario}>
-          <p>
-            <input
-              type="text"
-              id="nombre"
-              name="pokemon_name"
-              value={pokemonData.pokemon_name}
-              onChange={handleChange}
-              required
-            />
-            <label htmlFor="nombre">Nombre:</label>
-          </p>
-          <p>
-            <input
-              type="url"
-              id="imagen"
-              name="pokemon_image"
-              value={pokemonData.pokemon_image}
-              onChange={handleChange}
-              required
-            />
-            <label htmlFor="imagenMain">Imagen (url) :</label>
-          </p>
+          <div>
+            <p>
+              <input
+                type="text"
+                id="nombre"
+                name="pokemon_name"
+                value={pokemonData.pokemon_name}
+                onChange={handleChange}
+                required
+              />
+              <label htmlFor="nombre">Nombre:</label>
+            </p>
+            <p>
+              <input
+                type="url"
+                id="imagen"
+                name="pokemon_image"
+                value={pokemonData.pokemon_image}
+                onChange={handleChange}
+                required
+              />
+              <label htmlFor="imagenMain">Imagen (url) :</label>
+            </p>
+          </div>
+            
           <div className={styles.statBox}>
             <p>
               <input
@@ -203,7 +206,8 @@ const PostForm = () => {
             </p>
             
           </div>
-          <div>
+          
+          <div className={styles.altypes}>>
   
             <p>
               <input
@@ -308,7 +312,7 @@ const PostForm = () => {
 
         <button type="submit">Crear Pokemon</button>
       </form>
-    </>
+ 
   );
 };
 

@@ -15,6 +15,10 @@
   --brightYellow: #FDD85D;
   --Green: #60D394;
   --reallyGray: #595F65;
+  --black: #000000;
+  --white: #ffffff;
+  
+
 }
 .App {
   box-sizing: border-box;

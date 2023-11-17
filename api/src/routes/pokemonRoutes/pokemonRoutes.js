@@ -5,7 +5,8 @@ const {
   getPokemonByIdHandler,
   getPokemonByNameHandler,
   postPokemonHandler,
-  getAllPokemonsBySeasonHandler
+  getAllPokemonsBySeasonHandler,
+  deletePokemonByIdHandler
 } = require("../../handlers/pokemonHandler/pokemonHandlers");
 
 const pokemonRouter = Router();
@@ -17,5 +18,6 @@ pokemonRouter.get("/:id(\\d+)", getPokemonByIdHandler);
 pokemonRouter.get("/season", getAllPokemonsBySeasonHandler);
 pokemonRouter.get("/", getAllPokemonsHandler);
 pokemonRouter.post("/", postPokemonHandler);
+pokemonRouter.delete("/:id", deletePokemonByIdHandler);
 
 module.exports = pokemonRouter;
