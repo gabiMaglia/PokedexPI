@@ -4,7 +4,7 @@ export const typeColors = {
   grass:'#16C172',
   psychic: '#DB00B6',
     normal: '#A8A77A',
-    fire: '#EF271B',
+    fire: '#AD302C',
     water: '#4361EE',
     electric: '#FFBF00',
     grass: '#7AC74C',

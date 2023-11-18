@@ -9,13 +9,11 @@
   color: black;
 }
 
-.buscarBtn > i {
-  font-size: 30px;
-}
-
 .buscarTxt {
+  width: 12rem;
+  height: 1.4rem;
   align-self: center;
-  background-color: #fff;
+  background-color: #ffffffa1;
   box-shadow: rgba(0, 0, 0, 0.1) 15px 28px 25px -18px;
   color: #41403e;
   cursor: pointer;
@@ -37,15 +35,13 @@
 
 .buscarBtn {
   position: relative;
-  color: #e84118;
   width: 55px;
   height: 55px;
   border-radius: 50%;
   background: #2f3640;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: 0.4s;
-  color: white;
+ transition: all 1s;
+  color: rgba(0, 0, 0, 0.315);
   cursor: pointer;
+  transform: scale(0.8);
 }

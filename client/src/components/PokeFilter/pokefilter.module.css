@@ -6,14 +6,20 @@
   letter-spacing: 3px;
 }
 
+
 .filterContainer {
-  margin-top: 1rem;
+
   transition: 0.2s ease-in;
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  text-align: center;
+  width: 300px;
+  border: 5px solid;
+	margin : 20px auto;
+	padding: 20px;
+	text-align: center;
+	border-radius: 20px;
+	background-color: #fff;
+
+	box-shadow: 10px 10px 5px #ffffff73;
+  
 }
 .filterContainer label {
   display: flex;
@@ -37,12 +43,22 @@
   color: #ffffff;
 }
 .filterContainer select {
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
-  background-color: white;
-  color: black;
-  height: 25px;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 12px;
+  height: 40px;
+  min-width: 270px;
+
+}
+.cusSelBlock {
+}
+#cusSelectbox {
+  height: 100%;
+  width: 100%;
+}
+.s-hidden {
+  visibility: hidden;
+}
+.cusSelBlock {
+  display: inline-block;
+  position: relative;
+  -webkit-perspective: 800px;
+          perspective: 800px;
 }

@@ -59,6 +59,7 @@ const getPokemonByName = async (name) => {
   });
 
   if (!pokemon) {
+
     const pokemon = await getPokemonFromApiByName(name);
     return pokemon && pokemonJsonFormatter(pokemon);
   }

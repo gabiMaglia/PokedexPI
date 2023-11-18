@@ -51,11 +51,13 @@ const getPokemonByNameHandler = async (req, res) => {
   try {
     const name = req.query.name;
     const pokemon = await getPokemonByName(name);
-
-    if (pokemon === null) {
+    
+    
+    if (pokemon === undefined) {
+   
       return res.status(404).json({ error: "Pokémon not found" });
     } else {
-      return res.status(200).json({taskIsCompleted: true , response:pokemon});
+      return res.status(200).json({taskIsCompleted: true , response: pokemon});
     }
   } catch (error) {
     return res.status(500).json({ error: error.message });
@@ -66,7 +68,11 @@ const deletePokemonByIdHandler = async(req, res) => {
   try {
     const id = req.params.id
     const response = await deletePokemonById(id)
-    res.status(200).json({ taskIsCompleted: true, response:response})  
+   
+    
+    if (response.error) return res.status(404).json({ taskIsCompleted: false, response:response});
+    else return res.status(200).json({ taskIsCompleted: true, response:response}) ; 
+  
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }

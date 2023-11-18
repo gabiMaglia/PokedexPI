@@ -3,8 +3,11 @@ import {
   FETCH_ALL_POKEMON,
   FETCH_ALL_POKEMON_TYPE,
   POST_POKEMON,
+  DELETE_POKEMON,
+
   NEXT_PAGE,
   PREV_PAGE,
+  
   TYPE_FILTER,
   ORIGIN_FILTER,
   SORT_ORDER_FILTER,
@@ -28,6 +31,7 @@ const initialState = {
 
 const rootReducer = (state = initialState, { type, payload }) => {
   const ITEMS_PER_PAGE = 12;
+  
   switch (type) {
     case FETCH_ALL_POKEMON:
       return {
@@ -40,7 +44,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
     case FETCH_ALL_POKEMON_TYPE:
       return { ...state, allTypes: payload };
     case FETCH_POKEMON:
-      const isDuplicated = state.allPokemonList.some((e) => {
+       const isDuplicated = state.allPokemonList.some((e) => {
         return Number(e.pokemon_id) === Number(payload.pokemon_id);
       });
       if (!isDuplicated) {
@@ -193,7 +197,17 @@ const rootReducer = (state = initialState, { type, payload }) => {
           ...state.allPokemonList.slice(0, ITEMS_PER_PAGE),
         ],
       };
+    
       
+    case DELETE_POKEMON:
+      const newPokemonList = allPokemonList 
+      return{
+        ...state,
+        allPokemonList: payload.allPokemons,
+        AllPokemonBackupList: payload.allPokemons,
+        totalPages: Math.ceil(payload.allPokemons.length / 12),
+        allPokemonsToShow: payload.allPokemons.slice(0, ITEMS_PER_PAGE),
+      }  
     default:
       return { ...state };
   }

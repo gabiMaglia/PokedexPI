@@ -14,15 +14,19 @@ import {
   fetchAllPokemonService,
   fetchAllPokemonTypeService,
   fetchAllPokemonbySeasonService,
-  postPokemonService
+  postPokemonService,
+  deletePokemonByIdService
 } from "../../services/pokemonServices";
 
 export const fetchPokemon = (name) => {
   return (dispatch) => {
     fetchPokemonService(name).then((data) => {
+
+      if (data.error) return alert(data.error);
+      
       return dispatch({
         type: FETCH_POKEMON,
-        payload: data,
+        payload: data.response,
       });
     });
   };
@@ -30,11 +34,12 @@ export const fetchPokemon = (name) => {
 export const postNewPokemon = (pokemonData) => {
 
   return (dispatch) => {
-
     postPokemonService(pokemonData).then((data) => {
+      if (data.error) return alert(data.error);
+
       return dispatch({
         type: POST_POKEMON,
-        payload: data,
+        payload: data.response,
       });
     });
   };
@@ -42,19 +47,23 @@ export const postNewPokemon = (pokemonData) => {
 export const fetchAllPokemon = () => {
   return (dispatch) => {
     fetchAllPokemonService().then(({ data }) => {
+      if (data.error) return alert(data.error);
+
       return dispatch({
         type: FETCH_ALL_POKEMON,
-        payload: data,
+        payload: data.response,
       });
     });
   };
 };
 export const fetchAllPokemonbySeason = (limit, offset) => {
   return (dispatch) => {
-    fetchAllPokemonbySeasonService(limit, offset).then(({ data }) => {
+    fetchAllPokemonbySeasonService(limit, offset).then(( {data}) => {
+      if (data.error) return alert(data.error);
+    
       return dispatch({
         type: FETCH_ALL_POKEMON,
-        payload: data,
+        payload: data.response,
       });
     });
   };
@@ -62,13 +71,27 @@ export const fetchAllPokemonbySeason = (limit, offset) => {
 export const fetchAllPokemonTypes = () => {
   return (dispatch) => {
     fetchAllPokemonTypeService().then((data) => {
+      if (data.error) return alert(data.error);
+
       return dispatch({
         type: FETCH_ALL_POKEMON_TYPE,
-        payload: data,
+        payload: data.response,
       });
     });
   };
 };
+
+export const deletePokemonById = (id) => {
+  return (dispatch) => {
+    deletePokemonByIdService(id).then((data) => {
+      if (data.error) return alert(data.error);
+      return dispatch({
+        type: DELETE_POKEMON,
+        payload:id
+      })
+    })
+  }
+}
 
 // PAGINADO
 export const prevPage = () => {

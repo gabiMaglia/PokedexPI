@@ -4,6 +4,7 @@ import { fetchPokemon } from "../../Redux/Actions/actions";
 
 import styles from "./searchBar.module.css";
 import { useNavigate } from "react-router-dom";
+import LoadingPokeball from "../common/LoadingPokeball";
 
 const SearchBar = () => {
   const dispatch = useDispatch();
@@ -18,7 +19,7 @@ const SearchBar = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(!isNaN(Number(input)));
+   
 
     let newPokemonToShow;
 
@@ -43,9 +44,9 @@ const SearchBar = () => {
       }
     }
 
-    navigate(`/detail/${newPokemonToShow.pokemon_id}`);
+    newPokemonToShow && navigate(`/detail/${newPokemonToShow.pokemon_id}`);
   };
-
+  
   return (
     <div className={styles.buscarCaja}>
       <input
@@ -54,34 +55,11 @@ const SearchBar = () => {
         name="searchinput"
         className={styles.buscarTxt}
         placeholder="SearchPokemon..."
-      />
+        />
       <a className={styles.buscarBtn} onClick={handleSubmit}>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="100%"
-          height="100%"
-          viewBox="0 0 100 100"
-        >
-          <path
-            d="M 30 50
-		a 1 1 1 0 1 40 0
-		h-12.5
-		a 1 1 1 0 0 -15 0
-		z"
-            fill="#f00"
-            stroke="#222"
-          ></path>
-          <circle cx="50" cy="50" r="5" fill="#222" stroke="#222"></circle>
-          <path
-            d="M 30 50
-		a 1 1 1 0 0 40 0
-		h-12.5
-		a 1 1 1 0 1 -15 0
-		z"
-            fill="#fff"
-            stroke="#222"
-          ></path>
-        </svg>
+        <LoadingPokeball/>
+       
+        
       </a>
     </div>
   );

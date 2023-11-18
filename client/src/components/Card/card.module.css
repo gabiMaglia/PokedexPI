@@ -1,22 +1,35 @@
 .pokemonCard {
     border-radius: 18px;
     height: 7.2rem;
-    width: 160px;
-    
+    width: 170px;
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
     padding: .7rem 1rem;
+    border: 2px solid #000;
+    box-shadow: 0.75rem 0.5rem 0 0 rgba(0, 0, 0, 1);
+    transition: all .3s ease-in-out;
+    filter: saturate(80%);
+}
+
+.pokemonCard:hover {
+    transform: scale(1.1);
+    filter: saturate(100%);
 }
 .pokemonCard div:first-child {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    gap: 5px;
     width: 93%;
     height: 32px;
-    
 }
+.pokemonCard div:first-child h3 {
+    color: var(--lightMain);
+    font-size: 18px;
+}
+    
 .pokemonCard div:last-child {
     display: flex;
     flex-direction: row;
@@ -29,9 +42,17 @@
 .pokemonCard div img {
    position: relative;
    right: -12px;
+   filter: saturate(200%);
+   transform: scale(1.1);
 
 }
 .pokemonCard div .id {
  font-weight: 800 ;
  font-size: 22px;
+}
+
+.pokemonType p {
+    padding-inline: 10px;
+    border-radius: 18px;
+    box-shadow: var(--lightMain) inset 0 0 100px;
 }

@@ -16,12 +16,16 @@ const NavBar = () => {
       </div>
       <div className={`${styles.nav_items} ${isOpen ? styles.opened : ""}`}>
         <SearchBar />
-        <NavLink className={styles.nav_link} to={"/home"}>
-          <NavBtn content={"Home"} />{" "}
-        </NavLink>
-        <NavLink className={styles.nav_link} to={"/createnewpokemon"}>
-          <NavBtn content={"Create New Pokemon"} />
-        </NavLink>
+
+        <div>
+          <NavLink className={styles.nav_link} to={"/home"}>
+            <NavBtn content={"Home"} />{" "}
+          </NavLink>
+          <NavLink className={styles.nav_link} to={"/createnewpokemon"}>
+            <NavBtn content={"Create New Pokemon"} />
+          </NavLink>
+        </div>
+          
       </div>
       <div
         className={`${styles.nav_toggle} ${isOpen ? styles.opened : ""}`}

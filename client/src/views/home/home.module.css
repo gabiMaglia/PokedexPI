@@ -1,6 +1,35 @@
 .homeContainer{
-   width: 100%;
-   max-width: 1482px;
-   margin-inline: auto;
-   height: calc(100dvh - 12rem);
+   flex: 1;
+   background-image: url("../../assets/pokeback-assets/homeBackground.png");
+   background-size: 1024px 1021px; 
+   background-repeat: repeat x;
+   background-attachment: fixed;
+   animation: animatedBackground 40s linear infinite;
+   display: flex;
+   /* flex-wrap: wrap; */
+   justify-content: space-evenly;
+   flex-wrap: wrap;
+   /* align-items: center; */
 }
+.homeFiletr{
+ 
+}
+.controls {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   
+ }
+
+@keyframes animatedBackground {
+	from { background-position: 100% 0; }
+	to { background-position: 0 0; }
+}
+
+@media (max-width: 557px) {
+   .homeContainer{
+
+      background-attachment: fixed;
+   }
+}
+/* @media (max-width: 1021px) {} */
