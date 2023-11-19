@@ -1,37 +1,33 @@
 #root {
-  --navbarColor: #E95B45;
-  --mainColor:#EFAD70;
-  --lightMain:#F9F2BB; 
-  --paletteBlue: #439BAF;
-  --paletteRed:#AD302C;
+  --navbarColor: #e95b45;
+  --mainColor: #efad70;
+  --lightMain: #f9f2bb;
+  --paletteBlue: #439baf;
+  --paletteRed: #ad302c;
 
-    --grass: #7FAD71;
-  --earth: #8C573B;
-  --somePink: #F87C88;
-  --lightGray: #F8F9FA;
-  --pinkyRed: #F14B3D;
-  --Orange: #FF844F;
-  --brightYellow: #FDD85D;
-  --Green: #60D394;
-  --reallyGray: #595F65;
+  --grass: #7fad71;
+  --earth: #8c573b;
+  --somePink: #f87c88;
+  --lightGray: #f8f9fa;
+  --pinkyRed: #f14b3d;
+  --Orange: #ff844f;
+  --brightYellow: #fdd85d;
+  --Green: #60d394;
+  --reallyGray: #595f65;
   --black: #000000;
   --white: #ffffff;
-
-
 }
 .App {
   box-sizing: border-box;
-  text-align: center; 
-  
-  
+  text-align: center;
 }
 
 .mainLayout {
+  overflow-x: hidden;
   display: flex;
   height: 100dvh;
   align-items: stretch;
   flex-direction: column;
   box-sizing: border-box;
-  text-align: center; 
- }
-
+  text-align: center;
+}

@@ -20,7 +20,7 @@ import { season1 } from "./utils/Seasons";
 
 import "./App.css";
 import Error404 from "./views/404/Error404";
-
+import { PATH_ROUTES } from "./helpers/pathRoutes";
 function App() {
   const { limit, offset } = season1;
   const dispatch = useDispatch();
@@ -55,18 +55,18 @@ function App() {
     <main className="mainLayout">
       {location.pathname !== "/" ? <NavBar /> : <></>}
       <Routes>
-        <Route path="/" element={<LandingPage />} />
+        <Route path={PATH_ROUTES.LANDING} element={<LandingPage />} />
         <Route
-          path="/home"
+          path={PATH_ROUTES.HOME}
           element={
             <HomePage detailHandler={detailHandler} allPokemons={allPokemons} />
           }
         />
-        <Route path="/detail/:id" element={<DetailPage />} />
-        <Route path="/createnewpokemon" element={<CreatePage />} />
-        <Route path="/*" element={<Error404/>} />
+        <Route path={`${PATH_ROUTES.DETAIL}/:id`} element={<DetailPage />} />
+        <Route path={PATH_ROUTES.CREATE_POKEMON} element={<CreatePage />} />
+        <Route path={PATH_ROUTES.ERROR} element={<Error404 />} />
       </Routes>
-      {location.pathname !== "/" ? <Footer /> : <></>}
+      {location.pathname !== PATH_ROUTES.LANDING ? <Footer /> : <></>}
     </main>
   );
 }
