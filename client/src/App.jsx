@@ -1,6 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
-import { fetchAllPokemonTypes, fetchAllPokemon, fetchAllPokemonbySeason } from "./Redux/Actions/actions";
+import {
+  fetchAllPokemonTypes,
+  fetchAllPokemon,
+  fetchAllPokemonbySeason,
+  setLoading,
+} from "./Redux/Actions/actions";
 
 import { useDispatch, useSelector } from "react-redux";
 
@@ -14,15 +19,15 @@ import LandingPage from "./views/landingPage/LandingPage";
 import { season1 } from "./utils/Seasons";
 
 import "./App.css";
+import Error404 from "./views/404/Error404";
 
 function App() {
-  const {limit, offset} = season1
+  const { limit, offset } = season1;
   const dispatch = useDispatch();
-  
-  const [loading, setLoading] = useState(true);
   const allPokemons = useSelector((state) => state.allPokemonsToShow);
   const entireListBackup = useSelector((state) => state.AllPokemonBackupList);
   const allTypes = useSelector((state) => state.allTypes);
+  const isLoading = useSelector((state) => state.isLoading);
 
   let location = useLocation();
   const navigate = useNavigate();
@@ -30,37 +35,38 @@ function App() {
   const detailHandler = (id) => {
     navigate(`/detail/${id}`);
   };
+  const handleLoading = (state) => {
+    dispatch(setLoading(state));
+  };
 
   useEffect(() => {
+    handleLoading(true);
     try {
-      if (allTypes.length < 1) dispatch(fetchAllPokemonTypes())
-      if (allPokemons.length < 1 && entireListBackup.length < 1) dispatch(fetchAllPokemonbySeason(limit, offset));
+      if (allTypes.length < 1) dispatch(fetchAllPokemonTypes());
+      if (allPokemons.length < 1 && entireListBackup.length < 1)
+        dispatch(fetchAllPokemonbySeason(limit, offset));
     } catch (error) {
       throw new Error(error);
     }
-  }, [dispatch, allPokemons]);
+    handleLoading(false);
+  }, [dispatch, allPokemons, isLoading]);
 
   return (
     <main className="mainLayout">
-     
-        {location.pathname !== "/" ?  <NavBar />: <></>}
-        <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route
-            path="/home"
-            element={
-              <HomePage
-                detailHandler={detailHandler}
-                allPokemons={allPokemons}
-              />
-            }
-          />
-          <Route path="/detail/:id" element={<DetailPage/>}  />
-          <Route path="/createnewpokemon" element={<CreatePage />} />
-        </Routes>
-        {location.pathname !== "/" ? <Footer /> : <></>}
-     
-
+      {location.pathname !== "/" ? <NavBar /> : <></>}
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route
+          path="/home"
+          element={
+            <HomePage detailHandler={detailHandler} allPokemons={allPokemons} />
+          }
+        />
+        <Route path="/detail/:id" element={<DetailPage />} />
+        <Route path="/createnewpokemon" element={<CreatePage />} />
+        <Route path="/*" element={<Error404/>} />
+      </Routes>
+      {location.pathname !== "/" ? <Footer /> : <></>}
     </main>
   );
 }

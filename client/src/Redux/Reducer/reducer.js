@@ -4,13 +4,12 @@ import {
   FETCH_ALL_POKEMON_TYPE,
   POST_POKEMON,
   DELETE_POKEMON,
-
   NEXT_PAGE,
   PREV_PAGE,
-  
   TYPE_FILTER,
   ORIGIN_FILTER,
   SORT_ORDER_FILTER,
+  SET_LOADING,
 } from "../Actions/action-types";
 
 const initialState = {
@@ -21,6 +20,7 @@ const initialState = {
   detailPokemon: [],
   currentPage: 0,
   totalPages: 0,
+  isLoading: false,
   filterSetUp: {
     origin: "both",
     type: "all",
@@ -31,7 +31,7 @@ const initialState = {
 
 const rootReducer = (state = initialState, { type, payload }) => {
   const ITEMS_PER_PAGE = 12;
-  
+
   switch (type) {
     case FETCH_ALL_POKEMON:
       return {
@@ -40,17 +40,18 @@ const rootReducer = (state = initialState, { type, payload }) => {
         AllPokemonBackupList: payload.allPokemons,
         totalPages: Math.ceil(payload.allPokemons.length / 12),
         allPokemonsToShow: payload.allPokemons.slice(0, ITEMS_PER_PAGE),
+        isLoading: false
       };
     case FETCH_ALL_POKEMON_TYPE:
       return { ...state, allTypes: payload };
     case FETCH_POKEMON:
-       const isDuplicated = state.allPokemonList.some((e) => {
+      const isDuplicated = state.allPokemonList.some((e) => {
         return Number(e.pokemon_id) === Number(payload.pokemon_id);
       });
       if (!isDuplicated) {
         return {
           ...state,
-          currentPage : 0,
+          currentPage: 0,
           allPokemonList: [payload, ...state.allPokemonList],
           AllPokemonBackupList: [payload, ...state.allPokemonList],
           allPokemonsToShow: [
@@ -69,6 +70,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
           ...state,
           currentPage: 0,
           allPokemonsToShow: state.allPokemonList.slice(startIndex, endIndex),
+     
         };
       } else {
         const startIndex = nextPage * ITEMS_PER_PAGE;
@@ -78,6 +80,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
           ...state,
           currentPage: nextPage,
           allPokemonsToShow: state.allPokemonList.slice(startIndex, endIndex),
+         
         };
       }
     case PREV_PAGE:
@@ -186,10 +189,9 @@ const rootReducer = (state = initialState, { type, payload }) => {
       };
 
     case POST_POKEMON:
-      
       return {
         ...state,
-        currentPage : 0,
+        currentPage: 0,
         allPokemonList: [payload, ...state.allPokemonList],
         AllPokemonBackupList: [payload, ...state.allPokemonList],
         allPokemonsToShow: [
@@ -197,17 +199,22 @@ const rootReducer = (state = initialState, { type, payload }) => {
           ...state.allPokemonList.slice(0, ITEMS_PER_PAGE),
         ],
       };
-    
-      
+
     case DELETE_POKEMON:
-      const newPokemonList = allPokemonList 
-      return{
+      const newPokemonList = allPokemonList;
+      return {
         ...state,
         allPokemonList: payload.allPokemons,
         AllPokemonBackupList: payload.allPokemons,
         totalPages: Math.ceil(payload.allPokemons.length / 12),
         allPokemonsToShow: payload.allPokemons.slice(0, ITEMS_PER_PAGE),
-      }  
+      };
+    case SET_LOADING:
+      
+      return {
+        ...state,
+        isLoading: payload,
+      };
     default:
       return { ...state };
   }

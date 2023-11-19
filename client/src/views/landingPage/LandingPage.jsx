@@ -6,7 +6,7 @@ import { NavLink } from "react-router-dom";
 const LandingPage = () => {
   return (
     <section className={styles.landingContainer}>
-  
+        
         <div className={styles.logo}>
           <img src={pokeLogo} alt="Pokemon" className={styles.pokeLogo}/>
           <img src={pokeimg} alt="pokeball" className={styles.pokeballImg} />

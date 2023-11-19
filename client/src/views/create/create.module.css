@@ -1,11 +1,5 @@
 .createContainer {
     flex: 1;
-    background-image: url("../../assets/pokeback-assets/homeBackground.png");
-    background-size: 1024px 1021px; 
-    background-repeat: repeat x;
-    background-attachment: fixed;
-    animation: animatedBackground 40s linear infinite;
-    /* max-height: 75svh; */
   }
 
   

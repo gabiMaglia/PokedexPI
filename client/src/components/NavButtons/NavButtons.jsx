@@ -1,10 +1,19 @@
 import NavBtn from "../common/navBtn ";
 import styles from "./navButtons.module.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { nextPage, prevPage } from "../../Redux/Actions/actions";
 
-const NavButtons = ({ handlePrevPage, handleNextPage }) => {
+const NavButtons = () => {
   const currentPage = useSelector((e) => e.currentPage);
   const totalPages = useSelector((e) => e.totalPages);
+  const dispatch = useDispatch();
+  const handleNextPage = () => {
+    dispatch(nextPage());
+  };
+  const handlePrevPage = () => {
+    dispatch(prevPage());
+  };
+
 
   return (
     <>

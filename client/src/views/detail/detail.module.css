@@ -1,0 +1,20 @@
+.detailCard{
+    flex: 1;
+    position: relative;
+    display: flex;
+    align-items: stretch;
+}
+    
+    
+.col1{
+    flex:1;
+ 
+}
+.col2{
+   
+    flex:1
+}
+.col3{
+  
+    flex:1
+}

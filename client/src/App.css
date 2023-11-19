@@ -1,7 +1,4 @@
 #root {
-  margin: 0 auto;
-  padding: 0;
-
   --navbarColor: #E95B45;
   --mainColor:#EFAD70;
   --lightMain:#F9F2BB; 
@@ -30,12 +27,11 @@
 }
 
 .mainLayout {
-  width: 100%;
-  height: 100svh;
   display: flex;
+  height: 100dvh;
+  align-items: stretch;
   flex-direction: column;
   box-sizing: border-box;
   text-align: center; 
-
  }
 

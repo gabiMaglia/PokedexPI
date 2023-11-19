@@ -8,6 +8,7 @@ import {
   ORIGIN_FILTER,
   SORT_ORDER_FILTER,
   POST_POKEMON,
+  SET_LOADING
 } from "./action-types";
 import {
   fetchPokemonService,
@@ -16,6 +17,8 @@ import {
   fetchAllPokemonbySeasonService,
   postPokemonService,
   deletePokemonByIdService
+
+  
 } from "../../services/pokemonServices";
 
 export const fetchPokemon = (name) => {
@@ -94,6 +97,7 @@ export const deletePokemonById = (id) => {
 }
 
 // PAGINADO
+
 export const prevPage = () => {
   return (dispatch) => {
     return dispatch({
@@ -133,6 +137,17 @@ export const sortAndOrderFilter = (data) => {
     return dispatch({
       type: SORT_ORDER_FILTER,
       payload: data,
+    });
+  };
+};
+
+
+
+export const setLoading = (state) => {
+  return (dispatch) => {
+    return dispatch({
+      type: SET_LOADING,
+      payload: state
     });
   };
 };

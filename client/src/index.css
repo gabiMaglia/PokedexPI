@@ -3,6 +3,10 @@
   src: url("./assets//fonts/pokemon-solid-font/PokemonSolidNormal-xyWR.ttf");
 }
 
+html,body {
+  margin: 0;
+  padding: 0;
+}
 
 
 :root {

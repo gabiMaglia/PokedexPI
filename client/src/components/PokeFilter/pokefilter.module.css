@@ -14,6 +14,7 @@
   border-radius: 20px;
   background-color: #ffffffb2;
   display: flex;
+  flex-wrap: wrap;
   gap: .4rem;
   color: var(--Orange);
   box-shadow: 10px 10px 5px #ffffff73;
@@ -25,10 +26,11 @@
   width: min(15rem, 90vw);
   border-radius: 0.25rem;
   text-shadow: 2px 2px 4px #000000;
+  font-size: 16px;
 }
 .filterContainer select {
   border: 0;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 600;
   outline: 0;
   background: none;
@@ -39,3 +41,21 @@
   cursor: pointer;
 }
 
+@media screen and (min-width: 541px) {
+    .filterContainer{
+
+    }
+    .filterContainer label {
+font-size: 18px;
+    }
+    .filterContainer select {
+      border: 0;
+      font-size: 14px;
+      font-weight: 600;
+
+ 
+      flex: 1;
+   
+    
+    }
+}

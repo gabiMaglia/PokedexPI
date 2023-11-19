@@ -22,17 +22,25 @@
 }
 
 .pokeballImg {
-  filter: opacity(0.5);
-  width: 320px;
+  filter: opacity(0.9);
+  width: 280px;
   top: -70px;
   position: relative;
 }
 .pokeLogo {
-  width: 320px;
+  width: 280px;
 }
 
 .getInto {
   filter: opacity(0.98);
   margin-inline: auto;
   margin-bottom: 5rem;
+}
+
+
+@media screen and (min-width : 560px) {
+  .pokeLogo {
+    width: 320px;
+  }
+  
 }

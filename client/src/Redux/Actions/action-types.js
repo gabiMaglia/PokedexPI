@@ -8,3 +8,4 @@ export const POST_POKEMON = 'postNewPokemonToDb';
 export const TYPE_FILTER = 'type_filter';
 export const ORIGIN_FILTER = 'origin_filter';
 export const SORT_ORDER_FILTER = 'sort_order_filter';
+export const SET_LOADING = 'setLoading';

@@ -1,31 +1,20 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import PokeFilter from "../../components/PokeFilter/PokeFilter";
 import NavButtons from "../../components/NavButtons/NavButtons";
 import CardBoard from "../../components/CardBoard/CardBoard.componenet";
 
-import { nextPage, prevPage } from "../../Redux/Actions/actions";
-
+import AnimatedBackground from "../../components/common/AnimatedBackground";
 import styles from "./home.module.css";
 const HomePage = ({ detailHandler, allPokemons }) => {
-  const dispatch = useDispatch();
 
-  const handleNextPage = () => {
-    dispatch(nextPage());
-  };
-  const handlePrevPage = () => {
-    dispatch(prevPage());
-  };
 
   return (
     <section className={styles.homeContainer}>
+      <AnimatedBackground />
       <CardBoard allPokemons={allPokemons} detailHandler={detailHandler} />
       <div className={styles.controls}>
-        <NavButtons
-          handlePrevPage={handlePrevPage}
-          handleNextPage={handleNextPage}
-        />
-
+        <NavButtons />
         <span className={styles.homeFiletr}>
           <PokeFilter />
         </span>
