@@ -7,12 +7,13 @@ import TypeIcons from "../TypeIcons/TypeIcons";
 
 import styles from "./postForm.module.css";
 import { capitalize } from "../../utils/capitalize";
+import NavBtn from "../common/navBtn ";
 
 const PostForm = () => {
   const pokemonTypes = useSelector((store) => store.allTypes);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
+
   const [pokemonData, setPokemonData] = useState({
     pokemon_name: "gabisor",
     pokemon_image:
@@ -36,17 +37,17 @@ const PostForm = () => {
   const handleCantidadHabilidadesChange = (event) => {
     const nuevaCantidad = parseInt(event.target.value, 10);
     setCantidadHabilidades(nuevaCantidad);
-  
+
     setPokemonData((prevData) => {
       const nuevasHabilidades = [];
-  
+
       for (let i = 0; i < nuevaCantidad; i++) {
         nuevasHabilidades.push({
           abilitie_name: "",
           abilitie_slot: 0,
         });
       }
-  
+
       return {
         ...prevData,
         PokemonAbilities: nuevasHabilidades,
@@ -61,7 +62,7 @@ const PostForm = () => {
         ...nuevasHabilidades[index],
         [tipo]: valor,
       };
-     
+
       return {
         ...prevData,
         PokemonAbilities: nuevasHabilidades,
@@ -71,7 +72,7 @@ const PostForm = () => {
 
   const handleTypeChecks = (e) => {
     const { value, checked } = e.target;
-    console.log( value, checked )
+    console.log(value, checked);
     checked
       ? setPokemonData((prevData) => ({
           ...prevData,
@@ -109,210 +110,249 @@ const PostForm = () => {
   };
 
   return (
-   
+    <>
       <form onSubmit={handleSubmit} className={styles.form}>
-        <h2>Create New Pokemon</h2>
-        <article className={styles.formulario}>
-          <div>
-            <p>
-              <input
-                type="text"
-                id="nombre"
-                name="pokemon_name"
-                value={pokemonData.pokemon_name}
-                onChange={handleChange}
-                required
-              />
-              <label htmlFor="nombre">Nombre:</label>
-            </p>
-            <p>
-              <input
-                type="url"
-                id="imagen"
-                name="pokemon_image"
-                value={pokemonData.pokemon_image}
-                onChange={handleChange}
-                required
-              />
-              <label htmlFor="imagenMain">Imagen (url) :</label>
-            </p>
-          </div>
-            
-          <div className={styles.statBox}>
-            <p>
-              <input
-                type="number"
-                id="vida"
-                name="hp"
-                value={pokemonData.PokemonStatPoint.hp}
-                onChange={handleStatPointChange}
-                required
-              />
-              <label htmlFor="vida">Vida:</label>
-            </p>
-            <p>
-              <input
-                type="number"
-                id="ataque"
-                name="attack"
-                value={pokemonData.PokemonStatPoint.attack}
-                onChange={handleStatPointChange}
-                required
-              />
-              <label htmlFor="ataque">Ataque:</label>
-            </p>
-            <p>
-              <input
-                type="number"
-                id="ataque"
-                name="special_attack"
-                value={pokemonData.PokemonStatPoint.special_attack}
-                onChange={handleStatPointChange}
-                required
-              />
-              <label htmlFor="ataque">Ataque Critico:</label>
-            </p>
-            <p>
-              <input
-                type="number"
-                id="defensa"
-                name="defense"
-                value={pokemonData.PokemonStatPoint.defense}
-                onChange={handleStatPointChange}
-                required
-              />
-              <label htmlFor="defensa">Defensa:</label>
-            </p>
-            <p>
-              <input
-                type="number"
-                id="defensa"
-                name="special_defense"
-                value={pokemonData.PokemonStatPoint.special_defense}
-                onChange={handleStatPointChange}
-                required
-              />
-              <label htmlFor="defensa">Defensa Critica:</label>
-            </p>
-            <p>
-              <input
-                type="number"
-                id="velocidad"
-                name="speed"
-                value={pokemonData.PokemonStatPoint.speed}
-                onChange={handleStatPointChange}
-              />
-              <label htmlFor="velocidad">Velocidad:</label>
-            </p>
-            
-          </div>
-          
-          <div className={styles.altypes}>>
-  
-            <p>
-              <input
-                type="number"
-                id="altura"
-                name="pokemon_height"
-                value={pokemonData.pokemon_height}
-                onChange={handleChange}
-              />
-              <label htmlFor="altura">Altura:</label>
-            </p>
-  
-            <p>
-              <input
-                type="number"
-                id="peso"
-                name="pokemon_weight"
-                value={pokemonData.pokemon_weight}
-                onChange={handleChange}
-              />
-              <label htmlFor="peso">Peso:</label>
-            </p>
-  
-          </div>
+        <div className={styles.col1}>
+          <article className={styles.statForm}>
+            <h3>New Pokemon details</h3>
 
-
-        </article>
-
-        <article className={styles.abilitieForm}>
-          <h3>Habilidades:</h3>
-          <label>
-            Cantidad de habilidades:
-            <select
-              value={cantidadHabilidades}
-              onChange={handleCantidadHabilidadesChange}
-            >
-              <option value={1}>1</option>
-              <option value={2}>2</option>
-              <option value={3}>3</option>
-            </select>
-          </label>
-
-          {Array.from({ length: cantidadHabilidades }, (_, index) => (
-            <div className={styles.abilitieBox} key={index}>
+            <div className={styles.nameImg}>
               <p>
-                Nombre de la habilidad:
-                <input
-                  type="text"
-                  value={
-                    (pokemonData.PokemonAbilities[index] &&
-                      pokemonData.PokemonAbilities[index].abilitie_name) ||
-                    ""
-                  }
-                  onChange={(e) =>
-                    handleAbilitiesInputChange(
-                      index,
-                      "abilitie_name",
-                      e.target.value
-                    )
-                  }
-                />
-                Número de slots:
-                <input
-                  type="number"
-                  value={
-                    (pokemonData.PokemonAbilities[index] &&
-                      pokemonData.PokemonAbilities[index].abilitie_slot) ||
-                    0
-                  }
-                  onChange={(e) =>
-                    handleAbilitiesInputChange(
-                      index,
-                      "abilitie_slot",
-                      parseInt(e.target.value, 10)
-                    )
-                  }
-                />
+                <label htmlFor="nombre">
+                  Name:
+                  <input
+                    type="text"
+                    id="nombre"
+                    name="pokemon_name"
+                    value={pokemonData.pokemon_name}
+                    onChange={handleChange}
+                    required
+                  />
+                </label>
+              </p>
+
+              <p>
+                <label htmlFor="imagenMain">
+                  Image (url) :
+                  <input
+                    type="url"
+                    id="imagen"
+                    name="pokemon_image"
+                    value={pokemonData.pokemon_image}
+                    onChange={handleChange}
+                    required
+                  />
+                </label>
               </p>
             </div>
-          ))}
-        </article>
+            <h4>Stats</h4>
+            <div className={styles.statBox}>
+              <div>
+                <p>
+                  <label htmlFor="vida">
+                    Life
+                    <input
+                      type="number"
+                      id="vida"
+                      name="hp"
+                      min={'1'}
+                      max={'714'}
+                     
+                      value={pokemonData.PokemonStatPoint.hp}
+                      onChange={handleStatPointChange}
+                      required
+                    />
+                  </label>
+                </p>
+                <p>
+                  <label htmlFor="velocidad">
+                    Speed
+                    <input
+                      type="number"
+                      id="velocidad"
+                      name="speed"
+                      min={'1'}
+                      max={'300'}
+                      value={pokemonData.PokemonStatPoint.speed}
+                      onChange={handleStatPointChange}
+                    />
+                  </label>
+                </p>
+              </div>
 
-        <article className={styles.typeBox} htmlFor="tipos">
-          <h3>Tipos:</h3>
-          <div className={styles.typeChart}>
-            {pokemonTypes.map((e, key) => (
-              <label key={key} className={styles.typeIcon}>
-                <input
-                  type="checkbox"
-                  name="tipos"
-                  value={e.nombre_type}
-                  onChange={handleTypeChecks}
-                  checked={e.checked}
-                  className={styles.typeInput}
-                />
-                <TypeIcons  type={e.nombre_type}></TypeIcons>
-                <span>{capitalize(e.nombre_type)}</span>
-              </label>
-            ))}
-          </div>
-        </article>
+              <div>
+                <p>
+                  <label htmlFor="ataque">
+                    Attaque
+                    <input
+                      type="number"
+                      id="ataque"
+                      name="attack"
+                      min={'1'}
+                      max={'300'}
+                      value={pokemonData.PokemonStatPoint.attack}
+                      onChange={handleStatPointChange}
+                      required
+                    />
+                  </label>
+                </p>
+                <p>
+                  <label htmlFor="special_attack">
+                    Critical attack
+                    <input
+                      type="number"
+                      id="special_attack"
+                      name="special_attack"
+                      min={'1'}
+                      max={'380'}
+                      value={pokemonData.PokemonStatPoint.special_attack}
+                      onChange={handleStatPointChange}
+                      required
+                    />
+                  </label>
+                </p>
+              </div>
 
-        <button type="submit">Crear Pokemon</button>
+              <div>
+                <p>
+                  <label htmlFor="defensa">
+                    Defense
+                    <input
+                      type="number"
+                      id="defensa"
+                      name="defense"
+                      value={pokemonData.PokemonStatPoint.defense}
+                      onChange={handleStatPointChange}
+                      required
+                    />
+                  </label>
+                </p>
+                <p>
+                  <label htmlFor="special_defense">
+                    Critical defense
+                    <input
+                      type="number"
+                      id="special_defense"
+                      name="special_defense"
+                      value={pokemonData.PokemonStatPoint.special_defense}
+                      onChange={handleStatPointChange}
+                      required
+                    />
+                  </label>
+                </p>
+              </div>
+            </div>
+
+            <div className={styles.breeding}>
+              <p>
+                <label htmlFor="altura">
+                  Height
+                  <input
+                    type="number"
+                    id="altura"
+                    name="pokemon_height"
+                    value={pokemonData.pokemon_height}
+                    onChange={handleChange}
+                  />
+                </label>
+              </p>
+              <p>
+                <label htmlFor="peso">
+                  Weigth
+                  <input
+                    type="number"
+                    id="peso"
+                    name="pokemon_weight"
+                    value={pokemonData.pokemon_weight}
+                    onChange={handleChange}
+                  />
+                </label>
+              </p>
+            </div>
+          </article>
+
+          <article className={styles.abilitieForm}>
+            <h3>Habilities:</h3>
+            <label>
+              How many?:
+              <select
+                value={cantidadHabilidades}
+                onChange={handleCantidadHabilidadesChange}
+              >
+                <option value={1}>1</option>
+                <option value={2}>2</option>
+                <option value={3}>3</option>
+              </select>
+            </label>
+            <div className={styles.abilitieBox}>
+              {Array.from({ length: cantidadHabilidades }, (_, index) => (
+                <p key={index}>
+                  Habilitie:
+                  <input
+                    type="text"
+                    value={
+                      (pokemonData.PokemonAbilities[index] &&
+                        pokemonData.PokemonAbilities[index].abilitie_name) ||
+                      ""
+                    }
+                    onChange={(e) =>
+                      handleAbilitiesInputChange(
+                        index,
+                        "abilitie_name",
+                        e.target.value
+                      )
+                    }
+                  />
+                  Slots
+                  <input
+                    type="number"
+                    min={1}
+                    max={3}
+                    value={
+                      (pokemonData.PokemonAbilities[index] &&
+                        pokemonData.PokemonAbilities[index].abilitie_slot) ||
+                      0
+                    }
+                    onChange={(e) =>
+                      handleAbilitiesInputChange(
+                        index,
+                        "abilitie_slot",
+                        parseInt(e.target.value, 10)
+                      )
+                    }
+                  />
+                </p>
+              ))}
+            </div>
+          </article>
+        </div>
+
+        <div className={styles.col2}>
+          <article className={styles.typeBox} htmlFor="tipos">
+            <h3>Types (3 max):</h3>
+            <div className={styles.typeChart}>
+              {pokemonTypes.map((e, key) => (
+                <label key={key} className={styles.typeIcon}>
+                  <input
+                    type="checkbox"
+                    name="tipos"
+                    value={e.nombre_type}
+                    onChange={handleTypeChecks}
+                    checked={e.checked}
+                    className={styles.typeInput}
+                  />
+                  <TypeIcons type={e.nombre_type} bg={true}></TypeIcons>
+                  <span>{capitalize(e.nombre_type)}</span>
+                </label>
+              ))}
+            </div>
+          </article>
+          <span className={styles.submitBtn}>
+            <NavBtn content={"Create Pokemon"} type="submit" />
+          </span>
+        </div>
       </form>
- 
+    </>
   );
 };
 

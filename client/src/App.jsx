@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { fetchAllPokemonTypes, fetchAllPokemon, fetchAllPokemonbySeason } from "./Redux/Actions/actions";
 
@@ -19,6 +19,7 @@ function App() {
   const {limit, offset} = season1
   const dispatch = useDispatch();
   
+  const [loading, setLoading] = useState(true);
   const allPokemons = useSelector((state) => state.allPokemonsToShow);
   const entireListBackup = useSelector((state) => state.AllPokemonBackupList);
   const allTypes = useSelector((state) => state.allTypes);

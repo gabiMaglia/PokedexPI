@@ -35,7 +35,7 @@ const Pokeball = styled.div`
   position: relative;
   overflow: hidden;
   border: 3px solid;
-  animation: ${framesAnimation} 0.8s linear 0s infinite;
+  animation: ${framesAnimation} 3s linear 0s infinite;
 
   &::after {
     content: '';

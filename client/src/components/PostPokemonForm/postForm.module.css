@@ -1,24 +1,132 @@
+.form {
+  display: flex;
+  flex-wrap: wrap;
+  flex: 1;
+  color: #41403e;
+  padding: 2rem 1rem;
+  font-weight: 800;
+}
 
+.form input {
+  box-shadow: 0.45rem 0.3rem 0 0 rgba(0, 0, 0, 1);
+  width: 100%;
+  height: 28px;
+  border-bottom-left-radius: 15px 255px;
+  border-bottom-right-radius: 225px 15px;
+  border-top-left-radius: 255px 15px;
+  border-top-right-radius: 15px 225px;
+  box-sizing: border-box;
+  color: #41403e;
+  background-color: #ffffffee;
+  border-radius: 15px 225px 255px 15px 15px 255px 225px 15px;
+  outline: none !important;
+  margin: 0.1rem;
+}
+.statForm h4 {
+  margin: 0;
+}
+.col1 {
+  box-shadow: 0.75rem 0.5rem 0 0 rgba(0, 0, 0, 1);
+  border: 2px solid #000;
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  /* height: 640px; */
+
+  min-width: 420px;
+}
+.abilitieForm,
+.statForm {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  min-width: 200px;
+}
+.statForm div {
+  display: flex;
+  justify-content: space-evenly;
+  text-align: start;
+  flex-wrap: wrap;
+  flex: 1;
+}
+
+.statBox {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.statBox div {
+  max-width: 240px;
+  display: flex;
+  flex-direction: column;
+}
+
+.abilitieBox {
+  display: flex;
+  justify-content: center;
+}
+.abilitieForm label {
+  display: flex;
+  justify-content: center;
+  gap: 0.7rem;
+}
+.abilitieBox input {
+  margin-top: 1rem;
+  width: 20%;
+  margin: 1rem;
+}
+
+.col2 {
+  flex: 1;
+  margin: 5px;
+}
 
 .typeChart {
-  display: flex;
-  max-width: 100%;
-  flex-wrap: wrap;
-  gap: 1.7rem;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 2rem;
   justify-content: center;
-  margin-block: 3rem;
+  margin-block: 2.8rem;
+  padding-inline: 3rem;
+  margin-bottom: 4rem;
+  text-align: center;
+  width:90%;
+  /* width: 80%; */
 }
 .typeIcon input {
   display: none;
 }
 .typeIcon div {
-  width: 100px; 
-  height: 100px; 
-  filter: grayscale(100%); 
+  width: 60px;
+  height: 60px;
+  filter: grayscale(100%);
 }
 
 .typeIcon input:checked + div {
-  filter: grayscale(
-    0%
-  ); 
+  filter: grayscale(0%);
+}
+
+.submitBtn {
+
+}
+
+@media (max-width: 557px) {
+  .typeChart {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-block: 4rem;
+    margin-inline: auto;
+  }
+  .typeIcon div {
+    width: 50px;
+    height: 50px;
+    filter: grayscale(100%);
+  }
+}
+@media (max-width: 397px) {
+  .typeChart {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }

@@ -21,13 +21,12 @@ const HomePage = ({ detailHandler, allPokemons }) => {
     <section className={styles.homeContainer}>
       <CardBoard allPokemons={allPokemons} detailHandler={detailHandler} />
       <div className={styles.controls}>
-   
         <NavButtons
           handlePrevPage={handlePrevPage}
           handleNextPage={handleNextPage}
         />
-        
-        <span  className={styles.homeFiletr}>
+
+        <span className={styles.homeFiletr}>
           <PokeFilter />
         </span>
       </div>

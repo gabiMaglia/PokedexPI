@@ -1,3 +1,13 @@
+.label{
+  color: var(--brightYellow);
+  margin: 0;
+  font-family: "PokemonSolidFn";
+  font-size: 21px;
+  letter-spacing: 3px;
+ 
+  text-shadow: 1px 1px 4px #000000;
+}
+
 .pageSelectorContainer {
   display: flex;
   justify-content: center;
@@ -58,5 +68,5 @@
   color: var(--lightMain);
 }
 .pageSelectorContainer button svg {
-  fill: var(--lightGray);
+  fill: var(--paletteRed);
 }

@@ -12,6 +12,7 @@
   font-size: 24px;
   letter-spacing: 2px;
   margin-bottom: 2rem;
+  text-shadow: 1px 1px 4px #000000;
 }
 
 .cardList {

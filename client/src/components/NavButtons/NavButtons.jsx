@@ -8,6 +8,9 @@ const NavButtons = ({ handlePrevPage, handleNextPage }) => {
 
   return (
     <>
+        <p className={styles.label}>
+          Page selector
+        </p>
       <div className={styles.pageSelectorContainer}>
         <span onClick={handlePrevPage}>
           <NavBtn

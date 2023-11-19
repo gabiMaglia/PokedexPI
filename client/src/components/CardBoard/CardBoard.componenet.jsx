@@ -1,16 +1,14 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 import Card from "../Card/Card.componenet";
 
 import styles from "./cardBoard.module.css";
 
-
 const CardBoard = ({ detailHandler, allPokemons }) => {
-  const dispatch = useDispatch();
   const currentPage = useSelector((state) => state.currentPage);
-
   const [page, setPage] = useState();
+
   useEffect(() => {
     setPage(currentPage);
   }, [currentPage]);
