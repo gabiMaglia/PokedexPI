@@ -21,6 +21,14 @@
   transform: scale(8);
   z-index: -1;
 }
+.deleteBtn{
+  position: absolute;
+  color: #000;
+  right: 10px;
+  bottom: 5px;
+  transform: scale(2);
+  z-index: 1;
+}
 .pokemonCard:hover {
   transform: scale(1.1);
   filter: saturate(100%);
@@ -68,3 +76,5 @@
   border-radius: 18px;
   box-shadow: var(--lightMain) inset 0 0 100px;
 }
+
+

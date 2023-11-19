@@ -64,7 +64,7 @@ export const fetchAllPokemonTypeService = async () => {
 
 export const deletePokemonByIdService = async (id) => {
   try {
-    const response = await axios.delete(`http://localhost:3001/poke${id}`);
+    const response = await axios.delete(`http://localhost:3001/poke/${id}`);
     return response.data;
   } catch ({ error }) {
     throw new Error(error);

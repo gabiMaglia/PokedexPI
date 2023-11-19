@@ -6,13 +6,13 @@ import CardBoard from "../../components/CardBoard/CardBoard.componenet";
 
 import AnimatedBackground from "../../components/common/AnimatedBackground";
 import styles from "./home.module.css";
-const HomePage = ({ detailHandler, allPokemons }) => {
+const HomePage = ({ detailHandler, deleteHandler, allPokemons }) => {
 
 
   return (
     <section className={styles.homeContainer}>
       <AnimatedBackground />
-      <CardBoard allPokemons={allPokemons} detailHandler={detailHandler} />
+      <CardBoard allPokemons={allPokemons} deleteHandler={deleteHandler} detailHandler={detailHandler} />
       <div className={styles.controls}>
         <NavButtons />
         <span className={styles.homeFiletr}>

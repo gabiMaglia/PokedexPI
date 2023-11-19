@@ -8,7 +8,8 @@ import {
   ORIGIN_FILTER,
   SORT_ORDER_FILTER,
   POST_POKEMON,
-  SET_LOADING
+  SET_LOADING,
+  DELETE_POKEMON
 } from "./action-types";
 import {
   fetchPokemonService,
@@ -88,6 +89,7 @@ export const deletePokemonById = (id) => {
   return (dispatch) => {
     deletePokemonByIdService(id).then((data) => {
       if (data.error) return alert(data.error);
+      else alert("pokemon eliminado con exito")
       return dispatch({
         type: DELETE_POKEMON,
         payload:id

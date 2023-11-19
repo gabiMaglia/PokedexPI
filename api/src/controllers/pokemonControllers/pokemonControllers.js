@@ -95,6 +95,7 @@ const postNewPokemonToDb = async ({ data }) => {
   for (const type of newPokemonTypes) {
     await newPokemon.addPokemonType(type);
   }
+  
 
   const completeNew = await Pokemon.findByPk(newPokemon.pokemon_id, {
     include: [PokemonStatPoints, PokemonAbilities, PokemonTypes],

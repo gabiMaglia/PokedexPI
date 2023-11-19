@@ -201,13 +201,15 @@ const rootReducer = (state = initialState, { type, payload }) => {
       };
 
     case DELETE_POKEMON:
-      const newPokemonList = allPokemonList;
+      const newPokemonList = state.allPokemonList.filter((e) => {
+       return  e.pokemon_id !== payload
+      });
       return {
         ...state,
-        allPokemonList: payload.allPokemons,
-        AllPokemonBackupList: payload.allPokemons,
-        totalPages: Math.ceil(payload.allPokemons.length / 12),
-        allPokemonsToShow: payload.allPokemons.slice(0, ITEMS_PER_PAGE),
+        allPokemonList: newPokemonList,
+        AllPokemonBackupList: newPokemonList,
+        totalPages: Math.ceil(newPokemonList.length / 12),
+        allPokemonsToShow: newPokemonList.slice(0, ITEMS_PER_PAGE),
       };
     case SET_LOADING:
       

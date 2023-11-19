@@ -5,6 +5,7 @@ import {
   fetchAllPokemon,
   fetchAllPokemonbySeason,
   setLoading,
+  deletePokemonById,
 } from "./Redux/Actions/actions";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -35,8 +36,11 @@ function App() {
   const detailHandler = (id) => {
     navigate(`/detail/${id}`);
   };
-  const handleLoading = (state) => {
-    dispatch(setLoading(state));
+  const deleteHandler = (id) => {
+    dispatch(deletePokemonById(id));
+  };
+  const handleLoading = (id) => {
+    dispatch(setLoading(id));
   };
 
   useEffect(() => {
@@ -59,7 +63,7 @@ function App() {
         <Route
           path={PATH_ROUTES.HOME}
           element={
-            <HomePage detailHandler={detailHandler} allPokemons={allPokemons} />
+            <HomePage detailHandler={detailHandler} deleteHandler={deleteHandler} allPokemons={allPokemons} />
           }
         />
         <Route path={`${PATH_ROUTES.DETAIL}/:id`} element={<DetailPage />} />
