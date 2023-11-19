@@ -9,17 +9,21 @@ import NavBtn from "../common/navBtn ";
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
+  const handleOpenCloseNav = () => {
+    setIsOpen(!isOpen)
+  }
+
   return (
     <nav className={styles.navbar}>
       <div className={styles.nav_logo}>
         <img src={logo} alt="Pokedex" />
       </div>
       <div className={`${styles.nav_items} ${isOpen ? styles.opened : ""}`}>
-        <SearchBar />
+        <SearchBar handleOpenCloseNav={handleOpenCloseNav} />
 
-        <div>
+        <div onClick={handleOpenCloseNav}>
           <NavLink className={styles.nav_link} to={"/home"}>
-            <NavBtn content={"Home"} />{" "}
+            <NavBtn content={"Home"} />
           </NavLink>
           <NavLink className={styles.nav_link} to={"/createnewpokemon"}>
             <NavBtn content={"Create New Pokemon"} />
@@ -29,7 +33,7 @@ const NavBar = () => {
       </div>
       <div
         className={`${styles.nav_toggle} ${isOpen ? styles.opened : ""}`}
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={handleOpenCloseNav}
       >
         <span></span>
         <span></span>

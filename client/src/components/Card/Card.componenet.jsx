@@ -13,7 +13,7 @@ const Card = ({ pokemon, detailHandler }) => {
   const [pType, setPtype] = useState();
   const [loading, setLoading] = useState(true);
   const [isLocal, setIsLocal] = useState(false);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setLoading(true);
@@ -24,10 +24,10 @@ const Card = ({ pokemon, detailHandler }) => {
     setLoading(false);
     pokemon.pokemon_isLocal && setIsLocal(true);
   }, [pokemon.PokemonTypes]);
-  
+
   const deleteHandler = (id) => {
-    dispatch(deletePokemonById(id))
-  }
+    dispatch(deletePokemonById(id));
+  };
 
   return loading ? (
     <div></div>

@@ -21,7 +21,7 @@
   transform: scale(8);
   z-index: -1;
 }
-.deleteBtn{
+.deleteBtn {
   position: absolute;
   color: #000;
   right: 10px;
@@ -76,5 +76,3 @@
   border-radius: 18px;
   box-shadow: var(--lightMain) inset 0 0 100px;
 }
-
-

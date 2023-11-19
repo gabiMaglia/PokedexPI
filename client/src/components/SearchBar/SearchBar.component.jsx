@@ -6,7 +6,7 @@ import styles from "./searchBar.module.css";
 import { useNavigate } from "react-router-dom";
 import LoadingPokeball from "../common/LoadingPokeball";
 
-const SearchBar = () => {
+const SearchBar = ({handleOpenCloseNav}) => {
   const dispatch = useDispatch();
   const allPokemons = useSelector((state) => state.AllPokemonBackupList);
   const navigate = useNavigate();
@@ -19,8 +19,6 @@ const SearchBar = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-   
-
     let newPokemonToShow;
 
     if (!isNaN(Number(input))) {
@@ -45,6 +43,8 @@ const SearchBar = () => {
     }
 
     newPokemonToShow && navigate(`/detail/${newPokemonToShow.pokemon_id}`);
+    setInput('')
+    handleOpenCloseNav()
   };
   
   return (
@@ -55,6 +55,7 @@ const SearchBar = () => {
         name="searchinput"
         className={styles.buscarTxt}
         placeholder="SearchPokemon..."
+        value={input}
         />
       <a className={styles.buscarBtn} onClick={handleSubmit}>
         <LoadingPokeball/>
