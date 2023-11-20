@@ -49,7 +49,7 @@ const DetailPage = () => {
   return (
     <div className={styles.detailCardCont}>
       <AnimatedBackground />
-      <button onClick={handlePrevDetail}>
+      <span onClick={handlePrevDetail}>
         <NavBtn
           content={
             <svg
@@ -61,8 +61,8 @@ const DetailPage = () => {
             </svg>
           }
         />
-      </button>
-      <button onClick={handleNextDetail}>
+      </span>
+      <span onClick={handleNextDetail}>
         <NavBtn
           content={
             <svg
@@ -74,7 +74,7 @@ const DetailPage = () => {
             </svg>
           }
         />
-      </button>
+      </span>
       {!pokemon ? (
         <>
           <h1>Loading</h1>
@@ -152,13 +152,13 @@ const DetailPage = () => {
           </section>
         </>
       )}
-      <button
+      <span
         onClick={() => {
           navigate("/home");
         }}
       >
         <NavBtn content={"Go Home"} />
-      </button>
+      </span>
     </div>
   );
 };

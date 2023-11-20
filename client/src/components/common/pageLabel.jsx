@@ -10,7 +10,7 @@ const PageLabel = ({ content }) => {
   );
 };
 
-const PagedLabel = styled.p`
+const PagedLabel = styled.div`
   background-color: #ffffffe8;
   border-radius: 15px 225px 255px 15px 15px 255px 225px 15px;
   box-sizing: border-box;

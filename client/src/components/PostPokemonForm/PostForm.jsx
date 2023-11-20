@@ -270,10 +270,10 @@ const PostForm = () => {
             </div>
           </article>
 
-          <article className={styles.abilitieForm}>
-            <PageLabel content={<h3>Abilities:</h3>} />
+          <article style={{marginTop : '1rem'}}  className={styles.abilitieForm}>
+            <PageLabel content={<div>Abilities:</div>} />
 
-            <label>
+            <label style={{marginTop : '1rem'}}>
               How many?:
               <select
                 value={cantidadHabilidades}
@@ -329,7 +329,7 @@ const PostForm = () => {
 
         <div className={styles.col2}>
           <article className={styles.typeBox} htmlFor="tipos">
-          <PageLabel content={<h3>Types (3 max):</h3>} />   
+          <PageLabel content={<p>Types (3 max):</p>} />   
             <div className={styles.typeChart}>
               {pokemonTypes.map((e, key) => (
                 <label key={key} className={styles.typeIcon}>
