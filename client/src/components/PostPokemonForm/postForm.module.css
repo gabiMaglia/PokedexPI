@@ -3,8 +3,10 @@
   flex-wrap: wrap;
   flex: 1;
   color: #41403e;
-  padding: 2rem 1rem;
+  /* padding: 1rem 1rem; */
   font-weight: 800;
+  min-height:76dvh;
+  width: 100%;
 }
 
 .form input {
@@ -32,7 +34,7 @@
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
-  min-width: 420px;
+  
 }
 .abilitieForm,
 .statForm {
@@ -95,7 +97,7 @@
   margin-bottom: 4rem;
   text-align: center;
   width: 90%;
-  /* width: 80%; */
+ 
 }
 .typeIcon input {
   display: none;

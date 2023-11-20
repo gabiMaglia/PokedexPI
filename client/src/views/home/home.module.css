@@ -3,6 +3,8 @@
   display: flex;
   justify-content: space-evenly;
   flex-wrap: wrap;
+  min-height:76dvh;
+  width: 100%;
 }
 .controls {
   display: flex;

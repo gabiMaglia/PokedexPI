@@ -55,26 +55,37 @@ function App() {
     handleLoading(false);
   }, [dispatch, allPokemons, isLoading]);
 
+
+
   return (
+  
+  
     <main className="mainLayout">
       {location.pathname !== "/" ? <NavBar /> : <></>}
-      <Routes>
-        <Route path={PATH_ROUTES.LANDING} element={<LandingPage />} />
-        <Route
-          path={PATH_ROUTES.HOME}
-          element={
-            <HomePage
-              detailHandler={detailHandler}
-              deleteHandler={deleteHandler}
-              allPokemons={allPokemons}
-            />
-          }
-        />
-        <Route path={`${PATH_ROUTES.DETAIL}/:id`} element={<DetailPage />} />
-        <Route path={PATH_ROUTES.CREATE_POKEMON} element={<CreatePage />} />
-        <Route path={PATH_ROUTES.ERROR} element={<Error404 />} />
-      </Routes>
-      {location.pathname !== PATH_ROUTES.LANDING ? <Footer /> : <></>}
+      {isLoading?
+      <h2>LOADING</h2>
+      :
+      <div>
+        <Routes>
+          <Route path={PATH_ROUTES.LANDING} element={<LandingPage />} />
+          <Route
+            path={PATH_ROUTES.HOME}
+            element={
+              <HomePage
+                detailHandler={detailHandler}
+                deleteHandler={deleteHandler}
+                allPokemons={allPokemons}
+              />
+            }
+          />
+          <Route path={`${PATH_ROUTES.DETAIL}/:id`} element={<DetailPage />} />
+          <Route path={PATH_ROUTES.CREATE_POKEMON} element={<CreatePage />} />
+          <Route path={PATH_ROUTES.ERROR} element={<Error404 />} />
+        </Routes>
+      </div>
+      
+    }
+    {location.pathname !== PATH_ROUTES.LANDING ? <Footer /> : <></>}
     </main>
   );
 }
