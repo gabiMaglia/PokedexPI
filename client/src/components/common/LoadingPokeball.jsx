@@ -1,15 +1,14 @@
-import styled, { keyframes } from 'styled-components';
+import styled, { keyframes } from "styled-components";
 
 const LoadingPokeball = () => {
   return (
     <Wrapper>
-    <Pokeball />
-  </Wrapper>
-  )
-}
+      <Pokeball />
+    </Wrapper>
+  );
+};
 
-export default LoadingPokeball
-
+export default LoadingPokeball;
 
 const framesAnimation = keyframes`
   0% {
@@ -38,7 +37,7 @@ const Pokeball = styled.div`
   animation: ${framesAnimation} 3s linear 0s infinite;
 
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     width: 60px;
     height: 30px;
@@ -48,7 +47,7 @@ const Pokeball = styled.div`
   }
 
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     background-color: #fff;
     width: 10px;

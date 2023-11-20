@@ -33,7 +33,7 @@ const postUserToDb = async (data) => {
 };
 
 const editUserDb = async (data) => {
-  return data
+  return data;
 };
 
 module.exports = {

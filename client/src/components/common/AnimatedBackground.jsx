@@ -15,7 +15,6 @@ const animatedBackground = keyframes`
 `;
 
 const Bg = styled.div`
-
   height: 100vh;
   position: fixed;
   left: 0;
@@ -28,6 +27,4 @@ const Bg = styled.div`
   background-repeat: repeat-x;
   background-attachment: fixed;
   animation: ${animatedBackground} 40s linear infinite;
-
 `;
-

@@ -9,7 +9,7 @@ import {
   SORT_ORDER_FILTER,
   POST_POKEMON,
   SET_LOADING,
-  DELETE_POKEMON
+  DELETE_POKEMON,
 } from "./action-types";
 import {
   fetchPokemonService,
@@ -17,17 +17,14 @@ import {
   fetchAllPokemonTypeService,
   fetchAllPokemonbySeasonService,
   postPokemonService,
-  deletePokemonByIdService
-
-  
+  deletePokemonByIdService,
 } from "../../services/pokemonServices";
 
 export const fetchPokemon = (name) => {
   return (dispatch) => {
     fetchPokemonService(name).then((data) => {
-
       if (data.error) return alert(data.error);
-      
+
       return dispatch({
         type: FETCH_POKEMON,
         payload: data.response,
@@ -36,7 +33,6 @@ export const fetchPokemon = (name) => {
   };
 };
 export const postNewPokemon = (pokemonData) => {
-
   return (dispatch) => {
     postPokemonService(pokemonData).then((data) => {
       if (data.error) return alert(data.error);
@@ -62,9 +58,9 @@ export const fetchAllPokemon = () => {
 };
 export const fetchAllPokemonbySeason = (limit, offset) => {
   return (dispatch) => {
-    fetchAllPokemonbySeasonService(limit, offset).then(( {data}) => {
+    fetchAllPokemonbySeasonService(limit, offset).then(({ data }) => {
       if (data.error) return alert(data.error);
-    
+
       return dispatch({
         type: FETCH_ALL_POKEMON,
         payload: data.response,
@@ -89,14 +85,14 @@ export const deletePokemonById = (id) => {
   return (dispatch) => {
     deletePokemonByIdService(id).then((data) => {
       if (data.error) return alert(data.error);
-      else alert("pokemon eliminado con exito")
+      else alert("pokemon eliminado con exito");
       return dispatch({
         type: DELETE_POKEMON,
-        payload:id
-      })
-    })
-  }
-}
+        payload: id,
+      });
+    });
+  };
+};
 
 // PAGINADO
 
@@ -143,13 +139,11 @@ export const sortAndOrderFilter = (data) => {
   };
 };
 
-
-
 export const setLoading = (state) => {
   return (dispatch) => {
     return dispatch({
       type: SET_LOADING,
-      payload: state
+      payload: state,
     });
   };
 };

@@ -15,7 +15,7 @@
   background-color: #ffffffb2;
   display: flex;
   flex-wrap: wrap;
-  gap: .4rem;
+  gap: 0.4rem;
   color: var(--Orange);
   box-shadow: 10px 10px 5px #ffffff73;
 }
@@ -36,26 +36,22 @@
   background: none;
   color: var(--black);
   flex: 1;
- text-align: right;
+  text-align: right;
   padding: 1em;
   cursor: pointer;
 }
 
 @media screen and (min-width: 541px) {
-    .filterContainer{
+  .filterContainer {
+  }
+  .filterContainer label {
+    font-size: 18px;
+  }
+  .filterContainer select {
+    border: 0;
+    font-size: 14px;
+    font-weight: 600;
 
-    }
-    .filterContainer label {
-font-size: 18px;
-    }
-    .filterContainer select {
-      border: 0;
-      font-size: 14px;
-      font-weight: 600;
-
- 
-      flex: 1;
-   
-    
-    }
+    flex: 1;
+  }
 }

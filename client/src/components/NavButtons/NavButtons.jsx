@@ -14,12 +14,9 @@ const NavButtons = () => {
     dispatch(prevPage());
   };
 
-
   return (
     <>
-        <p className={styles.label}>
-          Page selector
-        </p>
+      <p className={styles.label}>Page selector</p>
       <div className={styles.pageSelectorContainer}>
         <span onClick={handlePrevPage}>
           <NavBtn

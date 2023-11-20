@@ -24,14 +24,14 @@ export const fetchPokemonService = async (data) => {
     if (isNaN(data)) {
       const response = await axios.get(
         `http://localhost:3001/poke/name?name=${data.toLowerCase()}`
-        );
-        return response.data;
-      } else {
-        const response = await axios.get(`http://localhost:3001/poke/${data}`);
-        return response.data;
-      }
-    } catch ( {response} ) {
-    return {error : response.data.error}
+      );
+      return response.data;
+    } else {
+      const response = await axios.get(`http://localhost:3001/poke/${data}`);
+      return response.data;
+    }
+  } catch ({ response }) {
+    return { error: response.data.error };
     throw new Error(response.data.error);
   }
 };
@@ -69,5 +69,4 @@ export const deletePokemonByIdService = async (id) => {
   } catch ({ error }) {
     throw new Error(error);
   }
-
 };

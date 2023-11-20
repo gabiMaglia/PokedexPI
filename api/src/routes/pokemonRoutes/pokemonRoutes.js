@@ -6,7 +6,7 @@ const {
   getPokemonByNameHandler,
   postPokemonHandler,
   getAllPokemonsBySeasonHandler,
-  deletePokemonByIdHandler
+  deletePokemonByIdHandler,
 } = require("../../handlers/pokemonHandler/pokemonHandlers");
 
 const pokemonRouter = Router();

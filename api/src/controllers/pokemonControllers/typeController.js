@@ -30,7 +30,7 @@ const boundTypeToPokemon = async (model, data) => {
 
   for (const e of data) {
     const newPokemonBound = await model.findOne({
-     where : {nombre_type: e.nombre_type,}
+      where: { nombre_type: e.nombre_type },
     });
 
     newPokemonTypes.push(newPokemonBound);

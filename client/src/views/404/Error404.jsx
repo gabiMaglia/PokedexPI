@@ -1,15 +1,17 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from "react";
+import styled from "styled-components";
 import bgImg from "../../assets/pokeback-assets/homeBackground.png";
 const Error404 = () => {
   return (
-    <MainDiv><ErrorText >Error404</ErrorText></MainDiv>
-  )
-}
+    <MainDiv>
+      <ErrorText>Error404</ErrorText>
+    </MainDiv>
+  );
+};
 
-export default Error404
+export default Error404;
 
-const MainDiv = styled.div `
+const MainDiv = styled.div`
   width: 100vw;
   height: 100vh;
   position: relative;
@@ -25,10 +27,9 @@ const MainDiv = styled.div `
   background-repeat: repeat-x;
   background-attachment: fixed;
   font-family: inherit;
-  `;
-const ErrorText = styled.h2 `
-color: var(--brightYellow);
-font-size: 120px;
-font-family: "PokemonSolidFn";
-  
-`
+`;
+const ErrorText = styled.h2`
+  color: var(--brightYellow);
+  font-size: 120px;
+  font-family: "PokemonSolidFn";
+`;

@@ -11,13 +11,12 @@ const NavBtn = ({ content }) => {
 };
 
 const NavButton = styled.button`
-  
   background-color: #ffffffe8;
   border-radius: 15px 225px 255px 15px 15px 255px 225px 15px;
   box-sizing: border-box;
   color: #41403e;
   cursor: pointer;
-  
+
   font-size: 1rem;
   line-height: 23px;
   outline: none;

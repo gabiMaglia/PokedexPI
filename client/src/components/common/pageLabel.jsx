@@ -20,7 +20,7 @@ const PagedLabel = styled.p`
   font-size: 1rem;
   line-height: 23px;
   outline: none;
-  padding: 0.75rem;
+  padding: 0.40rem;
   text-decoration: none;
   transition: all 235ms ease-in-out;
   border-bottom-left-radius: 15px 255px;

@@ -73,7 +73,7 @@ const PostForm = () => {
 
   const handleTypeChecks = (e) => {
     const { value, checked } = e.target;
-    
+
     checked
       ? setPokemonData((prevData) => ({
           ...prevData,
@@ -329,7 +329,7 @@ const PostForm = () => {
 
         <div className={styles.col2}>
           <article className={styles.typeBox} htmlFor="tipos">
-            <h3>Types (3 max):</h3>
+          <PageLabel content={<h3>Types (3 max):</h3>} />   
             <div className={styles.typeChart}>
               {pokemonTypes.map((e, key) => (
                 <label key={key} className={styles.typeIcon}>

@@ -40,7 +40,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
         AllPokemonBackupList: payload.allPokemons,
         totalPages: Math.ceil(payload.allPokemons.length / 12),
         allPokemonsToShow: payload.allPokemons.slice(0, ITEMS_PER_PAGE),
-        isLoading: false
+        isLoading: false,
       };
     case FETCH_ALL_POKEMON_TYPE:
       return { ...state, allTypes: payload };
@@ -70,7 +70,6 @@ const rootReducer = (state = initialState, { type, payload }) => {
           ...state,
           currentPage: 0,
           allPokemonsToShow: state.allPokemonList.slice(startIndex, endIndex),
-     
         };
       } else {
         const startIndex = nextPage * ITEMS_PER_PAGE;
@@ -80,7 +79,6 @@ const rootReducer = (state = initialState, { type, payload }) => {
           ...state,
           currentPage: nextPage,
           allPokemonsToShow: state.allPokemonList.slice(startIndex, endIndex),
-         
         };
       }
     case PREV_PAGE:
@@ -202,7 +200,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
 
     case DELETE_POKEMON:
       const newPokemonList = state.allPokemonList.filter((e) => {
-       return  e.pokemon_id !== payload
+        return e.pokemon_id !== payload;
       });
       return {
         ...state,
@@ -212,7 +210,6 @@ const rootReducer = (state = initialState, { type, payload }) => {
         allPokemonsToShow: newPokemonList.slice(0, ITEMS_PER_PAGE),
       };
     case SET_LOADING:
-      
       return {
         ...state,
         isLoading: payload,

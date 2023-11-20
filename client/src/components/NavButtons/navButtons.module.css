@@ -1,10 +1,10 @@
-.label{
+.label {
   color: var(--brightYellow);
   margin: 0;
   font-family: "PokemonSolidFn";
   font-size: 21px;
   letter-spacing: 3px;
- 
+
   text-shadow: 1px 1px 4px #000000;
 }
 
@@ -15,7 +15,7 @@
   grid-row-gap: 12px;
   max-width: 120px;
   margin-inline: auto;
-  transform: scale(.7);
+  transform: scale(0.7);
 }
 
 .pageSelectorContainer button {
@@ -29,11 +29,10 @@
 }
 
 .pagination {
-
   transform: scale(0.9);
   padding: 0 30px;
   display: flex;
-  min-width:220px;
+  min-width: 220px;
   justify-content: center;
   background-color: rgba(255, 255, 255, 0.144);
 }
@@ -73,10 +72,8 @@
   fill: var(--paletteRed);
 }
 
-
 @media screen and (min-width: 541px) {
   .pageSelectorContainer {
-transform: scale(1);
+    transform: scale(1);
   }
-  
 }

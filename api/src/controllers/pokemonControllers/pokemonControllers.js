@@ -48,7 +48,7 @@ const getPokemonById = async (id) => {
   const pokemon = await Pokemon.findByPk(id, {
     include: [PokemonStatPoints, PokemonAbilities, PokemonTypes],
   });
-  
+
   return pokemon;
 };
 
@@ -59,7 +59,6 @@ const getPokemonByName = async (name) => {
   });
 
   if (!pokemon) {
-
     const pokemon = await getPokemonFromApiByName(name);
     return pokemon && pokemonJsonFormatter(pokemon);
   }
@@ -95,33 +94,32 @@ const postNewPokemonToDb = async ({ data }) => {
   for (const type of newPokemonTypes) {
     await newPokemon.addPokemonType(type);
   }
-  
 
   const completeNew = await Pokemon.findByPk(newPokemon.pokemon_id, {
     include: [PokemonStatPoints, PokemonAbilities, PokemonTypes],
   });
-
 
   return completeNew;
 };
 
 const deletePokemonById = async (id) => {
   const pokemon = await Pokemon.findByPk(id);
-   await Pokemon.destroy({
-    where : {
-      pokemon_id : id
+  await Pokemon.destroy({
+    where: {
+      pokemon_id: id,
     },
-    force:true
-  })
-  if (!pokemon?.pokemon_name) return { error: true, response: `Pokemon not found!`};
+    force: true,
+  });
+  if (!pokemon?.pokemon_name)
+    return { error: true, response: `Pokemon not found!` };
 
-  return {response: `you succesfully deleted ${pokemon.pokemon_name}`}
-}
+  return { response: `you succesfully deleted ${pokemon.pokemon_name}` };
+};
 
 module.exports = {
   postNewPokemonToDb,
   getPokemonById,
   getPokemonByName,
   getAllPokemons,
-  deletePokemonById
+  deletePokemonById,
 };

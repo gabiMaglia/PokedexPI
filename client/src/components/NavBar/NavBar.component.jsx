@@ -10,8 +10,8 @@ const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleOpenCloseNav = () => {
-    setIsOpen(!isOpen)
-  }
+    setIsOpen(!isOpen);
+  };
 
   return (
     <nav className={styles.navbar}>
@@ -29,7 +29,6 @@ const NavBar = () => {
             <NavBtn content={"Create New Pokemon"} />
           </NavLink>
         </div>
-          
       </div>
       <div
         className={`${styles.nav_toggle} ${isOpen ? styles.opened : ""}`}
