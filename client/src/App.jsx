@@ -23,6 +23,7 @@ import "./App.css";
 import Error404 from "./views/404/Error404";
 import { PATH_ROUTES } from "./helpers/pathRoutes";
 function App() {
+  
   const { limit, offset } = season1;
   const dispatch = useDispatch();
   const allPokemons = useSelector((state) => state.allPokemonsToShow);

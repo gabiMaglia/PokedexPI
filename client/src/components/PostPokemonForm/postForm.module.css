@@ -65,6 +65,13 @@
 .abilitieBox {
   display: flex;
   justify-content: center;
+
+}
+.maincontent{
+  display: flex;
+  justify-content: center;
+
+
 }
 .abilitieForm label {
   display: flex;

@@ -6,7 +6,7 @@ import styles from "./searchBar.module.css";
 import { useNavigate } from "react-router-dom";
 import LoadingPokeball from "../common/LoadingPokeball";
 
-const SearchBar = ({handleOpenCloseNav}) => {
+const SearchBar = ({ handleOpenCloseNav }) => {
   const dispatch = useDispatch();
   const allPokemons = useSelector((state) => state.AllPokemonBackupList);
   const navigate = useNavigate();
@@ -43,10 +43,10 @@ const SearchBar = ({handleOpenCloseNav}) => {
     }
 
     newPokemonToShow && navigate(`/detail/${newPokemonToShow.pokemon_id}`);
-    setInput('')
-    handleOpenCloseNav()
+    setInput("");
+    handleOpenCloseNav();
   };
-  
+
   return (
     <div className={styles.buscarCaja}>
       <input
@@ -56,11 +56,9 @@ const SearchBar = ({handleOpenCloseNav}) => {
         className={styles.buscarTxt}
         placeholder="SearchPokemon..."
         value={input}
-        />
+      />
       <a className={styles.buscarBtn} onClick={handleSubmit}>
-        <LoadingPokeball/>
-       
-        
+        <LoadingPokeball />
       </a>
     </div>
   );

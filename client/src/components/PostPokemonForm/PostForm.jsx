@@ -8,6 +8,7 @@ import TypeIcons from "../TypeIcons/TypeIcons";
 import styles from "./postForm.module.css";
 import { capitalize } from "../../utils/capitalize";
 import NavBtn from "../common/navBtn ";
+import PageLabel from "../common/pageLabel";
 
 const PostForm = () => {
   const pokemonTypes = useSelector((store) => store.allTypes);
@@ -114,7 +115,8 @@ const PostForm = () => {
       <form onSubmit={handleSubmit} className={styles.form}>
         <div className={styles.col1}>
           <article className={styles.statForm}>
-            <h3>New Pokemon details</h3>
+            
+            <PageLabel content={<h3>New Pokemon details</h3>}/>
 
             <div className={styles.nameImg}>
               <p>
@@ -272,7 +274,8 @@ const PostForm = () => {
           </article>
 
           <article className={styles.abilitieForm}>
-            <h3>Habilities:</h3>
+          <PageLabel content={<h3>Abilities:</h3>}/>
+
             <label>
               How many?:
               <select
