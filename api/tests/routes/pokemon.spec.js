@@ -1,8 +1,7 @@
-/* eslint-disable import/no-extraneous-dependencies */
-const { default: axios } = require("axios");
 const app = require("../../src/app");
 const session = require("supertest");
 const agent = session(app);
+const {conn} = require('../../src/db')
 
 const pokemon = {
   data: {
@@ -39,8 +38,14 @@ const pokemon = {
     ],
   },
 };
-
+beforeEach(async () => {
+  await conn.sync({ force: true });
+});
+afterAll(async () => {
+  await conn.close(); 
+})
 describe("Test de RUTAS", () => {
+
   describe("GET /poke", () => {
     it("Responde con status: 200", async () => {
       await agent.get("/poke").expect(200);
@@ -124,7 +129,6 @@ describe("Test de RUTAS", () => {
 
     it('Responde un objeto con las propiedades: "pokemon_name", "pokemon_height", "pokemon_weight", "pokemon_image", PokemonStatPoint, PokemonAbilities, PokemonTypes ', async () => {
       const response = await agent.post("/poke").send(pokemon);
-      console.log(response.body)
       expect(response.body.response).toHaveProperty("pokemon_name");
       expect(response.body.response).toHaveProperty("pokemon_height");
       expect(response.body.response).toHaveProperty("pokemon_weight");
@@ -135,4 +139,6 @@ describe("Test de RUTAS", () => {
     });
 
   });
+
+
 });

@@ -73,7 +73,7 @@ const PostForm = () => {
 
   const handleTypeChecks = (e) => {
     const { value, checked } = e.target;
-    console.log(value, checked);
+    
     checked
       ? setPokemonData((prevData) => ({
           ...prevData,
@@ -105,7 +105,6 @@ const PostForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("postform", pokemonData);
     dispatch(postNewPokemon(pokemonData));
     navigate("/home");
   };
