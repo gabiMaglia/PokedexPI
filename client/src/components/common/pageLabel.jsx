@@ -16,11 +16,10 @@ const PagedLabel = styled.div`
   box-sizing: border-box;
   color: #41403e;
   border: 2px solid #41403e;
-
   font-size: 1rem;
   line-height: 23px;
   outline: none;
-  padding: 0.40rem;
+  padding: 0.4rem;
   text-decoration: none;
   transition: all 235ms ease-in-out;
   border-bottom-left-radius: 15px 255px;

@@ -1,14 +1,16 @@
 import axios from "axios";
 const apiUrl = import.meta.env.VITE_API_URL
-console.log(apiUrl)
+
+
 export const editPokemonService = async (id, data) => {
   try {
     const response = axios;
     return response.data;
   } catch ({ error }) {
-    throw new Error(error);
+    return { error: response.data.error };
   }
 };
+
 export const postPokemonService = async (data) => {
   try {
     const response = await axios.post(`${apiUrl}/poke`, {
@@ -16,7 +18,7 @@ export const postPokemonService = async (data) => {
     });
     return response.data;
   } catch ({ error }) {
-    throw new Error(error);
+    return { error: response.data.error };
   }
 };
 
@@ -33,7 +35,7 @@ export const fetchPokemonService = async (data) => {
     }
   } catch ({ response }) {
     return { error: response.data.error };
-    throw new Error(response.data.error);
+    
   }
 };
 export const fetchAllPokemonService = async () => {
@@ -41,7 +43,7 @@ export const fetchAllPokemonService = async () => {
     const response = await axios.get(`${apiUrl}/poke`);
     return response;
   } catch ({ error }) {
-    throw new Error(error);
+    return { error: response.data.error };
   }
 };
 export const fetchAllPokemonbySeasonService = async (limit, offset) => {
@@ -51,7 +53,7 @@ export const fetchAllPokemonbySeasonService = async (limit, offset) => {
     );
     return response;
   } catch ({ error }) {
-    throw new Error(error);
+    return { error: response.data.error };
   }
 };
 export const fetchAllPokemonTypeService = async () => {
@@ -59,7 +61,7 @@ export const fetchAllPokemonTypeService = async () => {
     const response = await axios.get(`${apiUrl}/poke/get-types`);
     return response.data;
   } catch ({ error }) {
-    throw new Error(error);
+    return { error: response.data.error };
   }
 };
 
@@ -68,6 +70,6 @@ export const deletePokemonByIdService = async (id) => {
     const response = await axios.delete(`${apiUrl}1/poke/${id}`);
     return response.data;
   } catch ({ error }) {
-    throw new Error(error);
+    return { error: response.data.error };
   }
 };
