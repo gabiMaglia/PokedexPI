@@ -10,16 +10,16 @@ const PokemonStatsModel = require("./models/PokemonModels/PokemonStatPoints");
 const PokemonAbilitiesModel = require("./models/PokemonModels/PokemonAbilities");
 const PokemonTypesModel = require("./models/PokemonModels/PokemonTypes");
 
-const { DB_USER, DB_PASSWORD, DB_PORT, DB_HOST, BDD } = process.env;
+const { DB_USER, DB_PASSWORD, DB_HOST, BDD } = process.env;
 
 const sequelize = new Sequelize(
-  `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${Number(DB_PORT)}/${BDD}`,
+  `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${BDD}`,
   {
     logging: false,
     native: false,
   }
 );
-
+postgres://pokedex_pi_user:60cJrvGhf0JGc1ypJIiGgzuzNgnwT1mR@dpg-cldojkngsrdc73flg8q0-a/pokedex_pi
 // INICIALISAMOS LOS MODELOS
 
 UserModel(sequelize);
