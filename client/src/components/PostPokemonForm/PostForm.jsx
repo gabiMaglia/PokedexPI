@@ -115,8 +115,7 @@ const PostForm = () => {
       <form onSubmit={handleSubmit} className={styles.form}>
         <div className={styles.col1}>
           <article className={styles.statForm}>
-            
-            <PageLabel content={<h3>New Pokemon details</h3>}/>
+            <PageLabel content={<h3>New Pokemon details</h3>} />
 
             <div className={styles.nameImg}>
               <p>
@@ -157,9 +156,8 @@ const PostForm = () => {
                       type="number"
                       id="vida"
                       name="hp"
-                      min={'1'}
-                      max={'714'}
-                     
+                      min={"1"}
+                      max={"714"}
                       value={pokemonData.PokemonStatPoint.hp}
                       onChange={handleStatPointChange}
                       required
@@ -173,8 +171,8 @@ const PostForm = () => {
                       type="number"
                       id="velocidad"
                       name="speed"
-                      min={'1'}
-                      max={'300'}
+                      min={"1"}
+                      max={"300"}
                       value={pokemonData.PokemonStatPoint.speed}
                       onChange={handleStatPointChange}
                     />
@@ -190,8 +188,8 @@ const PostForm = () => {
                       type="number"
                       id="ataque"
                       name="attack"
-                      min={'1'}
-                      max={'300'}
+                      min={"1"}
+                      max={"300"}
                       value={pokemonData.PokemonStatPoint.attack}
                       onChange={handleStatPointChange}
                       required
@@ -205,8 +203,8 @@ const PostForm = () => {
                       type="number"
                       id="special_attack"
                       name="special_attack"
-                      min={'1'}
-                      max={'380'}
+                      min={"1"}
+                      max={"380"}
                       value={pokemonData.PokemonStatPoint.special_attack}
                       onChange={handleStatPointChange}
                       required
@@ -274,7 +272,7 @@ const PostForm = () => {
           </article>
 
           <article className={styles.abilitieForm}>
-          <PageLabel content={<h3>Abilities:</h3>}/>
+            <PageLabel content={<h3>Abilities:</h3>} />
 
             <label>
               How many?:

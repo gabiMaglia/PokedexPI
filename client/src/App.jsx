@@ -23,7 +23,6 @@ import "./App.css";
 import Error404 from "./views/404/Error404";
 import { PATH_ROUTES } from "./helpers/pathRoutes";
 function App() {
-  
   const { limit, offset } = season1;
   const dispatch = useDispatch();
   const allPokemons = useSelector((state) => state.allPokemonsToShow);
@@ -64,7 +63,11 @@ function App() {
         <Route
           path={PATH_ROUTES.HOME}
           element={
-            <HomePage detailHandler={detailHandler} deleteHandler={deleteHandler} allPokemons={allPokemons} />
+            <HomePage
+              detailHandler={detailHandler}
+              deleteHandler={deleteHandler}
+              allPokemons={allPokemons}
+            />
           }
         />
         <Route path={`${PATH_ROUTES.DETAIL}/:id`} element={<DetailPage />} />

@@ -38,8 +38,9 @@ const getPokemonByIdHandler = async (req, res) => {
   try {
     const id = req.params.id;
     const pokemon = await getPokemonById(id);
+    
 
-    if (pokemon === null) {
+    if (pokemon === undefined) {
       return res.status(404).json({ error: "Pokémon not found" });
     }
     return res.status(200).json({taskIsCompleted: true, response:pokemon});

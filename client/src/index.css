@@ -3,11 +3,11 @@
   src: url("./assets//fonts/pokemon-solid-font/PokemonSolidNormal-xyWR.ttf");
 }
 
-html,body {
+html,
+body {
   margin: 0;
   padding: 0;
 }
-
 
 :root {
   font-family: Neucha, sans-serif;
@@ -21,11 +21,9 @@ html,body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
-  
 }
 
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
 }
-

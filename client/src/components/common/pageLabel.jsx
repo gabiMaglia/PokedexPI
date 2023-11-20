@@ -11,13 +11,12 @@ const PageLabel = ({ content }) => {
 };
 
 const PagedLabel = styled.p`
-  
   background-color: #ffffffe8;
   border-radius: 15px 225px 255px 15px 15px 255px 225px 15px;
   box-sizing: border-box;
   color: #41403e;
   border: 2px solid #41403e;
-  /* width: fit-content; */
+
   font-size: 1rem;
   line-height: 23px;
   outline: none;
@@ -33,9 +32,6 @@ const PagedLabel = styled.p`
   touch-action: manipulation;
   font-family: "Fuzzy Bubbles", cursive;
   font-size: 20px;
-
-
-
 `;
 
 export default PageLabel;
