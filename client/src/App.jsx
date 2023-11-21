@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import {
   fetchAllPokemonTypes,
@@ -23,12 +23,14 @@ import "./App.css";
 import Error404 from "./views/404/Error404";
 import { PATH_ROUTES } from "./helpers/pathRoutes";
 function App() {
-  const { limit, offset } = season1;
+  const { limit = 9999, offset = 0 } = season1;
   const dispatch = useDispatch();
   const allPokemons = useSelector((state) => state.allPokemonsToShow);
   const entireListBackup = useSelector((state) => state.AllPokemonBackupList);
   const allTypes = useSelector((state) => state.allTypes);
-  const isLoading = useSelector((state) => state.isLoading);
+
+
+  const [loading, setLoadiong] = useState(true);
 
   let location = useLocation();
   const navigate = useNavigate();
@@ -39,53 +41,59 @@ function App() {
   const deleteHandler = (id) => {
     dispatch(deletePokemonById(id));
   };
-  const handleLoading = (id) => {
-    dispatch(setLoading(id));
-  };
 
   useEffect(() => {
-    handleLoading(true);
-    try {
-      if (allTypes.length < 1) dispatch(fetchAllPokemonTypes());
-      if (allPokemons.length < 1 && entireListBackup.length < 1)
-        dispatch(fetchAllPokemonbySeason(limit, offset));
-    } catch (error) {
-      throw new Error(error);
-    }
-    handleLoading(false);
-  }, [dispatch, allPokemons, isLoading]);
-
-
+   const fetchData = async () => {
+      try {
+        if (allTypes.length < 1) {
+          setLoadiong(true);
+          dispatch(fetchAllPokemonTypes());
+          setLoadiong(false);
+        }
+        if (allPokemons.length < 1 && entireListBackup.length < 1) {
+          setLoadiong(true);
+          dispatch(fetchAllPokemonbySeason(limit, offset));
+          setLoadiong(false);
+        }
+      } catch (error) {
+        setLoadiong(false);
+        throw new Error(error);
+      }
+    };
+    
+    console.log('object')
+    fetchData();
+  }, [allPokemons]);
 
   return (
-  
-  
     <main className="mainLayout">
       {location.pathname !== "/" ? <NavBar /> : <></>}
-      {isLoading?
-      <h2>LOADING</h2>
-      :
-      <div>
-        <Routes>
-          <Route path={PATH_ROUTES.LANDING} element={<LandingPage />} />
-          <Route
-            path={PATH_ROUTES.HOME}
-            element={
-              <HomePage
-                detailHandler={detailHandler}
-                deleteHandler={deleteHandler}
-                allPokemons={allPokemons}
-              />
-            }
-          />
-          <Route path={`${PATH_ROUTES.DETAIL}/:id`} element={<DetailPage />} />
-          <Route path={PATH_ROUTES.CREATE_POKEMON} element={<CreatePage />} />
-          <Route path={PATH_ROUTES.ERROR} element={<Error404 />} />
-        </Routes>
-      </div>
-      
-    }
-    {location.pathname !== PATH_ROUTES.LANDING ? <Footer /> : <></>}
+      {loading ? (
+        <h2>LOADING</h2>
+      ) : (
+        <div>
+          <Routes>
+            <Route path={PATH_ROUTES.LANDING} element={<LandingPage />} />
+            <Route
+              path={PATH_ROUTES.HOME}
+              element={
+                <HomePage
+                  detailHandler={detailHandler}
+                  deleteHandler={deleteHandler}
+                  allPokemons={allPokemons}
+                />
+              }
+            />
+            <Route
+              path={`${PATH_ROUTES.DETAIL}/:id`}
+              element={<DetailPage />}
+            />
+            <Route path={PATH_ROUTES.CREATE_POKEMON} element={<CreatePage />} />
+            <Route path={PATH_ROUTES.ERROR} element={<Error404 />} />
+          </Routes>
+        </div>
+      )}
+      {location.pathname !== PATH_ROUTES.LANDING ? <Footer /> : <></>}
     </main>
   );
 }

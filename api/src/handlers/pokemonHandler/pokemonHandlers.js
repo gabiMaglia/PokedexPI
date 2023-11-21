@@ -13,7 +13,7 @@ const getAllPokemonsHandler = async (req, res) => {
       .status(200)
       .json({ taskIsCompleted: true, response: newPokemonList });
   } catch (error) {
-    return res.status(500).json({ error: error.message });
+    return res.status(500).json({ error: error.message, response:null });
   }
 };
 const getAllPokemonsBySeasonHandler = async (req, res) => {
@@ -25,7 +25,7 @@ const getAllPokemonsBySeasonHandler = async (req, res) => {
       .status(200)
       .json({ taskIsCompleted: true, response: newPokemonList });
   } catch (error) {
-    return res.status(500).json({ error: error.message });
+    return res.status(500).json({ error: error.message, response:null });
   }
 };
 
@@ -36,7 +36,7 @@ const postPokemonHandler = async (req, res) => {
       .status(200)
       .json({ taskIsCompleted: true, response: newPokemon });
   } catch (error) {
-    return res.status(500).json({ error: error.message });
+    return res.status(500).json({ error: error.message, response:null });
   }
 };
 
@@ -46,11 +46,11 @@ const getPokemonByIdHandler = async (req, res) => {
     const pokemon = await getPokemonById(id);
 
     if (pokemon === undefined) {
-      return res.status(404).json({ error: "Pokémon not found" });
+      return res.status(404).json({ error: "Pokémon not found" , response:null});
     }
     return res.status(200).json({ taskIsCompleted: true, response: pokemon });
   } catch (error) {
-    return res.status(500).json({ error: error.message });
+    return res.status(500).json({ error: error.message , response:null});
   }
 };
 const getPokemonByNameHandler = async (req, res) => {
@@ -59,7 +59,7 @@ const getPokemonByNameHandler = async (req, res) => {
     const pokemon = await getPokemonByName(name);
 
     if (pokemon === undefined) {
-      return res.status(404).json({ error: "Pokémon not found" });
+      return res.status(404).json({ error: "Pokémon not found" , response:null});
     } else {
       return res.status(200).json({ taskIsCompleted: true, response: pokemon });
     }
@@ -82,7 +82,7 @@ const deletePokemonByIdHandler = async (req, res) => {
         .status(200)
         .json({ taskIsCompleted: true, response: response });
   } catch (error) {
-    return res.status(500).json({ error: error.message });
+    return res.status(500).json({ error: error.message, response:null });
   }
 };
 

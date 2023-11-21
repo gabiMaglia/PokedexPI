@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { postNewPokemon } from "../../Redux/Actions/actions";
+import { fetchAllPokemonbySeason, postNewPokemon } from "../../Redux/Actions/actions";
+
 
 import TypeIcons from "../TypeIcons/TypeIcons";
 
@@ -9,12 +10,12 @@ import styles from "./postForm.module.css";
 import { capitalize } from "../../utils/capitalize";
 import NavBtn from "../common/navBtn ";
 import PageLabel from "../common/pageLabel";
-
+import { season1 } from "../../utils/Seasons";
 const PostForm = () => {
   const pokemonTypes = useSelector((store) => store.allTypes);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const { limit = 9999, offset = 0 } = season1
   const [pokemonData, setPokemonData] = useState({
     pokemon_name: "gabisor",
     pokemon_image:
@@ -106,6 +107,9 @@ const PostForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(postNewPokemon(pokemonData));
+    
+    dispatch(fetchAllPokemonbySeason(limit, offset));
+
     navigate("/home");
   };
 

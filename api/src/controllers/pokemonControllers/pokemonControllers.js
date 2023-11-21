@@ -27,6 +27,8 @@ const getAllPokemons = async (offset, limit) => {
   // de manera simultanea para obtener en base al id de cada pokemon el detalle de cada uno,
   // use id porque demora la mitad que la busqueda por nombre de la misma manera que use
   // Promise.all en vez de reduce por las mismas razons, demora literal la mitad   // esto se debe a que reduce resuelve cada peticion de forma secuencial mientras que promise.all los hace desde el event loop por lo que tengo entendido
+  
+
   const completeData = await Promise.all(
     results.map(async (pokemon) => {
       const response = await getPokemonFromApiById(pokemon.url.split("/")[6]);

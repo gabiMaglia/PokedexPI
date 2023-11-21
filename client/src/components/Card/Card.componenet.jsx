@@ -11,27 +11,34 @@ import { deletePokemonById } from "../../Redux/Actions/actions";
 const Card = ({ pokemon, detailHandler }) => {
   const [cardColor, setCardColor] = useState();
   const [pType, setPtype] = useState();
-  const [loading, setLoading] = useState(true);
+ 
   const [isLocal, setIsLocal] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    setLoading(true);
-    const type = pokemon.PokemonTypes[0].nombre_type;
-    const color = typeColors[type] || "gray";
-    setPtype(type);
-    setCardColor(color);
-    setLoading(false);
-    pokemon.pokemon_isLocal && setIsLocal(true);
+    const fetchData = () => {
+      try {
+        console.log(pokemon)
+        const type = pokemon.PokemonTypes[0]?.nombre_type;
+        const color = typeColors[type] || "gray";
+        setPtype(type);
+        setCardColor(color);
+        pokemon.pokemon_isLocal && setIsLocal(true);
+        
+      } catch (error) {
+        throw new Error(error)
+      }
+    }
+    fetchData();
+   
   }, [pokemon.PokemonTypes]);
 
   const deleteHandler = (id) => {
     dispatch(deletePokemonById(id));
   };
 
-  return loading ? (
-    <div></div>
-  ) : (
+
+  return   (
     <div className={styles.pokemonCard} style={{ backgroundColor: cardColor }}>
       <div
         onClick={() => {

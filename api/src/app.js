@@ -9,6 +9,8 @@ require("./db.js");
 const server = express();
 
 server.use(cors())
+
+
 server.name = "API";
 server.use(morgan("dev"));
 server.use(express.json());
