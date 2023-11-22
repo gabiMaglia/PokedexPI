@@ -50,17 +50,15 @@ function App() {
           setLoadiong(true);
           dispatch(fetchAllPokemonTypes());
           setLoadiong(false);
-          console.log("cargoT")
+     
           
         }
-        if (allPokemons.length < 1 && entireListBackup.length < 1) {
+  
           setLoadiong(true);
           dispatch(fetchAllPokemonbySeason(limit, offset));
           setLoadiong(false);
-          console.log("cargoP")
-          
-        }
-        console.log("nocargo")
+      
+       
         return
       } catch (error) {
         console.log("entreAlError")

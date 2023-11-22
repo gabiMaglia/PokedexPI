@@ -100,7 +100,7 @@ const postNewPokemonToDb = async ({ data }) => {
   const completeNew = await Pokemon.findByPk(newPokemon.pokemon_id, {
     include: [PokemonStatPoints, PokemonAbilities, PokemonTypes],
   });
-
+  console.log(completeNew)
   return completeNew;
 };
 

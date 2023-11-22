@@ -108,7 +108,7 @@ const PostForm = () => {
     e.preventDefault();
     dispatch(postNewPokemon(pokemonData));
     
-    dispatch(fetchAllPokemonbySeason(limit, offset));
+    // dispatch(fetchAllPokemonbySeason(limit, offset));
 
     navigate("/home");
   };

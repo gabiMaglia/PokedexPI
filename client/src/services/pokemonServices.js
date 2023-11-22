@@ -16,6 +16,7 @@ export const postPokemonService = async (data) => {
     const response = await axios.post(`${apiUrl}/poke`, {
       data,
     });
+    
     return response.data;
   } catch ({ response }) {
     return { error: response.data.error };
