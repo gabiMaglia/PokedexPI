@@ -6,7 +6,7 @@ export const editPokemonService = async (id, data) => {
   try {
     const response = axios;
     return response.data;
-  } catch ({ error }) {
+  } catch ({ response }) {
     return { error: response.data.error };
   }
 };
@@ -17,7 +17,7 @@ export const postPokemonService = async (data) => {
       data,
     });
     return response.data;
-  } catch ({ error }) {
+  } catch ({ response }) {
     return { error: response.data.error };
   }
 };
@@ -42,7 +42,7 @@ export const fetchAllPokemonService = async () => {
   try {
     const response = await axios.get(`${apiUrl}/poke`);
     return response;
-  } catch ({ error }) {
+  } catch ({ response }) {
     return { error: response.data.error };
   }
 };
@@ -52,7 +52,7 @@ export const fetchAllPokemonbySeasonService = async (limit, offset) => {
       `${apiUrl}/poke/season/?limit=${limit}&offset=${offset}`
     );
     return response;
-  } catch ({ error }) {
+  } catch ({ response }) {
     return { error: response.data.error };
   }
 };
@@ -60,16 +60,17 @@ export const fetchAllPokemonTypeService = async () => {
   try {
     const response = await axios.get(`${apiUrl}/poke/get-types`);
     return response.data;
-  } catch ({ error }) {
-    return { error: response.data.error };
+  } catch ({ response }) {
+    return { error: response };
   }
 };
 
 export const deletePokemonByIdService = async (id) => {
   try {
-    const response = await axios.delete(`${apiUrl}1/poke/${id}`);
+    const response = await axios.delete(`${apiUrl}/poke/${id}`);
     return response.data;
-  } catch ({ error }) {
+  } catch ({ response }) {
+
     return { error: response.data.error };
   }
-};
+};  

@@ -27,19 +27,20 @@ const getAllPokemons = async (offset, limit) => {
   // de manera simultanea para obtener en base al id de cada pokemon el detalle de cada uno,
   // use id porque demora la mitad que la busqueda por nombre de la misma manera que use
   // Promise.all en vez de reduce por las mismas razons, demora literal la mitad   // esto se debe a que reduce resuelve cada peticion de forma secuencial mientras que promise.all los hace desde el event loop por lo que tengo entendido
-  
 
-  const completeData = await Promise.all(
-    results.map(async (pokemon) => {
-      const response = await getPokemonFromApiById(pokemon.url.split("/")[6]);
-      const parsedPokemon = pokemonJsonFormatter(response);
-      return parsedPokemon;
-    })
-  );
-
-  const allPokemons = dbPokemons.concat(completeData);
-
-  return { allPokemons };
+  if (results) {
+    const completeData = await Promise.all(
+      results.map(async (pokemon) => {
+        const response = await getPokemonFromApiById(pokemon.url.split("/")[6]);
+        const parsedPokemon = pokemonJsonFormatter(response);
+        return parsedPokemon;
+      })
+    );
+    const allPokemons = dbPokemons.concat(completeData);
+    return { allPokemons };
+  } else {
+    return { dbPokemons };
+  }
 };
 
 const getPokemonById = async (id) => {
@@ -50,7 +51,6 @@ const getPokemonById = async (id) => {
   const pokemon = await Pokemon.findByPk(id, {
     include: [PokemonStatPoints, PokemonAbilities, PokemonTypes],
   });
-
   return pokemon;
 };
 
@@ -59,7 +59,6 @@ const getPokemonByName = async (name) => {
     where: { pokemon_name: name },
     include: [PokemonStatPoints, PokemonAbilities, PokemonTypes],
   });
-
   if (!pokemon) {
     const pokemon = await getPokemonFromApiByName(name);
     return pokemon && pokemonJsonFormatter(pokemon);
@@ -68,6 +67,7 @@ const getPokemonByName = async (name) => {
 };
 
 const postNewPokemonToDb = async ({ data }) => {
+  console.log("data")
   const { pokemon_name, pokemon_height, pokemon_weight, pokemon_image } = data;
   const newPokemon = await Pokemon.create({
     pokemon_name,

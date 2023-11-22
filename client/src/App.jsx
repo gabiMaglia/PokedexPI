@@ -22,6 +22,7 @@ import { season1 } from "./utils/Seasons";
 import "./App.css";
 import Error404 from "./views/404/Error404";
 import { PATH_ROUTES } from "./helpers/pathRoutes";
+import AnimatedBackground from "./components/common/AnimatedBackground";
 function App() {
   const { limit = 9999, offset = 0 } = season1;
   const dispatch = useDispatch();
@@ -49,28 +50,42 @@ function App() {
           setLoadiong(true);
           dispatch(fetchAllPokemonTypes());
           setLoadiong(false);
+          console.log("cargoT")
+          
         }
         if (allPokemons.length < 1 && entireListBackup.length < 1) {
           setLoadiong(true);
           dispatch(fetchAllPokemonbySeason(limit, offset));
           setLoadiong(false);
+          console.log("cargoP")
+          
         }
+        console.log("nocargo")
+        return
       } catch (error) {
+        console.log("entreAlError")
         setLoadiong(false);
         throw new Error(error);
       }
     };
     
-    console.log('object')
+   
     fetchData();
-  }, [allPokemons]);
+  }, []);
+
+  if (loading) {
+    return (
+      <>
+      <AnimatedBackground />
+      <h2>LOADING</h2>
+      </>
+    )
+  }
 
   return (
     <main className="mainLayout">
       {location.pathname !== "/" ? <NavBar /> : <></>}
-      {loading ? (
-        <h2>LOADING</h2>
-      ) : (
+      
         <div>
           <Routes>
             <Route path={PATH_ROUTES.LANDING} element={<LandingPage />} />
@@ -92,7 +107,7 @@ function App() {
             <Route path={PATH_ROUTES.ERROR} element={<Error404 />} />
           </Routes>
         </div>
-      )}
+      
       {location.pathname !== PATH_ROUTES.LANDING ? <Footer /> : <></>}
     </main>
   );

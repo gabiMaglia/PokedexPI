@@ -27,7 +27,7 @@
   right: 10px;
   bottom: 5px;
   transform: scale(2);
-  z-index: 1;
+  z-index: 4;
 }
 .pokemonCard:hover {
   transform: scale(1.1);
