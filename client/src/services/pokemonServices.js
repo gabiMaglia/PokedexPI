@@ -1,6 +1,5 @@
 import axios from "axios";
-const apiUrl = import.meta.env.VITE_API_URL
-
+const apiUrl = import.meta.env.VITE_API_URL;
 
 export const editPokemonService = async (id, data) => {
   try {
@@ -16,7 +15,7 @@ export const postPokemonService = async (data) => {
     const response = await axios.post(`${apiUrl}/poke`, {
       data,
     });
-    
+
     return response.data;
   } catch ({ response }) {
     return { error: response.data.error };
@@ -36,7 +35,6 @@ export const fetchPokemonService = async (data) => {
     }
   } catch ({ response }) {
     return { error: response.data.error };
-    
   }
 };
 export const fetchAllPokemonService = async () => {
@@ -71,7 +69,6 @@ export const deletePokemonByIdService = async (id) => {
     const response = await axios.delete(`${apiUrl}/poke/${id}`);
     return response.data;
   } catch ({ response }) {
-
     return { error: response.data.error };
   }
-};  
+};
