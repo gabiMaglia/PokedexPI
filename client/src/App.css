@@ -23,9 +23,11 @@
 }
 
 .mainLayout {
-  overflow-x: hidden;
+  
+  /* overflow-x: hidden; */
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
   text-align: center;
+  /* height: 120dvh; */
 }

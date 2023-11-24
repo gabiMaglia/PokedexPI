@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import {
   fetchAllPokemonTypes,
   fetchAllPokemon,
   fetchAllPokemonbySeason,
-  setLoading,
   deletePokemonById,
 } from "./Redux/Actions/actions";
 
-import { useDispatch, useSelector } from "react-redux";
 
 import NavBar from "./components/NavBar/NavBar.component";
 import Footer from "./components/Footer/Footer.component";
@@ -16,18 +15,17 @@ import HomePage from "./views/home/HomePage";
 import CreatePage from "./views/create/CreatePage";
 import DetailPage from "./views/detail/DetailPage";
 import LandingPage from "./views/landingPage/LandingPage";
+import Error404 from "./views/404/Error404";
+import AnimatedBackground from "./components/common/AnimatedBackground";
 
 import { season1 } from "./utils/Seasons";
+import { PATH_ROUTES } from "./helpers/pathRoutes";
 
 import "./App.css";
-import Error404 from "./views/404/Error404";
-import { PATH_ROUTES } from "./helpers/pathRoutes";
-import AnimatedBackground from "./components/common/AnimatedBackground";
 function App() {
   const { limit = 9999, offset = 0 } = season1;
   const dispatch = useDispatch();
   const allPokemons = useSelector((state) => state.allPokemonsToShow);
-  const entireListBackup = useSelector((state) => state.AllPokemonBackupList);
   const allTypes = useSelector((state) => state.allTypes);
 
 
@@ -38,6 +36,7 @@ function App() {
 
   const detailHandler = (id) => {
     navigate(`/detail/${id}`);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
   const deleteHandler = (id) => {
     dispatch(deletePokemonById(id));
@@ -57,7 +56,6 @@ function App() {
           setLoadiong(true);
           dispatch(fetchAllPokemonbySeason(limit, offset));
           setLoadiong(false);
-      
        
         return
       } catch (error) {

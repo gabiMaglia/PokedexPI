@@ -10,12 +10,10 @@ import styles from "./postForm.module.css";
 import { capitalize } from "../../utils/capitalize";
 import NavBtn from "../common/navBtn ";
 import PageLabel from "../common/pageLabel";
-import { season1 } from "../../utils/Seasons";
 const PostForm = () => {
   const pokemonTypes = useSelector((store) => store.allTypes);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { limit = 9999, offset = 0 } = season1
   const [pokemonData, setPokemonData] = useState({
     pokemon_name: "gabisor",
     pokemon_image:
