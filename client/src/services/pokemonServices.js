@@ -49,18 +49,21 @@ export const fetchAllPokemonbySeasonService = async (limit, offset) => {
   try {
     const response = await axios.get(
       `${apiUrl}/poke/season/?limit=${limit}&offset=${offset}`
-    );
-    return response;
-  } catch ({ response }) {
-    return { error: response.data.error };
-  }
-};
-export const fetchAllPokemonTypeService = async () => {
-  try {
-    const response = await axios.get(`${apiUrl}/poke/get-types`);
-    return response.data;
-  } catch ({ response }) {
-    return { error: response };
+      );
+      return response;
+    } catch ({ response }) {
+     
+      return { error: response.data.error };
+    }
+  };
+  export const fetchAllPokemonTypeService = async () => {
+    try {
+      const response = await axios.get(`${apiUrl}/poke/get-types`);
+      return response.data;
+    } catch ({ response }) {
+      
+      return { error: response.data.error };
+    
   }
 };
 

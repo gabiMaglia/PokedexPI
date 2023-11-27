@@ -21,13 +21,52 @@
   box-sizing: border-box;
   text-align: center;
 }
-
-.mainLayout {
+.loadingState {
+  font-family: "PokemonSolidFn";
+  letter-spacing: 5px;
+  position: absolute;
+  top: 79%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.loadingState h2{
+  font-size: 24;
+  transition: all ease-out  3s;
+  animation: colorChange 3s step-start infinite
   
+  
+}
+.mainLayout {
   /* overflow-x: hidden; */
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
   text-align: center;
- /* padding-bottom: 12rem; */
+  /* padding-bottom: 12rem; */
+}
+
+
+
+@keyframes colorChange {
+  0% {
+    color: red;
+  }
+  50% {
+    color: yellow;
+  }
+  100% {
+    color: lightgreen;
+  }
+  50% {
+    color: yellow;
+  }
+  0% {
+    color: red;
+  }
+}
+
+#colorAnimation {
+  width: 100px;
+  height: 100px;
+  ; /* Adjust the duration as needed */
 }

@@ -9,7 +9,7 @@ import {
   TYPE_FILTER,
   ORIGIN_FILTER,
   SORT_ORDER_FILTER,
-  SET_LOADING,
+
 } from "../Actions/action-types";
 
 const initialState = {
@@ -20,7 +20,6 @@ const initialState = {
   detailPokemon: [],
   currentPage: 0,
   totalPages: 0,
-  isLoading: false,
   filterSetUp: {
     origin: "both",
     type: "all",
@@ -38,9 +37,8 @@ const rootReducer = (state = initialState, { type, payload }) => {
         ...state,
         allPokemonList: payload.allPokemons,
         AllPokemonBackupList: payload.allPokemons,
-        totalPages: Math.ceil(payload.allPokemons.length / 12),
         allPokemonsToShow: payload.allPokemons.slice(0, ITEMS_PER_PAGE),
-        isLoading: false,
+        totalPages: Math.ceil(payload.allPokemons.length / 12),
       };
     case FETCH_ALL_POKEMON_TYPE:
       return { ...state, allTypes: payload };
@@ -123,11 +121,14 @@ const rootReducer = (state = initialState, { type, payload }) => {
     case TYPE_FILTER:
       let typeFilteredArr = [];
       let typeFilteredArrBackup = state.AllPokemonBackupList;
-      if (payload === "all") typeFilteredArr = typeFilteredArrBackup;
-      else
+
+      if (payload === "all") {
+        typeFilteredArr = typeFilteredArrBackup;
+      } else {
         typeFilteredArr = state.AllPokemonBackupList.filter((e) => {
-          return e.PokemonTypes.some((e) => e.nombre_type === payload);
+          return e.PokemonTypes.some((type) => type.nombre_type === payload);
         });
+      }
 
       return {
         ...state,
@@ -137,47 +138,29 @@ const rootReducer = (state = initialState, { type, payload }) => {
         totalPages: Math.ceil(typeFilteredArr.length / 12),
         allPokemonsToShow: typeFilteredArr.slice(0, ITEMS_PER_PAGE),
       };
+
     case SORT_ORDER_FILTER:
-      let orderState = [];
-      if (payload.atribute === "pokemon_id") {
-        if (payload.order === "A-Z")
-          orderState = state.allPokemonList.sort((a, b) => {
-            const aValue = a[payload.atribute];
-            const bValue = b[payload.atribute];
+      let orderState = [...state.allPokemonList];
 
-            return aValue - bValue;
-          });
-        if (payload.order === "Z-A") {
-          orderState = state.allPokemonList.sort((a, b) => {
-            const aValue = a[payload.atribute];
-            const bValue = b[payload.atribute];
-
-            return bValue - aValue;
-          });
-        }
+      if (payload.atribute === 'pokemon_name') {
+        orderState.sort((a, b) => {
+          const nameA = a.pokemon_name.toLowerCase();
+          const nameB = b.pokemon_name.toLowerCase();
+          return payload.order === 'A-Z' ? nameA.localeCompare(nameB) : nameB.localeCompare(nameA);
+        });
       } else {
-        if (payload.order === "A-Z")
-          orderState = state.allPokemonList.sort((a, b) => {
-            const aValue = a.PokemonStatPoint[payload.atribute];
-            const bValue = b.PokemonStatPoint[payload.atribute];
-
-            return aValue - bValue;
-          });
-
-        if (payload.order === "Z-A") {
-          orderState = state.allPokemonList.sort((a, b) => {
-            const aValue = a.PokemonStatPoint[payload.atribute];
-            const bValue = b.PokemonStatPoint[payload.atribute];
-
-            return bValue - aValue;
-          });
-        }
+        orderState.sort((a, b) => {
+          const valueA = payload.atribute === 'pokemon_id' ? a[payload.atribute] : a.PokemonStatPoint[payload.atribute];
+          const valueB = payload.atribute === 'pokemon_id' ? b[payload.atribute] : b.PokemonStatPoint[payload.atribute];
+          return payload.order === 'A-Z' ? valueA - valueB : valueB - valueA;
+        });
       }
+      
       return {
         ...state,
         currentPage: 0,
         allPokemonList: orderState,
-        totalPages: Math.ceil(orderState.length / 12),
+        totalPages: Math.ceil(orderState.length / ITEMS_PER_PAGE),
         filterSetUp: {
           ...state.filterSetUp,
           order: payload.order,
@@ -209,11 +192,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
         totalPages: Math.ceil(newPokemonList.length / 12),
         allPokemonsToShow: newPokemonList.slice(0, ITEMS_PER_PAGE),
       };
-    case SET_LOADING:
-      return {
-        ...state,
-        isLoading: payload,
-      };
+
     default:
       return { ...state };
   }

@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 
 const Card = ({ pokemon, detailHandler, deleteHandler }) => {
   const allPokemonsToShow = useSelector(state => {state.allPokemonsToShow}) 
+  
   return (
     <div className={styles.pokemonCard} style={{ backgroundColor: typeColors[pokemon.PokemonTypes[0]?.nombre_type] || "gray" }}>
       <div

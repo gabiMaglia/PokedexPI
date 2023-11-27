@@ -11,54 +11,62 @@ import styles from "./pokefilter.module.css";
 
 const PokeFilter = () => {
   const dispatch = useDispatch();
-  const [origin, setOrigin] = useState("both");
-  const [type, setType] = useState("all");
-  const [order, setOrder] = useState("A-Z");
-  const [atributeToSort, setAtributeToSort] = useState("pokemon_id");
-  const filters = useSelector((state) => state.filterSetUp);
+
   const alltypes = useSelector((state) => state.allTypes);
+
+  const filtersOrigin = useSelector((state) => state.filterSetUp.origin);
+  const filtersOrder = useSelector((state) => state.filterSetUp.order);
+  const filtersType = useSelector((state) => state.filterSetUp.type);
+  const filtersSortBy = useSelector((state) => state.filterSetUp.sortBy);
+
+  const [localFilters, setLocalFilters] = useState({
+    origin: filtersOrigin,
+    order: filtersOrder,
+    type: filtersType,
+    sortBy: filtersSortBy,
+  });
+
   const handleFilterChange = (e, filterType) => {
     const filterSelection = e.target.value;
 
     switch (filterType) {
       case "origin":
-        setOrigin(filterSelection);
         dispatch(originFilter(filterSelection));
         break;
       case "type":
-        setType(filterSelection);
         dispatch(typeFilter(filterSelection));
         break;
       case "order":
-        setOrder(filterSelection);
         dispatch(
           sortAndOrderFilter({
             order: filterSelection,
-            atribute: atributeToSort,
+            atribute: filtersSortBy,
           })
         );
         break;
       case "sortBy":
-        setAtributeToSort(filterSelection);
         dispatch(
-          sortAndOrderFilter({ order: order, atribute: filterSelection })
+          sortAndOrderFilter({ order: filtersOrder, atribute: filterSelection })
         );
         break;
       default:
         break;
     }
+    setLocalFilters((prevFilters) => ({
+      ...prevFilters,
+      [filterType]: filterSelection,
+    }));
   };
 
   return (
     <figcaption className={styles.caption}>
-      {" "}
       Filters:
       <div className={styles.filterContainer}>
         <span>
           <label htmlFor="originFilter">
             Origin
             <select
-              value={filters.origin}
+              value={filtersOrigin}
               name="origin"
               id="originFilter"
               onChange={(e) => handleFilterChange(e, "origin")}
@@ -71,7 +79,7 @@ const PokeFilter = () => {
           <label htmlFor="orderFilter">
             Order
             <select
-              value={filters.order}
+              value={filtersOrder}
               name="order"
               id="orderFilter"
               onChange={(e) => handleFilterChange(e, "order")}
@@ -85,7 +93,7 @@ const PokeFilter = () => {
           <label htmlFor="typeFilter">
             Type
             <select
-              value={filters.type}
+              value={filtersType}
               name="type"
               id="typeFilter"
               onChange={(e) => handleFilterChange(e, "type")}
@@ -104,11 +112,12 @@ const PokeFilter = () => {
             SortedBy
             <select
               name="sortBy"
-              value={atributeToSort}
+              value={localFilters.sortBy}
               id="sortBy"
               onChange={(e) => handleFilterChange(e, "sortBy")}
             >
               <option value="pokemon_id">Id</option>
+              <option value="pokemon_name">Name</option>
               <option value="hp">Life</option>
               <option value="attack">Attack</option>
               <option value="defense">Defense</option>

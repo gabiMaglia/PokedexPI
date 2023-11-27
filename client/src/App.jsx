@@ -16,8 +16,9 @@ import LandingPage from "./views/landingPage/LandingPage";
 import Error404 from "./views/404/Error404";
 import AnimatedBackground from "./components/common/AnimatedBackground";
 
-import { season1 } from "./utils/Seasons";
 import { PATH_ROUTES } from "./helpers/pathRoutes";
+import { season1 } from "./utils/Seasons";
+import pikachu from './assets/gif/pikachu.gif'
 
 import "./App.css";
 function App() {
@@ -29,7 +30,7 @@ function App() {
 
   const allTypes = useSelector((state) => state.allTypes);
   const allPokemonsToShow = useSelector((state) => state.allPokemonsToShow);
-  const allPokemons = useSelector((state) => state.allPokemons)
+  const allPokemons = useSelector((state) => state.allPokemons);
 
   const [loading, setLoadiong] = useState(true);
 
@@ -45,27 +46,35 @@ function App() {
     const fetchData = async () => {
       try {
         setLoadiong(true);
+  
         if (allTypes.length < 1) {
-          dispatch(fetchAllPokemonTypes());
+           dispatch(fetchAllPokemonTypes());
         }
-        dispatch(fetchAllPokemonbySeason(limit, offset));
-        setLoadiong(false);
-        return;
+  
+         dispatch(fetchAllPokemonbySeason(limit, offset));
+  
+    
+        if (allPokemons.length > 1) {
+          setLoadiong(false);
+        }
       } catch (error) {
-        console.log("entreAlError");
+        console.log("Error occurred:", error);
         setLoadiong(false);
-        throw new Error(error);
+ 
       }
     };
-
+  
     fetchData();
-  }, []);
+  }, [allPokemons]);
 
   if (loading) {
     return (
       <>
         <AnimatedBackground />
-        <h2>LOADING</h2>
+        <div className="loadingState">
+          <img style={{width: '100px'}} src={pikachu} alt="Loading" />
+          <h2>LOADING</h2>
+        </div>
       </>
     );
   }
@@ -74,24 +83,22 @@ function App() {
     <main className="mainLayout">
       {location.pathname !== "/" ? <NavBar /> : <></>}
 
-    
-        <Routes>
-          <Route path={PATH_ROUTES.LANDING} element={<LandingPage />} />
-          <Route
-            path={PATH_ROUTES.HOME}
-            element={
-              <HomePage
-                detailHandler={detailHandler}
-                deleteHandler={deleteHandler}
-                allPokemons={allPokemonsToShow}
-              />
-            }
-          />
-          <Route path={`${PATH_ROUTES.DETAIL}/:id`} element={<DetailPage />} />
-          <Route path={PATH_ROUTES.CREATE_POKEMON} element={<CreatePage />} />
-          <Route path={PATH_ROUTES.ERROR} element={<Error404 />} />
-        </Routes>
-      
+      <Routes>
+        <Route path={PATH_ROUTES.LANDING} element={<LandingPage />} />
+        <Route
+          path={PATH_ROUTES.HOME}
+          element={
+            <HomePage
+              detailHandler={detailHandler}
+              deleteHandler={deleteHandler}
+              allPokemons={allPokemonsToShow}
+            />
+          }
+        />
+        <Route path={`${PATH_ROUTES.DETAIL}/:id`} element={<DetailPage />} />
+        <Route path={PATH_ROUTES.CREATE_POKEMON} element={<CreatePage />} />
+        <Route path={PATH_ROUTES.ERROR} element={<Error404 />} />
+      </Routes>
 
       {location.pathname !== PATH_ROUTES.LANDING ? <Footer /> : <></>}
     </main>

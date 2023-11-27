@@ -14,6 +14,8 @@ const PostForm = () => {
   const pokemonTypes = useSelector((store) => store.allTypes);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const [errors, setErrors] = useState( null )
   const [pokemonData, setPokemonData] = useState({
     pokemon_name: "gabisor",
     pokemon_image:
@@ -94,21 +96,35 @@ const PostForm = () => {
     }));
   };
 
+  const validate = (name, value) => {
+      const errors = {}
+     
+     if (name === 'pokemon_name' && value.length > 100 && value) {
+      errors.nameError = 'El nombre del pokemon debe contener menos de 100 caracteres'   
+     }
+     return errors
+      
+  }
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setPokemonData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
+    const errorLog = validate(name, value)
+    if (errorLog) setErrors(errorLog)
+
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch(postNewPokemon(pokemonData));
-    
-    // dispatch(fetchAllPokemonbySeason(limit, offset));
 
-    navigate("/home");
+    e.preventDefault();
+    if (!errors) {
+    dispatch(postNewPokemon(pokemonData));
+    navigate("/home")
+  
+     };
   };
 
   return (

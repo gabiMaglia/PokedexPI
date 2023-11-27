@@ -8,7 +8,6 @@ import {
   ORIGIN_FILTER,
   SORT_ORDER_FILTER,
   POST_POKEMON,
-  SET_LOADING,
   DELETE_POKEMON,
 } from "./action-types";
 import {
@@ -139,11 +138,4 @@ export const sortAndOrderFilter = (data) => {
   };
 };
 
-export const setLoading = (state) => {
-  return (dispatch) => {
-    return dispatch({
-      type: SET_LOADING,
-      payload: state,
-    });
-  };
-};
+
