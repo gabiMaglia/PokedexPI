@@ -30,7 +30,7 @@ function App() {
 
   const allTypes = useSelector((state) => state.allTypes);
   const allPokemonsToShow = useSelector((state) => state.allPokemonsToShow);
-  const allPokemons = useSelector((state) => state.allPokemons);
+  const allPokemons = useSelector((state) => state.allPokemonList);
 
   const [loading, setLoadiong] = useState(true);
 
@@ -65,7 +65,7 @@ function App() {
     };
   
     fetchData();
-  }, [allPokemons]);
+  }, [allPokemons, allTypes]);
 
   if (loading) {
     return (
