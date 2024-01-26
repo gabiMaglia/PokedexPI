@@ -18,7 +18,7 @@ import AnimatedBackground from "./components/common/AnimatedBackground";
 
 import { PATH_ROUTES } from "./helpers/pathRoutes";
 import { season1 } from "./utils/Seasons";
-import pikachu from './assets/gif/pikachu.gif'
+import pikachu from "./assets/gif/pikachu.gif";
 
 import "./App.css";
 function App() {
@@ -45,25 +45,21 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setLoadiong(true);
-  
+        // setLoadiong(true);
+
         if (allTypes.length < 1) {
-           dispatch(fetchAllPokemonTypes());
+          dispatch(fetchAllPokemonTypes());
         }
-  
-         dispatch(fetchAllPokemonbySeason(limit, offset));
-  
-    
+        dispatch(fetchAllPokemonbySeason(limit, offset));
         if (allPokemons.length > 1) {
           setLoadiong(false);
         }
       } catch (error) {
         console.log("Error occurred:", error);
         setLoadiong(false);
- 
       }
     };
-  
+
     fetchData();
   }, [allPokemons]);
 
@@ -72,7 +68,7 @@ function App() {
       <>
         <AnimatedBackground />
         <div className="loadingState">
-          <img style={{width: '100px'}} src={pikachu} alt="Loading" />
+          <img style={{ width: "100px" }} src={pikachu} alt="Loading" />
           <h2>LOADING</h2>
         </div>
       </>

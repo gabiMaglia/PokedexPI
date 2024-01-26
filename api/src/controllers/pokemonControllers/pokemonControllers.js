@@ -106,14 +106,14 @@ const postNewPokemonToDb = async ({ data }) => {
 
 const deletePokemonById = async (id) => {
   const pokemon = await Pokemon.findByPk(id);
+  if (!pokemon?.pokemon_name)
+    return { error: true, response: `Pokemon not found!` };
   await Pokemon.destroy({
     where: {
       pokemon_id: id,
     },
     force: true,
   });
-  if (!pokemon?.pokemon_name)
-    return { error: true, response: `Pokemon not found!` };
 
   return { response: `you succesfully deleted ${pokemon.pokemon_name}` };
 };
