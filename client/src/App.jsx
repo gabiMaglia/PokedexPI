@@ -59,10 +59,9 @@ function App() {
         }
       } catch (error) {
         console.log("Error occurred:", error);
-        setLoadiong(false);
       }
+      setLoadiong(false);
     };
-
     fetchData();
   }, [allPokemons, allTypes]);
 

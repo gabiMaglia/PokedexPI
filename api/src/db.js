@@ -15,7 +15,7 @@ const { DB_USER, DB_PASSWORD, DB_HOST, BDD } = process.env;
 const sequelize = new Sequelize(
   `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${BDD}`,
   {
-    logging: true,
+    logging: false,
     native: false,
   }
 );
@@ -48,6 +48,7 @@ const {
 
 // UN USUARIO TIENE UNA UN SOLO JUEGO DE CREDENCIALES
 // EL JUEGO DE CREDENCIALES PERTENECE A UN SOLO USUARIO
+
 
 User.hasOne(UserCredentials, {
   onDelete: "CASCADE",
