@@ -4,7 +4,8 @@ import SearchBar from "../SearchBar/SearchBar.component";
 
 import logo from "../../assets/pokeback-assets/pokemon-logo.png";
 import styles from "./navBar.module.css";
-import NavBtn from "../common/navBtn ";
+import NavBtn from "../common/NavBtn ";
+
 
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
