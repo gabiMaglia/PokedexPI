@@ -8,7 +8,7 @@ import TypeIcons from "../TypeIcons/TypeIcons";
 
 import styles from "./postForm.module.css";
 import { capitalize } from "../../utils/capitalize";
-import NavBtn from "../common/navBtn ";
+import NavBtn from "../common/NavBtn ";
 import PageLabel from "../common/pageLabel";
 const PostForm = () => {
   const pokemonTypes = useSelector((store) => store.allTypes);

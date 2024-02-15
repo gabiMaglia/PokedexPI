@@ -4,7 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import styles from "./detail.module.css";
 import { useSelector } from "react-redux";
 import AnimatedBackground from "../../components/common/AnimatedBackground";
-import NavBtn from "../../components/common/navBtn ";
+import NavBtn from "../../components/common/NavBtn ";
 import PageLabel from "../../components/common/pageLabel";
 import { typeColors } from "../../utils/typeColors";
 

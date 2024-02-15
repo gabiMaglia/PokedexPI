@@ -1,4 +1,4 @@
-import NavBtn from "../common/navBtn ";
+import NavBtn from "../common/NavBtn ";
 import styles from "./navButtons.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { nextPage, prevPage } from "../../Redux/Actions/actions";

@@ -1,11 +1,9 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import SearchBar from "../SearchBar/SearchBar.component";
-
 import logo from "../../assets/pokeback-assets/pokemon-logo.png";
 import styles from "./navBar.module.css";
 import NavBtn from "../common/NavBtn ";
-
 
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
