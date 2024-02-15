@@ -100,6 +100,7 @@ const handleNextDetail = () => {
                 <PageLabel content={`Types:`} />
                 <div
                   style={{
+          
                     backgroundColor: `${
                       typeColors[pokemon.PokemonTypes[0].nombre_type]
                     }`,
