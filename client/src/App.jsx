@@ -60,13 +60,15 @@ function App() {
       } catch (error) {
         console.log("Error occurred:", error);
       }
-      setLoadiong(false);
     };
     fetchData();
   }, [allPokemons, allTypes]);
 
-  if (loading) {
-    return (
+ 
+
+  return (
+    loading
+    ?
       <>
         <AnimatedBackground />
         <div className="loadingState">
@@ -74,10 +76,8 @@ function App() {
           <h2>LOADING</h2>
         </div>
       </>
-    );
-  }
 
-  return (
+    :
     <main className="mainLayout">
       {location.pathname !== "/" ? <NavBar /> : <></>}
 

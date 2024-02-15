@@ -11,6 +11,7 @@ import { typeColors } from "../../utils/typeColors";
 const DetailPage = () => {
   const { id } = useParams();
   const [pokemon, setPokemon] = useState();
+  const [imageLoaded, setImageLoaded] = useState(false);
   const navigate = useNavigate();
   const pokemonsToSlide = useSelector((state) => state.allPokemonList);
   const pokemonToShow = useSelector((state) =>
@@ -32,16 +33,19 @@ const DetailPage = () => {
   const currentIndex = pokemonsToSlide.indexOf(pokemon);
   const pokemonToSlideLength = pokemonsToSlide.length;
 
-  const handlePrevDetail = () => {
+  const handlePrevDetail = () => 
+  {
+    setImageLoaded(false)
     if (currentIndex === 0)
-      navigate(
-        `/detail/${pokemonsToSlide[pokemonToSlideLength - 1].pokemon_id}`
-      );
-    else navigate(`/detail/${pokemonsToSlide[currentIndex - 1].pokemon_id}`);
-  };
+    navigate(
+  `/detail/${pokemonsToSlide[pokemonToSlideLength - 1].pokemon_id}`
+  );
+  else navigate(`/detail/${pokemonsToSlide[currentIndex - 1].pokemon_id}`);
+};
 
-  const handleNextDetail = () => {
-    if (currentIndex === pokemonToSlideLength - 1)
+const handleNextDetail = () => {
+  setImageLoaded(false)
+  if (currentIndex === pokemonToSlideLength - 1)
       navigate(`/detail/${pokemonsToSlide[0].pokemon_id}`);
     else navigate(`/detail/${pokemonsToSlide[currentIndex + 1].pokemon_id}`);
   };
@@ -77,7 +81,7 @@ const DetailPage = () => {
           />
         </span>
       </div>
-      {!pokemon ? (
+      {pokemon === undefined ? (
         <>
           <h1>Loading</h1>
         </>
@@ -118,11 +122,17 @@ const DetailPage = () => {
             <div className={styles.col2}>
               <h2>{pokemon?.pokemon_name}</h2>
               <img
+               className={`${styles.pokemonImage} ${
+                imageLoaded ? styles.fadeIn : styles.fadeOut
+              }`}
                 src={
                   pokemon?.pokemon_image.mainPic
                     ? pokemon?.pokemon_image.mainPic
                     : pokemon?.pokemon_image
                 }
+                onLoad={()=> {
+                  setImageLoaded(true)
+                }}
                 alt={pokemon?.pokemon_name}
               />
             </div>

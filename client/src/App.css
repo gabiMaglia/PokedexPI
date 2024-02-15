@@ -29,23 +29,11 @@
   left: 50%;
   transform: translate(-50%, -50%);
 }
-.loadingState h2{
+.loadingState h2 {
   font-size: 24;
-  transition: all ease-out  3s;
-  animation: colorChange 3s step-start infinite
-  
-  
+  transition: all ease-out 3s;
+  animation: colorChange 3s step-start infinite;
 }
-.mainLayout {
-  /* overflow-x: hidden; */
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-  text-align: center;
-  /* padding-bottom: 12rem; */
-}
-
-
 
 @keyframes colorChange {
   0% {
@@ -67,6 +55,5 @@
 
 #colorAnimation {
   width: 100px;
-  height: 100px;
-  ; /* Adjust the duration as needed */
+  height: 100px; /* Adjust the duration as needed */
 }
